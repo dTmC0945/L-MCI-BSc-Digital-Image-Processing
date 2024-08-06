@@ -290,8 +290,8 @@ it is not feasible to fit all the content of the code to the slides and it is ea
 
 Books
 
-[1]. Young I. "Fundamentals of Image Processing" Delft 1998.
-[2]. Szeliski R. "Computer Vision: Algorithms and Applications" Springer 2022.
-[3]. Nixon M. et. al "Feature Extraction and Image Processing for Computer Vision" Academic press 2019
-[4]. Gonzalez R. "Digital Image Processing" Pearson 2009. 
+1. Young I. "Fundamentals of Image Processing" Delft 1998.
+2. Szeliski R. "Computer Vision: Algorithms and Applications" Springer 2022.
+3. Nixon M. et. al "Feature Extraction and Image Processing for Computer Vision" Academic press 2019
+4. Gonzalez R. "Digital Image Processing" Pearson 2009. 
 
