@@ -229,7 +229,7 @@ org_html_manager.setup();  // activate after the parameters are set
 <li><a href="#orgd84e190">Preamble</a></li>
 <li><a href="#org7239613">Gaussian Blur</a>
 <ul>
-<li><a href="#org67f3bec">A Big Comparison</a></li>
+<li><a href="#org9c097ee">A Big Comparison</a></li>
 </ul>
 </li>
 <li><a href="#org0424832">Box Filter</a>
@@ -239,7 +239,7 @@ org_html_manager.setup();  // activate after the parameters are set
 </li>
 <li><a href="#org1246b2e">Blur Filter</a>
 <ul>
-<li><a href="#org9c097ee">A Big Comparison</a></li>
+<li><a href="#org9ecc2b7">A Big Comparison</a></li>
 </ul>
 </li>
 <li><a href="#org576f662">Median Filter</a></li>
@@ -461,14 +461,14 @@ We first invoke our test image and invoke the blur<sub>gaussian</sub> function.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-python" id="org0c37183"><span class="org-variable-name">image</span> <span class="org-operator">=</span> <span class="org-string">"Fruit.jpg"</span>
+<pre class="src src-python" id="org46451e5"><span class="org-variable-name">image</span> <span class="org-operator">=</span> <span class="org-string">"Fruit.jpg"</span>
 blur_gaussian<span class="org-rainbow-delimiters-depth-1">(</span>image, show<span class="org-operator">=</span><span class="org-constant">True</span>, rgb<span class="org-operator">=</span><span class="org-constant">True</span>,
               publish<span class="org-operator">=</span><span class="org-string">"images/Blurring-Filters/Gaussian-blur-5"</span><span class="org-rainbow-delimiters-depth-1">)</span>
 </pre>
 </div>
 
 
-<div id="org46451e5" class="figure">
+<div id="orgf704bd2" class="figure">
 <p><img src="images/Blurring-Filters/Gaussian-blur-5.png" alt="Gaussian-blur-5.png" />
 </p>
 </div>
@@ -479,68 +479,68 @@ would create a higher blurring effect.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-python" id="org0464bcf"><span class="org-variable-name">image</span> <span class="org-operator">=</span> <span class="org-string">"Fruit.jpg"</span>
+<pre class="src src-python" id="org0960b8a"><span class="org-variable-name">image</span> <span class="org-operator">=</span> <span class="org-string">"Fruit.jpg"</span>
 blur_gaussian<span class="org-rainbow-delimiters-depth-1">(</span>image, k_width<span class="org-operator">=</span>9, k_height<span class="org-operator">=</span>9, show<span class="org-operator">=</span><span class="org-constant">True</span>, rgb<span class="org-operator">=</span><span class="org-constant">True</span>,
               publish<span class="org-operator">=</span><span class="org-string">"images/Blurring-Filters/Gaussian-blur-9"</span><span class="org-rainbow-delimiters-depth-1">)</span>
 </pre>
 </div>
 
 
-<div id="org0960b8a" class="figure">
+<div id="org50337d8" class="figure">
 <p><img src="images/Blurring-Filters/Gaussian-blur-9.png" alt="Gaussian-blur-9.png" />
 </p>
 </div>
 
 <div class="org-src-container">
-<pre class="src src-python" id="org9814f2a"><span class="org-variable-name">image</span> <span class="org-operator">=</span> <span class="org-string">"Fruit.jpg"</span>
+<pre class="src src-python" id="orgafc09ae"><span class="org-variable-name">image</span> <span class="org-operator">=</span> <span class="org-string">"Fruit.jpg"</span>
 blur_gaussian<span class="org-rainbow-delimiters-depth-1">(</span>image, k_width<span class="org-operator">=</span>13, k_height<span class="org-operator">=</span>13, show<span class="org-operator">=</span><span class="org-constant">True</span>, rgb<span class="org-operator">=</span><span class="org-constant">True</span>,
               publish<span class="org-operator">=</span><span class="org-string">"images/Blurring-Filters/Gaussian-blur-13"</span><span class="org-rainbow-delimiters-depth-1">)</span>
 </pre>
 </div>
 
 
-<div id="orgafc09ae" class="figure">
+<div id="org7092f43" class="figure">
 <p><img src="images/Blurring-Filters/Gaussian-blur-13.png" alt="Gaussian-blur-13.png" />
 </p>
 </div>
 
 <div class="org-src-container">
-<pre class="src src-python" id="orga393a9d"><span class="org-variable-name">image</span> <span class="org-operator">=</span> <span class="org-string">"Fruit.jpg"</span>
+<pre class="src src-python" id="orgf6b4790"><span class="org-variable-name">image</span> <span class="org-operator">=</span> <span class="org-string">"Fruit.jpg"</span>
 blur_gaussian<span class="org-rainbow-delimiters-depth-1">(</span>image, k_width<span class="org-operator">=</span>17, k_height<span class="org-operator">=</span>17, show<span class="org-operator">=</span><span class="org-constant">True</span>, rgb<span class="org-operator">=</span><span class="org-constant">True</span>,
               publish<span class="org-operator">=</span><span class="org-string">"images/Blurring-Filters/Gaussian-blur-17"</span><span class="org-rainbow-delimiters-depth-1">)</span>
 </pre>
 </div>
 
 
-<div id="orgf6b4790" class="figure">
+<div id="org43325ca" class="figure">
 <p><img src="images/Blurring-Filters/Gaussian-blur-17.png" alt="Gaussian-blur-17.png" />
 </p>
 </div>
 
 <div class="org-src-container">
-<pre class="src src-python" id="org257642a"><span class="org-variable-name">image</span> <span class="org-operator">=</span> <span class="org-string">"Fruit.jpg"</span>
+<pre class="src src-python" id="org2708b7b"><span class="org-variable-name">image</span> <span class="org-operator">=</span> <span class="org-string">"Fruit.jpg"</span>
 blur_gaussian<span class="org-rainbow-delimiters-depth-1">(</span>image, k_width<span class="org-operator">=</span>21, k_height<span class="org-operator">=</span>21, show<span class="org-operator">=</span><span class="org-constant">True</span>, rgb<span class="org-operator">=</span><span class="org-constant">True</span>,
               publish<span class="org-operator">=</span><span class="org-string">"images/Blurring-Filters/Gaussian-blur-21"</span><span class="org-rainbow-delimiters-depth-1">)</span>
 </pre>
 </div>
 
 
-<div id="org2708b7b" class="figure">
+<div id="orgc4d06ee" class="figure">
 <p><img src="images/Blurring-Filters/Gaussian-blur-21.png" alt="Gaussian-blur-21.png" />
 </p>
 </div>
 </div>
 
-<div id="outline-container-org67f3bec" class="outline-3">
-<h3 id="org67f3bec">A Big Comparison</h3>
-<div class="outline-text-3" id="text-org67f3bec">
+<div id="outline-container-org9c097ee" class="outline-3">
+<h3 id="org9c097ee">A Big Comparison</h3>
+<div class="outline-text-3" id="text-org9c097ee">
 <p>
 Here, lets compare all these filter settings in one big image for a
 better comparison.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-python" id="org2df23a4"><span class="org-variable-name">image</span> <span class="org-operator">=</span> <span class="org-string">"Fruit.jpg"</span>
+<pre class="src src-python" id="orgbe42a45"><span class="org-variable-name">image</span> <span class="org-operator">=</span> <span class="org-string">"Fruit.jpg"</span>
 <span class="org-variable-name">imaged</span> <span class="org-operator">=</span> cv.imread <span class="org-rainbow-delimiters-depth-1">(</span>image<span class="org-rainbow-delimiters-depth-1">)</span>
 <span class="org-variable-name">o</span>, <span class="org-variable-name">gb_5</span> <span class="org-operator">=</span> blur_gaussian<span class="org-rainbow-delimiters-depth-1">(</span>image, k_width<span class="org-operator">=</span>5, k_height<span class="org-operator">=</span>5, rgb<span class="org-operator">=</span><span class="org-constant">True</span><span class="org-rainbow-delimiters-depth-1">)</span>
 <span class="org-variable-name">o</span>, <span class="org-variable-name">gb_9</span> <span class="org-operator">=</span> blur_gaussian<span class="org-rainbow-delimiters-depth-1">(</span>image, k_width<span class="org-operator">=</span>9, k_height<span class="org-operator">=</span>9, rgb<span class="org-operator">=</span><span class="org-constant">True</span><span class="org-rainbow-delimiters-depth-1">)</span>
@@ -559,7 +559,7 @@ Plotting.image_subplot_style<span class="org-rainbow-delimiters-depth-1">(</span
 </div>
 
 
-<div id="orgbe42a45" class="figure">
+<div id="org5640cc1" class="figure">
 <p><img src="images/Blurring-Filters/Gaussian-blur-comparison.png" alt="Gaussian-blur-comparison.png" />
 </p>
 </div>
@@ -615,27 +615,27 @@ boxFilter and is <font color=#ef9f76></font>.
 <h3 id="orgec3eaf3">Results of the Box Filter</h3>
 <div class="outline-text-3" id="text-orgec3eaf3">
 <div class="org-src-container">
-<pre class="src src-python" id="orgcc4a545"><span class="org-variable-name">image</span> <span class="org-operator">=</span> <span class="org-string">"Fruit.jpg"</span>
+<pre class="src src-python" id="org04365f6"><span class="org-variable-name">image</span> <span class="org-operator">=</span> <span class="org-string">"Fruit.jpg"</span>
 blur_box_filter<span class="org-rainbow-delimiters-depth-1">(</span>image, k_width<span class="org-operator">=</span>5, k_height<span class="org-operator">=</span>5, show<span class="org-operator">=</span><span class="org-constant">False</span>, rgb<span class="org-operator">=</span><span class="org-constant">True</span>,
               publish<span class="org-operator">=</span><span class="org-string">"images/Blurring-Filters/Boxed-blur-5"</span><span class="org-rainbow-delimiters-depth-1">)</span>
 </pre>
 </div>
 
 
-<div id="org04365f6" class="figure">
+<div id="org6eda8b6" class="figure">
 <p><img src="images/Blurring-Filters/Boxed-blur-5.png" alt="Boxed-blur-5.png" />
 </p>
 </div>
 
 <div class="org-src-container">
-<pre class="src src-python" id="org11afc9d"><span class="org-variable-name">image</span> <span class="org-operator">=</span> <span class="org-string">"Fruit.jpg"</span>
+<pre class="src src-python" id="org0d0b7bb"><span class="org-variable-name">image</span> <span class="org-operator">=</span> <span class="org-string">"Fruit.jpg"</span>
 blur_box_filter<span class="org-rainbow-delimiters-depth-1">(</span>image, k_width<span class="org-operator">=</span>9, k_height<span class="org-operator">=</span>9, show<span class="org-operator">=</span><span class="org-constant">False</span>, rgb<span class="org-operator">=</span><span class="org-constant">True</span>,
               publish<span class="org-operator">=</span><span class="org-string">"images/Blurring-Filters/Boxed-blur-9"</span><span class="org-rainbow-delimiters-depth-1">)</span>
 </pre>
 </div>
 
 
-<div id="org0d0b7bb" class="figure">
+<div id="orga1e3afd" class="figure">
 <p><img src="images/Blurring-Filters/Boxed-blur-9.png" alt="Boxed-blur-9.png" />
 </p>
 </div>
@@ -735,9 +735,9 @@ blur_normal_box<span class="org-rainbow-delimiters-depth-1">(</span>image,
 </p>
 </div>
 
-<div id="outline-container-org9c097ee" class="outline-3">
-<h3 id="org9c097ee">A Big Comparison</h3>
-<div class="outline-text-3" id="text-org9c097ee">
+<div id="outline-container-org9ecc2b7" class="outline-3">
+<h3 id="org9ecc2b7">A Big Comparison</h3>
+<div class="outline-text-3" id="text-org9ecc2b7">
 <p>
 Here, lets compare all these filter settings in one big image for a
 better comparison.

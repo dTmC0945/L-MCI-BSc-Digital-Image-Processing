@@ -317,14 +317,14 @@ and printing the function.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-python" id="org9b7cdbf"><span class="org-variable-name">A</span> <span class="org-operator">=</span> <span class="org-rainbow-delimiters-depth-1">[</span>1,1,2,2,1<span class="org-rainbow-delimiters-depth-1">]</span>
+<pre class="src src-python" id="org480653d"><span class="org-variable-name">A</span> <span class="org-operator">=</span> <span class="org-rainbow-delimiters-depth-1">[</span>1,1,2,2,1<span class="org-rainbow-delimiters-depth-1">]</span>
 <span class="org-variable-name">B</span> <span class="org-operator">=</span> <span class="org-rainbow-delimiters-depth-1">[</span>1,1,1,3<span class="org-rainbow-delimiters-depth-1">]</span>
 
 <span class="org-builtin">print</span><span class="org-rainbow-delimiters-depth-1">(</span>convolve_1d<span class="org-rainbow-delimiters-depth-2">(</span>A, B<span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
 </pre>
 </div>
 
-<pre class="example" id="org480653d">
+<pre class="example" id="org8714f48">
 [1, 2, 4, 8, 8, 9, 7, 3]
 </pre>
 </div>
@@ -459,7 +459,7 @@ Now, we can define and plot our sine function.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-python" id="org421539f">plot_settings_web<span class="org-rainbow-delimiters-depth-1">(</span>size<span class="org-operator">=</span>1<span class="org-rainbow-delimiters-depth-1">)</span>
+<pre class="src src-python" id="org55e7ba2">plot_settings_web<span class="org-rainbow-delimiters-depth-1">(</span>size<span class="org-operator">=</span>1<span class="org-rainbow-delimiters-depth-1">)</span>
 plt.plot<span class="org-rainbow-delimiters-depth-1">(</span>t,y_sin<span class="org-rainbow-delimiters-depth-1">)</span>
 plt.xlabel<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-string">"Data Points"</span>, fontdict<span class="org-operator">=</span>font<span class="org-rainbow-delimiters-depth-1">)</span>
 plt.ylabel<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-string">"Amplitude"</span>, fontdict<span class="org-operator">=</span>font<span class="org-rainbow-delimiters-depth-1">)</span>
@@ -471,7 +471,7 @@ plt.close<span class="org-rainbow-delimiters-depth-1">()</span>
 </div>
 
 
-<div id="org55e7ba2" class="figure">
+<div id="org28e6fac" class="figure">
 <p><img src="images/Mathematical-Fundamentals/fft-spectral-leak-sine.png" alt="fft-spectral-leak-sine.png" />
 </p>
 </div>
@@ -496,7 +496,7 @@ And time for plotting out FFT results
 </p>
 
 <div class="org-src-container">
-<pre class="src src-python" id="org9f053cb">plot_settings_web<span class="org-rainbow-delimiters-depth-1">(</span>size<span class="org-operator">=</span>1<span class="org-rainbow-delimiters-depth-1">)</span>
+<pre class="src src-python" id="org3d599fc">plot_settings_web<span class="org-rainbow-delimiters-depth-1">(</span>size<span class="org-operator">=</span>1<span class="org-rainbow-delimiters-depth-1">)</span>
 plt.bar<span class="org-rainbow-delimiters-depth-1">(</span>freq,PSD,width<span class="org-operator">=</span>0.0025<span class="org-rainbow-delimiters-depth-1">)</span>
 
 plt.xlabel<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-string">'Frequency (cycles per time step)'</span>, fontdict<span class="org-operator">=</span>font<span class="org-rainbow-delimiters-depth-1">)</span>
@@ -511,7 +511,7 @@ plt.close<span class="org-rainbow-delimiters-depth-1">()</span>
 </div>
 
 
-<div id="org3d599fc" class="figure">
+<div id="org4bb1bb7" class="figure">
 <p><img src="images/Mathematical-Fundamentals/fft-spectral-leak-unwindowed-fft.png" alt="fft-spectral-leak-unwindowed-fft.png" />
 </p>
 </div>
@@ -548,7 +548,7 @@ Results calculated, lets do some plotting.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-python" id="orgc5e22fb"><span class="org-comment-delimiter"># </span><span class="org-comment">Plot windowed sine wave, window</span>
+<pre class="src src-python" id="org4516d73"><span class="org-comment-delimiter"># </span><span class="org-comment">Plot windowed sine wave, window</span>
 plot_settings_web<span class="org-rainbow-delimiters-depth-1">(</span>size<span class="org-operator">=</span>2<span class="org-rainbow-delimiters-depth-1">)</span>
 plt.subplot<span class="org-rainbow-delimiters-depth-1">(</span>1,2,1<span class="org-rainbow-delimiters-depth-1">)</span>
 plt.plot<span class="org-rainbow-delimiters-depth-1">(</span>t,y2, label<span class="org-operator">=</span><span class="org-string">"windowed sine wave"</span><span class="org-rainbow-delimiters-depth-1">)</span>
@@ -569,7 +569,7 @@ plt.close<span class="org-rainbow-delimiters-depth-1">()</span>
 </div>
 
 
-<div id="org4516d73" class="figure">
+<div id="orgbdbf058" class="figure">
 <p><img src="images/Mathematical-Fundamentals/fft-spectral-leak-windowed-sine.png" alt="fft-spectral-leak-windowed-sine.png" />
 </p>
 </div>
@@ -591,7 +591,7 @@ the discrete power spectrum of the windowed sine wave to see what happens.
 
 
 <div class="org-src-container">
-<pre class="src src-python" id="org51ba780"><span class="org-comment-delimiter"># </span><span class="org-comment">Plot Power Spectrum of windowed data</span>
+<pre class="src src-python" id="org48d447e"><span class="org-comment-delimiter"># </span><span class="org-comment">Plot Power Spectrum of windowed data</span>
 
 plot_settings_web<span class="org-rainbow-delimiters-depth-1">(</span>size<span class="org-operator">=</span>2<span class="org-rainbow-delimiters-depth-1">)</span>
 plt.bar<span class="org-rainbow-delimiters-depth-1">(</span>freq,ck2y2,width<span class="org-operator">=</span>0.0025<span class="org-rainbow-delimiters-depth-1">)</span>
@@ -608,7 +608,7 @@ plt.close<span class="org-rainbow-delimiters-depth-1">()</span>
 </div>
 
 
-<div id="org48d447e" class="figure">
+<div id="org9922693" class="figure">
 <p><img src="images/Mathematical-Fundamentals/fft-spectral-leak-windowed-fft.png" alt="fft-spectral-leak-windowed-fft.png" />
 </p>
 </div>
