@@ -411,7 +411,7 @@ First step is to load the necessary modules for the code to work.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-python" id="org26d61a9"><span class="org-keyword">import</span> matplotlib.pyplot <span class="org-keyword">as</span> plt 
+<pre class="src src-python" id="orgcf21c70"><span class="org-keyword">import</span> matplotlib.pyplot <span class="org-keyword">as</span> plt 
 <span class="org-keyword">import</span> numpy <span class="org-keyword">as</span> np
 <span class="org-keyword">import</span> cv2
 <span class="org-keyword">from</span> skimage <span class="org-keyword">import</span> data <span class="org-comment-delimiter"># </span><span class="org-comment">for smaple image</span>
@@ -423,7 +423,7 @@ Now it is time to get the image and generate
 </p>
 
 <div class="org-src-container">
-<pre class="src src-python" id="org2a163ef"><span class="org-comment-delimiter"># </span><span class="org-comment">Read in the image</span>
+<pre class="src src-python" id="orgef4e41f"><span class="org-comment-delimiter"># </span><span class="org-comment">Read in the image</span>
 <span class="org-variable-name">image</span> <span class="org-operator">=</span> data.brick<span class="org-rainbow-delimiters-depth-1">()</span> <span class="org-comment-delimiter"># </span><span class="org-comment">Load the image</span>
 
 <span class="org-comment-delimiter"># </span><span class="org-comment">Make a copy of the image</span>
@@ -440,7 +440,7 @@ Plotting.image_subplot_style<span class="org-rainbow-delimiters-depth-1">(</span
 </div>
 
 <div class="org-src-container">
-<pre class="src src-python" id="org7242291"><span class="org-comment-delimiter"># </span><span class="org-comment">Convert to grayscale</span>
+<pre class="src src-python" id="org5b3fcff"><span class="org-comment-delimiter"># </span><span class="org-comment">Convert to grayscale</span>
 <span class="org-variable-name">gray</span> <span class="org-operator">=</span> cv2.cvtColor<span class="org-rainbow-delimiters-depth-1">(</span>image_copy, cv2.COLOR_RGB2GRAY<span class="org-rainbow-delimiters-depth-1">)</span>
 <span class="org-variable-name">gray</span> <span class="org-operator">=</span> np.float32<span class="org-rainbow-delimiters-depth-1">(</span>gray<span class="org-rainbow-delimiters-depth-1">)</span>
 
@@ -457,7 +457,7 @@ plt.show<span class="org-rainbow-delimiters-depth-1">()</span>
 </div>
 
 <div class="org-src-container">
-<pre class="src src-python" id="orgf0cea02"><span class="org-comment-delimiter"># </span><span class="org-comment">This value vary depending on the image and how many corners you want to detect</span>
+<pre class="src src-python" id="org0f8c3d3"><span class="org-comment-delimiter"># </span><span class="org-comment">This value vary depending on the image and how many corners you want to detect</span>
 <span class="org-comment-delimiter"># </span><span class="org-comment">Try changing this free parameter, 0.1, to be larger or smaller and see what happens</span>
 <span class="org-variable-name">thresh</span> <span class="org-operator">=</span> 0.01<span class="org-operator">*</span>dst.<span class="org-builtin">max</span><span class="org-rainbow-delimiters-depth-1">()</span>
 
@@ -529,7 +529,7 @@ plots<span class="org-rainbow-delimiters-depth-1">[</span>1<span class="org-rain
 </div>
 
 <div class="org-src-container">
-<pre class="src src-python" id="orgb5f65ef"><span class="org-variable-name">sift</span> <span class="org-operator">=</span> cv2.xfeatures2d.SIFT_create<span class="org-rainbow-delimiters-depth-1">()</span>
+<pre class="src src-python" id="orgb948825"><span class="org-variable-name">sift</span> <span class="org-operator">=</span> cv2.xfeatures2d.SIFT_create<span class="org-rainbow-delimiters-depth-1">()</span>
 
 <span class="org-variable-name">train_keypoints</span>, <span class="org-variable-name">train_descriptor</span> <span class="org-operator">=</span> sift.detectAndCompute<span class="org-rainbow-delimiters-depth-1">(</span>training_gray, <span class="org-constant">None</span><span class="org-rainbow-delimiters-depth-1">)</span>
 <span class="org-variable-name">test_keypoints</span>, <span class="org-variable-name">test_descriptor</span> <span class="org-operator">=</span> sift.detectAndCompute<span class="org-rainbow-delimiters-depth-1">(</span>test_gray, <span class="org-constant">None</span><span class="org-rainbow-delimiters-depth-1">)</span>
@@ -559,7 +559,7 @@ plots<span class="org-rainbow-delimiters-depth-1">[</span>1<span class="org-rain
 </div>
 
 <div class="org-src-container">
-<pre class="src src-python" id="org539fc73"><span class="org-comment-delimiter"># </span><span class="org-comment">Create a Brute Force Matcher object.</span>
+<pre class="src src-python" id="org9c860ed"><span class="org-comment-delimiter"># </span><span class="org-comment">Create a Brute Force Matcher object.</span>
 <span class="org-variable-name">bf</span> <span class="org-operator">=</span> cv2.BFMatcher<span class="org-rainbow-delimiters-depth-1">(</span>cv2.NORM_L1, crossCheck <span class="org-operator">=</span> <span class="org-constant">False</span><span class="org-rainbow-delimiters-depth-1">)</span>
 
 <span class="org-comment-delimiter"># </span><span class="org-comment">Perform the matching between the SIFT descriptors of the training image and the test image</span>
@@ -599,7 +599,7 @@ First we need to implrt the necessary modules
 </div>
 
 <div class="org-src-container">
-<pre class="src src-python" id="orgaf82bb4"><span class="org-variable-name">image1</span> <span class="org-operator">=</span> data.astronaut<span class="org-rainbow-delimiters-depth-1">()</span> <span class="org-comment-delimiter"># </span><span class="org-comment">Load the image</span>
+<pre class="src src-python" id="org3211d62"><span class="org-variable-name">image1</span> <span class="org-operator">=</span> data.astronaut<span class="org-rainbow-delimiters-depth-1">()</span> <span class="org-comment-delimiter"># </span><span class="org-comment">Load the image</span>
 
 <span class="org-comment-delimiter"># </span><span class="org-comment">Convert the training image to RGB</span>
 <span class="org-variable-name">training_image</span> <span class="org-operator">=</span> cv2.cvtColor<span class="org-rainbow-delimiters-depth-1">(</span>image1, cv2.COLOR_BGR2RGB<span class="org-rainbow-delimiters-depth-1">)</span>
@@ -634,7 +634,7 @@ NOTE: For xfeatures2d to work you need to install pip install opencv-contrib-pyt
 </p>
 
 <div class="org-src-container">
-<pre class="src src-python" id="orgbb340d9"><span class="org-variable-name">surf</span> <span class="org-operator">=</span> cv2.xfeatures2d.SURF_create<span class="org-rainbow-delimiters-depth-1">(</span>800<span class="org-rainbow-delimiters-depth-1">)</span>
+<pre class="src src-python" id="org88e1738"><span class="org-variable-name">surf</span> <span class="org-operator">=</span> cv2.xfeatures2d.SURF_create<span class="org-rainbow-delimiters-depth-1">(</span>800<span class="org-rainbow-delimiters-depth-1">)</span>
 
 <span class="org-variable-name">train_keypoints</span>, <span class="org-variable-name">train_descriptor</span> <span class="org-operator">=</span> surf.detectAndCompute<span class="org-rainbow-delimiters-depth-1">(</span>training_gray, <span class="org-constant">None</span><span class="org-rainbow-delimiters-depth-1">)</span>
 <span class="org-variable-name">test_keypoints</span>, <span class="org-variable-name">test_descriptor</span> <span class="org-operator">=</span> surf.detectAndCompute<span class="org-rainbow-delimiters-depth-1">(</span>test_gray, <span class="org-constant">None</span><span class="org-rainbow-delimiters-depth-1">)</span>
@@ -688,7 +688,7 @@ Start with importing the required modules.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-python" id="org0f2d467"><span class="org-keyword">import</span> cv2
+<pre class="src src-python" id="org1277094"><span class="org-keyword">import</span> cv2
 <span class="org-keyword">import</span> matplotlib.pyplot <span class="org-keyword">as</span> plt
 <span class="org-keyword">import</span> numpy <span class="org-keyword">as</span> np
 <span class="org-keyword">from</span> skimage <span class="org-keyword">import</span> data
@@ -696,7 +696,7 @@ Start with importing the required modules.
 </div>
 
 <div class="org-src-container">
-<pre class="src src-python" id="org49580f1"><span class="org-variable-name">origin_image</span> <span class="org-operator">=</span> data.astronaut<span class="org-rainbow-delimiters-depth-1">()</span> <span class="org-comment-delimiter"># </span><span class="org-comment">Load the image</span>
+<pre class="src src-python" id="org37fa316"><span class="org-variable-name">origin_image</span> <span class="org-operator">=</span> data.astronaut<span class="org-rainbow-delimiters-depth-1">()</span> <span class="org-comment-delimiter"># </span><span class="org-comment">Load the image</span>
 
 <span class="org-comment-delimiter"># </span><span class="org-comment">Convert the training image to RGB</span>
 <span class="org-variable-name">training_image</span> <span class="org-operator">=</span> cv2.cvtColor<span class="org-rainbow-delimiters-depth-1">(</span>origin_image, cv2.COLOR_RGB2RGB<span class="org-rainbow-delimiters-depth-1">)</span>
@@ -728,7 +728,7 @@ plt.show<span class="org-rainbow-delimiters-depth-1">()</span>
 </div>
 
 <div class="org-src-container">
-<pre class="src src-python" id="org5174be8"><span class="org-variable-name">orb</span> <span class="org-operator">=</span> cv2.ORB_create<span class="org-rainbow-delimiters-depth-1">()</span>
+<pre class="src src-python" id="org2568197"><span class="org-variable-name">orb</span> <span class="org-operator">=</span> cv2.ORB_create<span class="org-rainbow-delimiters-depth-1">()</span>
 
 <span class="org-variable-name">train_keypoints</span>, <span class="org-variable-name">train_descriptor</span> <span class="org-operator">=</span> orb.detectAndCompute<span class="org-rainbow-delimiters-depth-1">(</span>training_gray, <span class="org-constant">None</span><span class="org-rainbow-delimiters-depth-1">)</span>
 <span class="org-variable-name">test_keypoints</span>, <span class="org-variable-name">test_descriptor</span> <span class="org-operator">=</span> orb.detectAndCompute<span class="org-rainbow-delimiters-depth-1">(</span>test_gray, <span class="org-constant">None</span><span class="org-rainbow-delimiters-depth-1">)</span>
@@ -758,7 +758,7 @@ plots<span class="org-rainbow-delimiters-depth-1">[</span>1<span class="org-rain
 </div>
 
 <div class="org-src-container">
-<pre class="src src-python" id="orgf686572"><span class="org-comment-delimiter"># </span><span class="org-comment">Create a Brute Force Matcher object.</span>
+<pre class="src src-python" id="orgcbc0a04"><span class="org-comment-delimiter"># </span><span class="org-comment">Create a Brute Force Matcher object.</span>
 <span class="org-variable-name">bf</span> <span class="org-operator">=</span> cv2.BFMatcher<span class="org-rainbow-delimiters-depth-1">(</span>cv2.NORM_HAMMING, crossCheck <span class="org-operator">=</span> <span class="org-constant">True</span><span class="org-rainbow-delimiters-depth-1">)</span>
 
 <span class="org-comment-delimiter"># </span><span class="org-comment">Perform the matching between the ORB descriptors of the training image and the test image</span>
@@ -840,7 +840,7 @@ plt.show<span class="org-rainbow-delimiters-depth-1">()</span>
 <h2 id="org3570d20">Adaptive Thresholding</h2>
 <div class="outline-text-2" id="text-org3570d20">
 <div class="org-src-container">
-<pre class="src src-python" id="org01438d8"><span class="org-keyword">import</span> cv2 <span class="org-keyword">as</span> cv
+<pre class="src src-python" id="org7a1a441"><span class="org-keyword">import</span> cv2 <span class="org-keyword">as</span> cv
 <span class="org-keyword">import</span> numpy <span class="org-keyword">as</span> np
 <span class="org-keyword">from</span> matplotlib <span class="org-keyword">import</span> pyplot <span class="org-keyword">as</span> plt
 

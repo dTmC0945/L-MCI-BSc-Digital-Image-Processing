@@ -283,7 +283,7 @@ plt.rc<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-stri
 <h2 id="orgfafa00d">Histogram Generation from Image</h2>
 <div class="outline-text-2" id="text-orgfafa00d">
 <div class="org-src-container">
-<pre class="src src-python" id="org63a460c"><span class="org-keyword">import</span> cv2 <span class="org-keyword">as</span> cv
+<pre class="src src-python" id="orgd118e0b"><span class="org-keyword">import</span> cv2 <span class="org-keyword">as</span> cv
 <span class="org-keyword">import</span> numpy <span class="org-keyword">as</span> np
 <span class="org-keyword">from</span> matplotlib <span class="org-keyword">import</span> pyplot <span class="org-keyword">as</span> plt
 </pre>
@@ -295,13 +295,13 @@ exercises
 </p>
 
 <div class="org-src-container">
-<pre class="src src-python" id="org8f7672a"><span class="org-variable-name">image</span> <span class="org-operator">=</span> cv.imread<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-string">'Fruit.jpg'</span><span class="org-rainbow-delimiters-depth-1">)</span>
+<pre class="src src-python" id="org467483b"><span class="org-variable-name">image</span> <span class="org-operator">=</span> cv.imread<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-string">'Fruit.jpg'</span><span class="org-rainbow-delimiters-depth-1">)</span>
 cv.imwrite<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-string">"images/Histogram-Operations/reference-image.png"</span>, image<span class="org-rainbow-delimiters-depth-1">)</span>
 </pre>
 </div>
 
 
-<div id="org4b79e1c" class="figure">
+<div id="orgcb75e6a" class="figure">
 <p><img src="images/Histogram-Operations/reference-image.png" alt="reference-image.png" />
 </p>
 </div>
@@ -319,7 +319,7 @@ from the rapsberries.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-python" id="org63d52aa"><span class="org-variable-name">img</span> <span class="org-operator">=</span> cv.imread<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-string">'Fruit.jpg'</span>, cv.IMREAD_GRAYSCALE<span class="org-rainbow-delimiters-depth-1">)</span>
+<pre class="src src-python" id="org8382754"><span class="org-variable-name">img</span> <span class="org-operator">=</span> cv.imread<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-string">'Fruit.jpg'</span>, cv.IMREAD_GRAYSCALE<span class="org-rainbow-delimiters-depth-1">)</span>
 plot_settings<span class="org-rainbow-delimiters-depth-1">()</span>
 plt.hist<span class="org-rainbow-delimiters-depth-1">(</span>img.ravel<span class="org-rainbow-delimiters-depth-2">()</span>,256,<span class="org-rainbow-delimiters-depth-2">[</span>0,256<span class="org-rainbow-delimiters-depth-2">]</span><span class="org-rainbow-delimiters-depth-1">)</span>
 plt.xlabel<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-string">"Pixel Value"</span><span class="org-rainbow-delimiters-depth-1">)</span>
@@ -351,7 +351,7 @@ We can also observe the colour channels of the histogram
 </p>
 
 <div class="org-src-container">
-<pre class="src src-python" id="orgaa8ee6d"><span class="org-variable-name">img</span> <span class="org-operator">=</span> cv.imread<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-string">'Fruit.jpg'</span><span class="org-rainbow-delimiters-depth-1">)</span>
+<pre class="src src-python" id="org5763ca6"><span class="org-variable-name">img</span> <span class="org-operator">=</span> cv.imread<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-string">'Fruit.jpg'</span><span class="org-rainbow-delimiters-depth-1">)</span>
 <span class="org-variable-name">color</span> <span class="org-operator">=</span> <span class="org-rainbow-delimiters-depth-1">(</span><span class="org-string">'b'</span>,<span class="org-string">'g'</span>,<span class="org-string">'r'</span><span class="org-rainbow-delimiters-depth-1">)</span>
 <span class="org-keyword">for</span> i,col <span class="org-keyword">in</span> <span class="org-builtin">enumerate</span><span class="org-rainbow-delimiters-depth-1">(</span>color<span class="org-rainbow-delimiters-depth-1">)</span>:
     <span class="org-variable-name">histr</span> <span class="org-operator">=</span> cv.calcHist<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-rainbow-delimiters-depth-2">[</span>img<span class="org-rainbow-delimiters-depth-2">]</span>,<span class="org-rainbow-delimiters-depth-2">[</span>i<span class="org-rainbow-delimiters-depth-2">]</span>,<span class="org-constant">None</span>,<span class="org-rainbow-delimiters-depth-2">[</span>256<span class="org-rainbow-delimiters-depth-2">]</span>,<span class="org-rainbow-delimiters-depth-2">[</span>0,256<span class="org-rainbow-delimiters-depth-2">]</span><span class="org-rainbow-delimiters-depth-1">)</span>
@@ -382,7 +382,7 @@ to find histogram and black otherwise. Then pass this as the mask.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-python" id="orge53ba72"><span class="org-comment-delimiter"># </span><span class="org-comment">create a mask</span>
+<pre class="src src-python" id="org023314b"><span class="org-comment-delimiter"># </span><span class="org-comment">create a mask</span>
 <span class="org-variable-name">mask</span> <span class="org-operator">=</span> np.zeros<span class="org-rainbow-delimiters-depth-1">(</span>img.shape<span class="org-rainbow-delimiters-depth-2">[</span>:2<span class="org-rainbow-delimiters-depth-2">]</span>, np.uint8<span class="org-rainbow-delimiters-depth-1">)</span>
 <span class="org-variable-name">mask</span><span class="org-rainbow-delimiters-depth-1">[</span>100:300, 100:400<span class="org-rainbow-delimiters-depth-1">]</span> <span class="org-operator">=</span> 255
 <span class="org-variable-name">masked_img</span> <span class="org-operator">=</span> cv.bitwise_and<span class="org-rainbow-delimiters-depth-1">(</span>img,img,mask <span class="org-operator">=</span> mask<span class="org-rainbow-delimiters-depth-1">)</span>
@@ -409,7 +409,7 @@ plt.show<span class="org-rainbow-delimiters-depth-1">()</span>
 <h2 id="org8e6e8aa">Histogram Equalisation</h2>
 <div class="outline-text-2" id="text-org8e6e8aa">
 <div class="org-src-container">
-<pre class="src src-python" id="orgf5b0d36"><span class="org-variable-name">hist</span>,<span class="org-variable-name">bins</span> <span class="org-operator">=</span> np.histogram<span class="org-rainbow-delimiters-depth-1">(</span>img.flatten<span class="org-rainbow-delimiters-depth-2">()</span>,256,<span class="org-rainbow-delimiters-depth-2">[</span>0,256<span class="org-rainbow-delimiters-depth-2">]</span><span class="org-rainbow-delimiters-depth-1">)</span>
+<pre class="src src-python" id="orga23a60b"><span class="org-variable-name">hist</span>,<span class="org-variable-name">bins</span> <span class="org-operator">=</span> np.histogram<span class="org-rainbow-delimiters-depth-1">(</span>img.flatten<span class="org-rainbow-delimiters-depth-2">()</span>,256,<span class="org-rainbow-delimiters-depth-2">[</span>0,256<span class="org-rainbow-delimiters-depth-2">]</span><span class="org-rainbow-delimiters-depth-1">)</span>
 
 <span class="org-variable-name">cdf</span> <span class="org-operator">=</span> hist.cumsum<span class="org-rainbow-delimiters-depth-1">()</span>
 <span class="org-variable-name">cdf_normalized</span> <span class="org-operator">=</span> cdf <span class="org-operator">*</span> <span class="org-builtin">float</span><span class="org-rainbow-delimiters-depth-1">(</span>hist.<span class="org-builtin">max</span><span class="org-rainbow-delimiters-depth-2">()</span><span class="org-rainbow-delimiters-depth-1">)</span> <span class="org-operator">/</span> cdf.<span class="org-builtin">max</span><span class="org-rainbow-delimiters-depth-1">()</span>
@@ -428,7 +428,7 @@ plt.show<span class="org-rainbow-delimiters-depth-1">()</span>
 <h2 id="orgca6c98a">2D Histograms</h2>
 <div class="outline-text-2" id="text-orgca6c98a">
 <div class="org-src-container">
-<pre class="src src-python" id="orgd628245"><span class="org-variable-name">hsv</span> <span class="org-operator">=</span> cv.cvtColor<span class="org-rainbow-delimiters-depth-1">(</span>img,cv.COLOR_BGR2HSV<span class="org-rainbow-delimiters-depth-1">)</span>
+<pre class="src src-python" id="org9ef4485"><span class="org-variable-name">hsv</span> <span class="org-operator">=</span> cv.cvtColor<span class="org-rainbow-delimiters-depth-1">(</span>img,cv.COLOR_BGR2HSV<span class="org-rainbow-delimiters-depth-1">)</span>
 
 <span class="org-variable-name">hist</span> <span class="org-operator">=</span> cv.calcHist<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-rainbow-delimiters-depth-2">[</span>hsv<span class="org-rainbow-delimiters-depth-2">]</span>, <span class="org-rainbow-delimiters-depth-2">[</span>0, 1<span class="org-rainbow-delimiters-depth-2">]</span>, <span class="org-constant">None</span>, <span class="org-rainbow-delimiters-depth-2">[</span>180, 256<span class="org-rainbow-delimiters-depth-2">]</span>, <span class="org-rainbow-delimiters-depth-2">[</span>0, 180, 0, 256<span class="org-rainbow-delimiters-depth-2">]</span><span class="org-rainbow-delimiters-depth-1">)</span>
 plt.imshow<span class="org-rainbow-delimiters-depth-1">(</span>hist,interpolation <span class="org-operator">=</span> <span class="org-string">'nearest'</span><span class="org-rainbow-delimiters-depth-1">)</span>

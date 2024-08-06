@@ -266,6 +266,7 @@ org_html_manager.setup();  // activate after the parameters are set
 </ul>
 </li>
 <li><a href="#org7f02cfd">Colours of Noise</a></li>
+<li><a href="#org9e36c30">Entropy</a></li>
 <li><a href="#orgd177f35">Perlin Noise</a>
 <ul>
 <li><a href="#orgb895d55">Creating 3D Mountain Terrain</a></li>
@@ -284,8 +285,8 @@ org_html_manager.setup();  // activate after the parameters are set
 </div>
 </div>
 <p>
-These are the code snippets used in <code>Noise</code>
-part of <code>Digital Image Processing</code>.
+These are the code snippets used in <span class="Hlight">Noise</span>
+part of <span class="Hlight">Digital Image Processing</span>.
 </p>
 
 <div id="outline-container-org5a68db0" class="outline-2">
@@ -301,6 +302,56 @@ lecture topic Noise for Digital Image Processing.
 <div id="outline-container-orgee957c8" class="outline-2">
 <h2 id="orgee957c8">Preamble</h2>
 <div class="outline-text-2" id="text-orgee957c8">
+<p>
+To plot images in a consistent style and quality a custom package was written for the module
+called ChalcedonPy which you can see its source code <a href="https://github.com/dTmC0945/ChalcedonPy">here</a>.
+</p>
+
+<p>
+To install the package, simply install it via <span class="Code">pip</span>:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-bash" id="org969255d">pip install ChalcedonPy
+</pre>
+</div>
+
+<p>
+This package needs a <span class="Hlight">save folder path</span> and a <span class="Hlight">style</span>.
+</p>
+
+<p>
+In its current state there are two (2) states:
+</p>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="all" frame="border" width="100%">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">PARAMETER</th>
+<th scope="col" class="org-left">FUNCTION</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left"><span class="Code">web</span></td>
+<td class="org-left">images used in the code supplement</td>
+</tr>
+
+<tr>
+<td class="org-left"><span class="Code">slide</span></td>
+<td class="org-left">for use in lecture slides.</td>
+</tr>
+</tbody>
+</table>
+
+
 <div class="org-src-container">
 <pre class="src src-python" id="org5ae4093"><span class="org-keyword">import</span> ChalcedonPy <span class="org-keyword">as</span> cp <span class="org-comment-delimiter"># </span><span class="org-comment">custom-pakcage for lecture materials and publications</span>
 <span class="org-variable-name">SAVE_PATH</span> <span class="org-operator">=</span> <span class="org-string">"Noise"</span> <span class="org-comment-delimiter"># </span><span class="org-comment">sets the default save path</span>
@@ -309,134 +360,10 @@ lecture topic Noise for Digital Image Processing.
 </div>
 
 <div class="org-src-container">
-<pre class="src src-python" id="org5c7be9d"><span class="org-keyword">import</span> matplotlib.pyplot <span class="org-keyword">as</span> plt
+<pre class="src src-python" id="org8f9950a"><span class="org-keyword">import</span> matplotlib.pyplot <span class="org-keyword">as</span> plt
 <span class="org-keyword">import</span> matplotlib.colors  <span class="org-comment-delimiter"># </span><span class="org-comment">all related to colours</span>
 <span class="org-keyword">from</span> scipy <span class="org-keyword">import</span> special
 <span class="org-keyword">import</span> numpy <span class="org-keyword">as</span> np
-</pre>
-</div>
-
-<div class="org-src-container">
-<pre class="src src-python" id="orgccfc428"><span class="org-keyword">class</span> <span class="org-type">Plotting</span>:
-    <span class="org-comment-delimiter"># </span><span class="org-comment">Set the colour parameter for plots to fit beamer metropolis theme</span>
-    plt.<span class="org-variable-name">rcParams</span><span class="org-rainbow-delimiters-depth-1">[</span><span class="org-string">"figure.facecolor"</span><span class="org-rainbow-delimiters-depth-1">]</span> <span class="org-operator">=</span> <span class="org-string">"(0.98, 0.98, 0.98)"</span>
-    plt.rcParams.update<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-rainbow-delimiters-depth-2">{</span><span class="org-string">'axes.facecolor'</span>: <span class="org-string">'(0.98, 0.98, 0.98)'</span><span class="org-rainbow-delimiters-depth-2">}</span><span class="org-rainbow-delimiters-depth-1">)</span>
-    matplotlib.colors.ColorConverter.<span class="org-variable-name">colors</span><span class="org-rainbow-delimiters-depth-1">[</span><span class="org-string">'bg1'</span><span class="org-rainbow-delimiters-depth-1">]</span> <span class="org-operator">=</span> <span class="org-rainbow-delimiters-depth-1">(</span>0.98, 0.98, 0.98<span class="org-rainbow-delimiters-depth-1">)</span>
-
-    @<span class="org-builtin">staticmethod</span>
-    <span class="org-keyword">def</span> <span class="org-function-name">image_subplot_style</span><span class="org-rainbow-delimiters-depth-1">(</span>row, column, image_array, publish<span class="org-operator">=</span><span class="org-constant">None</span>, show<span class="org-operator">=</span><span class="org-constant">None</span>, rgb<span class="org-operator">=</span><span class="org-constant">None</span>, title<span class="org-operator">=</span><span class="org-constant">None</span>,
-                            cmap_array<span class="org-operator">=</span><span class="org-constant">None</span>, set_cmap<span class="org-operator">=</span><span class="org-constant">False</span><span class="org-rainbow-delimiters-depth-1">)</span>:
-        <span class="org-doc">"""Presents a set of images in a grid of subplots.</span>
-
-<span class="org-doc">        :param figsize: Figure size for your subplot.</span>
-<span class="org-doc">        :param title: Add title to your plot. Treated as array.</span>
-<span class="org-doc">        :param cmap_array: colormap array, if none entered it is treated as None.</span>
-<span class="org-doc">        :param row: Number of rows in an image.</span>
-<span class="org-doc">        :param column: Number of columns in an image.</span>
-<span class="org-doc">        :param image_array: Write here the images in an array you want in the plot in the order you want it to show.</span>
-<span class="org-doc">        :param publish: Write the name of the file you want to save it as (.eps, 200 dpi).</span>
-<span class="org-doc">        :param show: Just activates plt.show().</span>
-<span class="org-doc">        :param rgb: Sets print colour to true.</span>
-<span class="org-doc">        """</span>
-
-        <span class="org-comment-delimiter"># </span><span class="org-comment">noinspection PyTypeChecker</span>
-        <span class="org-variable-name">fig_plot</span>, <span class="org-variable-name">axes_plot</span> <span class="org-operator">=</span> plt.subplots<span class="org-rainbow-delimiters-depth-1">(</span>row, column, sharex<span class="org-operator">=</span><span class="org-constant">True</span>, sharey<span class="org-operator">=</span><span class="org-constant">True</span><span class="org-rainbow-delimiters-depth-1">)</span>
-
-        <span class="org-keyword">for</span> ind, ax_loop <span class="org-keyword">in</span> <span class="org-builtin">enumerate</span><span class="org-rainbow-delimiters-depth-1">(</span>axes_plot.flatten<span class="org-rainbow-delimiters-depth-2">()</span><span class="org-rainbow-delimiters-depth-1">)</span>:
-
-            Plotting.remove_borders<span class="org-rainbow-delimiters-depth-1">(</span>ax_loop<span class="org-rainbow-delimiters-depth-1">)</span>  <span class="org-comment-delimiter"># </span><span class="org-comment">remove unnecessary borders</span>
-
-            ax_loop.tick_params<span class="org-rainbow-delimiters-depth-1">(</span>left<span class="org-operator">=</span><span class="org-constant">False</span>, right<span class="org-operator">=</span><span class="org-constant">False</span>, labelleft<span class="org-operator">=</span><span class="org-constant">False</span>, labelbottom<span class="org-operator">=</span><span class="org-constant">False</span>, bottom<span class="org-operator">=</span><span class="org-constant">False</span><span class="org-rainbow-delimiters-depth-1">)</span>
-
-            ax_loop.imshow<span class="org-rainbow-delimiters-depth-1">(</span>image_array<span class="org-rainbow-delimiters-depth-2">[</span>ind<span class="org-rainbow-delimiters-depth-2">][</span>:<span class="org-rainbow-delimiters-depth-2">][</span>:<span class="org-rainbow-delimiters-depth-2">]</span><span class="org-rainbow-delimiters-depth-1">)</span>  <span class="org-comment-delimiter"># </span><span class="org-comment">print image for subplot</span>
-
-            <span class="org-keyword">if</span> rgb:  <span class="org-comment-delimiter"># </span><span class="org-comment">convert image bgr to rgb</span>
-                <span class="org-keyword">if</span> set_cmap <span class="org-keyword">is</span> <span class="org-constant">True</span>:
-                    ax_loop.imshow<span class="org-rainbow-delimiters-depth-1">(</span>Plotting.bgr2rgb<span class="org-rainbow-delimiters-depth-2">(</span>image_array<span class="org-rainbow-delimiters-depth-3">[</span>ind<span class="org-rainbow-delimiters-depth-3">][</span>:<span class="org-rainbow-delimiters-depth-3">][</span>:<span class="org-rainbow-delimiters-depth-3">]</span><span class="org-rainbow-delimiters-depth-2">)</span>, cmap<span class="org-operator">=</span>cmap_array<span class="org-rainbow-delimiters-depth-2">[</span>ind<span class="org-rainbow-delimiters-depth-2">]</span><span class="org-rainbow-delimiters-depth-1">)</span>
-                <span class="org-keyword">else</span>:
-                    ax_loop.imshow<span class="org-rainbow-delimiters-depth-1">(</span>Plotting.bgr2rgb<span class="org-rainbow-delimiters-depth-2">(</span>image_array<span class="org-rainbow-delimiters-depth-3">[</span>ind<span class="org-rainbow-delimiters-depth-3">][</span>:<span class="org-rainbow-delimiters-depth-3">][</span>:<span class="org-rainbow-delimiters-depth-3">]</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
-
-            <span class="org-keyword">if</span> title <span class="org-keyword">is</span> <span class="org-constant">None</span>:
-
-                <span class="org-comment-delimiter"># </span><span class="org-comment">Determine where to put the title on the image</span>
-                <span class="org-keyword">if</span> ind <span class="org-operator">&lt;</span> column:
-                    ax_loop.set_title<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-string">"("</span> <span class="org-operator">+</span> <span class="org-builtin">str</span><span class="org-rainbow-delimiters-depth-2">(</span><span class="org-builtin">chr</span><span class="org-rainbow-delimiters-depth-3">(</span><span class="org-builtin">ord</span><span class="org-rainbow-delimiters-depth-4">(</span><span class="org-string">'a'</span><span class="org-rainbow-delimiters-depth-4">)</span> <span class="org-operator">+</span> ind<span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span> <span class="org-operator">+</span> <span class="org-string">")"</span>, fontsize<span class="org-operator">=</span>12<span class="org-rainbow-delimiters-depth-1">)</span>
-                <span class="org-keyword">else</span>:
-                    ax_loop.set_xlabel<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-string">"("</span> <span class="org-operator">+</span> <span class="org-builtin">str</span><span class="org-rainbow-delimiters-depth-2">(</span><span class="org-builtin">chr</span><span class="org-rainbow-delimiters-depth-3">(</span><span class="org-builtin">ord</span><span class="org-rainbow-delimiters-depth-4">(</span><span class="org-string">'a'</span><span class="org-rainbow-delimiters-depth-4">)</span> <span class="org-operator">+</span> ind<span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span> <span class="org-operator">+</span> <span class="org-string">")"</span>, fontsize<span class="org-operator">=</span>12<span class="org-rainbow-delimiters-depth-1">)</span>
-
-            <span class="org-keyword">else</span>:
-                <span class="org-comment-delimiter"># </span><span class="org-comment">Determine where to put the title on the image</span>
-                <span class="org-keyword">if</span> ind <span class="org-operator">&lt;</span> column:
-                    ax_loop.set_title<span class="org-rainbow-delimiters-depth-1">(</span>title<span class="org-rainbow-delimiters-depth-2">[</span>ind<span class="org-rainbow-delimiters-depth-2">]</span>, fontsize<span class="org-operator">=</span>12<span class="org-rainbow-delimiters-depth-1">)</span>
-                <span class="org-keyword">else</span>:
-                    ax_loop.set_xlabel<span class="org-rainbow-delimiters-depth-1">(</span>title<span class="org-rainbow-delimiters-depth-2">[</span>ind<span class="org-rainbow-delimiters-depth-2">]</span>, fontsize<span class="org-operator">=</span>12<span class="org-rainbow-delimiters-depth-1">)</span>
-
-        Plotting.printer<span class="org-rainbow-delimiters-depth-1">(</span>show, publish<span class="org-rainbow-delimiters-depth-1">)</span>
-
-    @<span class="org-builtin">staticmethod</span>
-    <span class="org-keyword">def</span> <span class="org-function-name">plot_subplot_style</span><span class="org-rainbow-delimiters-depth-1">(</span>fig_subplot, axes_subplot<span class="org-rainbow-delimiters-depth-1">)</span>:
-        <span class="org-doc">"""Some standard aesthetics for the matplotlib function</span>
-
-<span class="org-doc">        :param fig_subplot: figure for the subplot.</span>
-<span class="org-doc">        :param axes_subplot: axes for the subplot.</span>
-<span class="org-doc">        """</span>
-
-        axes_subplot.spines<span class="org-rainbow-delimiters-depth-1">[</span><span class="org-string">'top'</span><span class="org-rainbow-delimiters-depth-1">]</span>.set_visible<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-constant">False</span><span class="org-rainbow-delimiters-depth-1">)</span>
-        axes_subplot.spines<span class="org-rainbow-delimiters-depth-1">[</span><span class="org-string">'right'</span><span class="org-rainbow-delimiters-depth-1">]</span>.set_visible<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-constant">False</span><span class="org-rainbow-delimiters-depth-1">)</span>
-        axes_subplot.xaxis.set_tick_params<span class="org-rainbow-delimiters-depth-1">(</span>width<span class="org-operator">=</span>2<span class="org-rainbow-delimiters-depth-1">)</span>
-        axes_subplot.yaxis.set_tick_params<span class="org-rainbow-delimiters-depth-1">(</span>width<span class="org-operator">=</span>2<span class="org-rainbow-delimiters-depth-1">)</span>
-        plt.<span class="org-variable-name">rcParams</span><span class="org-rainbow-delimiters-depth-1">[</span><span class="org-string">'axes.linewidth'</span><span class="org-rainbow-delimiters-depth-1">]</span> <span class="org-operator">=</span> 2
-        fig_subplot.tight_layout<span class="org-rainbow-delimiters-depth-1">()</span>
-
-    @<span class="org-builtin">staticmethod</span>
-    <span class="org-keyword">def</span> <span class="org-function-name">bgr2rgb</span><span class="org-rainbow-delimiters-depth-1">(</span>image_in_bgr<span class="org-rainbow-delimiters-depth-1">)</span>:
-        <span class="org-doc">"""Converts an image from BGR space to RGB.</span>
-
-<span class="org-doc">        :param image_in_bgr: image in BGR format.</span>
-<span class="org-doc">        :return: image in RGB format.</span>
-<span class="org-doc">        """</span>
-        <span class="org-keyword">return</span> cv.cvtColor<span class="org-rainbow-delimiters-depth-1">(</span>image_in_bgr, cv.COLOR_BGR2RGB<span class="org-rainbow-delimiters-depth-1">)</span>
-
-    @<span class="org-builtin">classmethod</span>
-    <span class="org-keyword">def</span> <span class="org-function-name">compare_images</span><span class="org-rainbow-delimiters-depth-1">(</span>cls, original, altered<span class="org-rainbow-delimiters-depth-1">)</span>:
-        <span class="org-doc">"""Creates two individual windows to showcase the filters effect</span>
-
-<span class="org-doc">        :param original: Original unaltered image</span>
-<span class="org-doc">        :param altered: Output altered image</span>
-<span class="org-doc">        """</span>
-        <span class="org-comment-delimiter"># </span><span class="org-comment">A static function to showcase both the original and the altered image</span>
-        cv.imshow<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-string">'Original Image'</span>, original<span class="org-rainbow-delimiters-depth-1">)</span>
-        cv.imshow<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-string">"Output Image"</span>, altered<span class="org-rainbow-delimiters-depth-1">)</span>
-
-        <span class="org-comment-delimiter"># </span><span class="org-comment">Wait and close all windows</span>
-        cv.waitKey<span class="org-rainbow-delimiters-depth-1">(</span>0<span class="org-rainbow-delimiters-depth-1">)</span>
-        cv.destroyAllWindows<span class="org-rainbow-delimiters-depth-1">()</span>
-
-    @<span class="org-builtin">classmethod</span>
-    <span class="org-keyword">def</span> <span class="org-function-name">printer</span><span class="org-rainbow-delimiters-depth-1">(</span>cls, show<span class="org-operator">=</span><span class="org-constant">None</span>, publish<span class="org-operator">=</span><span class="org-constant">None</span><span class="org-rainbow-delimiters-depth-1">)</span>:
-
-        <span class="org-comment-delimiter"># </span><span class="org-comment">To print the plot in a nice .eps file in 200 dpi format.</span>
-        <span class="org-keyword">if</span> publish:
-            plt.savefig<span class="org-rainbow-delimiters-depth-1">(</span>publish <span class="org-operator">+</span> <span class="org-string">".png"</span>, <span class="org-builtin">format</span><span class="org-operator">=</span><span class="org-string">'png'</span>, dpi<span class="org-operator">=</span>300, bbox_inches<span class="org-operator">=</span><span class="org-string">'tight'</span><span class="org-rainbow-delimiters-depth-1">)</span>
-
-        <span class="org-comment-delimiter"># </span><span class="org-comment">To lazy to write plt.show()</span>
-        <span class="org-keyword">if</span> show:
-            plt.show<span class="org-rainbow-delimiters-depth-1">()</span>
-
-    @<span class="org-builtin">classmethod</span>
-    <span class="org-keyword">def</span> <span class="org-function-name">color_loop</span><span class="org-rainbow-delimiters-depth-1">(</span>cls<span class="org-rainbow-delimiters-depth-1">)</span>:
-        <span class="org-variable-name">prop_cycle</span> <span class="org-operator">=</span> plt.rcParams<span class="org-rainbow-delimiters-depth-1">[</span><span class="org-string">'axes.prop_cycle'</span><span class="org-rainbow-delimiters-depth-1">]</span>
-        <span class="org-variable-name">colors</span> <span class="org-operator">=</span> prop_cycle.by_key<span class="org-rainbow-delimiters-depth-1">()[</span><span class="org-string">'color'</span><span class="org-rainbow-delimiters-depth-1">]</span>
-        <span class="org-keyword">return</span> colors
-
-    @<span class="org-builtin">classmethod</span>
-    <span class="org-keyword">def</span> <span class="org-function-name">remove_borders</span><span class="org-rainbow-delimiters-depth-1">(</span>cls, axes_rm_borders<span class="org-rainbow-delimiters-depth-1">)</span>:
-        axes_rm_borders.spines<span class="org-rainbow-delimiters-depth-1">[</span><span class="org-string">'top'</span><span class="org-rainbow-delimiters-depth-1">]</span>.set_visible<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-constant">False</span><span class="org-rainbow-delimiters-depth-1">)</span>
-        axes_rm_borders.spines<span class="org-rainbow-delimiters-depth-1">[</span><span class="org-string">'right'</span><span class="org-rainbow-delimiters-depth-1">]</span>.set_visible<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-constant">False</span><span class="org-rainbow-delimiters-depth-1">)</span>
-        axes_rm_borders.spines<span class="org-rainbow-delimiters-depth-1">[</span><span class="org-string">'bottom'</span><span class="org-rainbow-delimiters-depth-1">]</span>.set_visible<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-constant">False</span><span class="org-rainbow-delimiters-depth-1">)</span>
-        axes_rm_borders.spines<span class="org-rainbow-delimiters-depth-1">[</span><span class="org-string">'left'</span><span class="org-rainbow-delimiters-depth-1">]</span>.set_visible<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-constant">False</span><span class="org-rainbow-delimiters-depth-1">)</span>
-        axes_rm_borders.tick_params<span class="org-rainbow-delimiters-depth-1">(</span>which<span class="org-operator">=</span><span class="org-string">'both'</span>, size<span class="org-operator">=</span>0, labelsize<span class="org-operator">=</span>0<span class="org-rainbow-delimiters-depth-1">)</span>
-
 </pre>
 </div>
 </div>
@@ -473,7 +400,7 @@ To start coding, first import the necessary modules
 </p>
 
 <div class="org-src-container">
-<pre class="src src-python" id="org981db0c"><span class="org-keyword">import</span> numpy <span class="org-keyword">as</span> np
+<pre class="src src-python" id="org56d92c4"><span class="org-keyword">import</span> numpy <span class="org-keyword">as</span> np
 <span class="org-keyword">from</span> skimage <span class="org-keyword">import</span> data <span class="org-comment-delimiter"># </span><span class="org-comment">for smaple image</span>
 
 <span class="org-comment-delimiter"># </span><span class="org-comment">Create independent variable </span>
@@ -505,7 +432,7 @@ cp.store_fig<span class="org-rainbow-delimiters-depth-1">(</span><span class="or
 </div>
 
 
-<div id="org03a2350" class="figure">
+<div id="org2ca8b7f" class="figure">
 <p><img src="images/Noise/gaussian-noise.png" alt="gaussian-noise.png" />
 </p>
 </div>
@@ -515,7 +442,7 @@ For an image, the behaviour looks something like the following.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-python" id="org52182e3"><span class="org-comment-delimiter"># </span><span class="org-comment">Read Image</span>
+<pre class="src src-python" id="orgd0657a7"><span class="org-comment-delimiter"># </span><span class="org-comment">Read Image</span>
 <span class="org-variable-name">img</span> <span class="org-operator">=</span> data.astronaut<span class="org-rainbow-delimiters-depth-1">()</span>
 
 <span class="org-comment-delimiter"># </span><span class="org-comment">Convert the image to grayscale</span>
@@ -546,7 +473,7 @@ cp.store_fig<span class="org-rainbow-delimiters-depth-1">(</span><span class="or
 </div>
 
 
-<div id="org40966b9" class="figure">
+<div id="org0ee29ac" class="figure">
 <p><img src="images/Noise/psd-white-noise.png" alt="psd-white-noise.png" />
 </p>
 </div>
@@ -562,7 +489,7 @@ Let's draw one and see how it works.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-python" id="org343b335"><span class="org-keyword">import</span> numpy <span class="org-keyword">as</span> np
+<pre class="src src-python" id="org209b6c1"><span class="org-keyword">import</span> numpy <span class="org-keyword">as</span> np
 
 <span class="org-keyword">import</span> matplotlib.mlab <span class="org-keyword">as</span> mlab
 
@@ -594,7 +521,7 @@ cp.store_fig<span class="org-rainbow-delimiters-depth-1">(</span><span class="or
 </div>
 
 
-<div id="orge9e1016" class="figure">
+<div id="org6d09b0d" class="figure">
 <p><img src="images/Noise/psd-white-noise.png" alt="psd-white-noise.png" />
 </p>
 </div>
@@ -625,7 +552,7 @@ as shot noise, a noise modelled using the Poisson process.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-python" id="orgc15ca3c"><span class="org-keyword">def</span> <span class="org-function-name">photon_noise</span><span class="org-rainbow-delimiters-depth-1">(</span>mu<span class="org-operator">=</span><span class="org-rainbow-delimiters-depth-2">[</span>1, 2, 5, 10<span class="org-rainbow-delimiters-depth-2">]</span>, k<span class="org-operator">=</span>np.arange<span class="org-rainbow-delimiters-depth-2">(</span>0, 20, 0.1<span class="org-rainbow-delimiters-depth-2">)</span>,
+<pre class="src src-python" id="org03b2674"><span class="org-keyword">def</span> <span class="org-function-name">photon_noise</span><span class="org-rainbow-delimiters-depth-1">(</span>mu<span class="org-operator">=</span><span class="org-rainbow-delimiters-depth-2">[</span>1, 2, 5, 10<span class="org-rainbow-delimiters-depth-2">]</span>, k<span class="org-operator">=</span>np.arange<span class="org-rainbow-delimiters-depth-2">(</span>0, 20, 0.1<span class="org-rainbow-delimiters-depth-2">)</span>,
                  legend_text<span class="org-operator">=</span><span class="org-rainbow-delimiters-depth-2">[</span>r<span class="org-string">'$\rho T = 1$'</span>, r<span class="org-string">"$\rho T = 2$"</span>, r<span class="org-string">"$\rho T = 5$"</span>,
                               r<span class="org-string">"$\rho T = 10$"</span><span class="org-rainbow-delimiters-depth-2">]</span>, publish<span class="org-operator">=</span><span class="org-constant">None</span>, show<span class="org-operator">=</span><span class="org-constant">None</span>, style<span class="org-operator">=</span><span class="org-constant">None</span><span class="org-rainbow-delimiters-depth-1">)</span>:
 
@@ -663,7 +590,7 @@ cp.store_fig<span class="org-rainbow-delimiters-depth-1">(</span><span class="or
 </div>
 
 
-<div id="org9334bfe" class="figure">
+<div id="org23e2418" class="figure">
 <p><img src="images/Noise/photon-noise.png" alt="photon-noise.png" />
 </p>
 </div>
@@ -752,7 +679,7 @@ takes iterables and turns them into <a href="https://docs.python.org/3/tutorial/
 </p>
 
 <div class="org-src-container">
-<pre class="src src-python" id="org5ffe960"><span class="org-comment-delimiter">#</span><span class="org-comment">plt.style.use('dark_background')</span>
+<pre class="src src-python" id="org72c668d"><span class="org-comment-delimiter">#</span><span class="org-comment">plt.style.use('dark_background')</span>
 plt.figure<span class="org-rainbow-delimiters-depth-1">(</span>figsize<span class="org-operator">=</span><span class="org-rainbow-delimiters-depth-2">(</span>12, 8<span class="org-rainbow-delimiters-depth-2">)</span>, tight_layout<span class="org-operator">=</span><span class="org-constant">True</span><span class="org-rainbow-delimiters-depth-1">)</span>
 <span class="org-keyword">for</span> G, c <span class="org-keyword">in</span> <span class="org-builtin">zip</span><span class="org-rainbow-delimiters-depth-1">(</span>
         <span class="org-rainbow-delimiters-depth-2">[</span>brownian_noise, pink_noise, white_noise, blue_noise, violet_noise<span class="org-rainbow-delimiters-depth-2">]</span>, 
@@ -771,10 +698,146 @@ cp.store_fig<span class="org-rainbow-delimiters-depth-1">(</span><span class="or
 </div>
 
 
-<div id="org3aa496a" class="figure">
+<div id="org9b3dca1" class="figure">
 <p><img src="images/Noise/colour-of-noise.png" alt="colour-of-noise.png" />
 </p>
 </div>
+</div>
+</div>
+
+<div id="outline-container-org9e36c30" class="outline-2">
+<h2 id="org9e36c30">Entropy</h2>
+<div class="outline-text-2" id="text-org9e36c30">
+<p>
+Entropy is measured to be the state of disorder. For an image, local entropy is
+related to the complexity contained in a given neighborhood, typically defined by a
+structuring element. The entropy filter can detect subtle variations in the local
+gray level distribution.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-python" id="org630ac27"><span class="org-keyword">import</span> matplotlib.pyplot <span class="org-keyword">as</span> plt
+<span class="org-keyword">import</span> numpy <span class="org-keyword">as</span> np
+
+<span class="org-keyword">from</span> skimage <span class="org-keyword">import</span> data
+<span class="org-keyword">from</span> skimage.util <span class="org-keyword">import</span> img_as_ubyte
+<span class="org-keyword">from</span> skimage.filters.rank <span class="org-keyword">import</span> entropy
+<span class="org-keyword">from</span> skimage.morphology <span class="org-keyword">import</span> disk
+
+<span class="org-variable-name">rng</span> <span class="org-operator">=</span> np.random.default_rng<span class="org-rainbow-delimiters-depth-1">()</span>
+
+<span class="org-variable-name">noise_mask</span> <span class="org-operator">=</span> np.full<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-rainbow-delimiters-depth-2">(</span>128, 128<span class="org-rainbow-delimiters-depth-2">)</span>, 28, dtype<span class="org-operator">=</span>np.uint8<span class="org-rainbow-delimiters-depth-1">)</span>
+<span class="org-variable-name">noise_mask</span><span class="org-rainbow-delimiters-depth-1">[</span>32:<span class="org-operator">-</span>32, 32:<span class="org-operator">-</span>32<span class="org-rainbow-delimiters-depth-1">]</span> <span class="org-operator">=</span> 30
+
+<span class="org-variable-name">noise</span> <span class="org-operator">=</span> <span class="org-rainbow-delimiters-depth-1">(</span>noise_mask <span class="org-operator">*</span> rng.random<span class="org-rainbow-delimiters-depth-2">(</span>noise_mask.shape<span class="org-rainbow-delimiters-depth-2">)</span> <span class="org-operator">-</span> 0.5 <span class="org-operator">*</span> noise_mask<span class="org-rainbow-delimiters-depth-1">)</span>.astype<span class="org-rainbow-delimiters-depth-1">(</span>np.uint8<span class="org-rainbow-delimiters-depth-1">)</span>
+<span class="org-variable-name">img</span> <span class="org-operator">=</span> noise <span class="org-operator">+</span> 128
+
+<span class="org-variable-name">entr_img</span> <span class="org-operator">=</span> entropy<span class="org-rainbow-delimiters-depth-1">(</span>img, disk<span class="org-rainbow-delimiters-depth-2">(</span>10<span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
+
+fig, <span class="org-rainbow-delimiters-depth-1">(</span><span class="org-variable-name">ax0</span>, <span class="org-variable-name">ax1</span>, <span class="org-variable-name">ax2</span><span class="org-rainbow-delimiters-depth-1">)</span> <span class="org-operator">=</span> plt.subplots<span class="org-rainbow-delimiters-depth-1">(</span>nrows<span class="org-operator">=</span>1, ncols<span class="org-operator">=</span>3, figsize<span class="org-operator">=</span><span class="org-rainbow-delimiters-depth-2">(</span>10, 4<span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
+
+<span class="org-variable-name">img0</span> <span class="org-operator">=</span> ax0.imshow<span class="org-rainbow-delimiters-depth-1">(</span>noise_mask, cmap<span class="org-operator">=</span><span class="org-string">'gray'</span><span class="org-rainbow-delimiters-depth-1">)</span>
+ax0.set_title<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-string">"Object"</span><span class="org-rainbow-delimiters-depth-1">)</span>
+ax1.imshow<span class="org-rainbow-delimiters-depth-1">(</span>img, cmap<span class="org-operator">=</span><span class="org-string">'gray'</span><span class="org-rainbow-delimiters-depth-1">)</span>
+ax1.set_title<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-string">"Noisy image"</span><span class="org-rainbow-delimiters-depth-1">)</span>
+ax2.imshow<span class="org-rainbow-delimiters-depth-1">(</span>entr_img, cmap<span class="org-operator">=</span><span class="org-string">'viridis'</span><span class="org-rainbow-delimiters-depth-1">)</span>
+ax2.set_title<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-string">"Local entropy"</span><span class="org-rainbow-delimiters-depth-1">)</span>
+
+cp.store_fig<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-string">"entropy-image"</span>,
+             filepath <span class="org-operator">=</span> SAVE_PATH,
+             style <span class="org-operator">=</span> <span class="org-string">"web"</span>,
+             close <span class="org-operator">=</span> <span class="org-constant">True</span><span class="org-rainbow-delimiters-depth-1">)</span>
+</pre>
+</div>
+
+
+<div id="orgb6215c7" class="figure">
+<p><img src="images/Noise/entropy-image.png" alt="entropy-image.png" />
+</p>
+</div>
+
+<p>
+You can also calculate the <a href="https://en.wikipedia.org/wiki/Entropy_(information_theory)">Shannon entropy</a> of an image. Without going
+into too much into detail, it quantifies the amount of information
+contained in a message or data set. Mathematically it is defined as:
+</p>
+
+<blockquote>
+<p>
+Given a discrete random variable \(X\), which takes values in the set \(\mathcal{X}\)
+and is distributed according to \(p : \mathcal{X} \rightarrow [0 , 1]\), the entropy is:
+</p>
+
+\begin{equation*}
+\mathrm {H} (X):=-\sum _{x\in {\mathcal {X}}}p(x)\log p(x)
+\end{equation*}
+
+<p>
+where \(\Sigma\) denotes the sum over the variable's possible values.
+</p>
+</blockquote>
+
+<p>
+The higher the entropy, the <span class="Hlight">more uncertain or unpredictable the information is</span>.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-python" id="org13a1026"><span class="org-keyword">import</span> skimage.measure
+<span class="org-keyword">import</span> skimage <span class="org-keyword">as</span> ski
+
+<span class="org-variable-name">img</span> <span class="org-operator">=</span> ski.io.imread<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-string">"Fruit.jpg"</span><span class="org-rainbow-delimiters-depth-1">)</span>
+
+<span class="org-variable-name">entropy</span> <span class="org-operator">=</span> skimage.measure.shannon_entropy<span class="org-rainbow-delimiters-depth-1">(</span>img<span class="org-rainbow-delimiters-depth-1">)</span>
+
+<span class="org-builtin">print</span><span class="org-rainbow-delimiters-depth-1">(</span><span class="org-string">"Original image:"</span>, entropy<span class="org-rainbow-delimiters-depth-1">)</span>
+</pre>
+</div>
+
+<pre class="example" id="org241cc98">
+Original image: 7.878513692105653
+</pre>
+
+<p>
+Let's add some noise to our image and see if our entropy changes.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-python" id="orge59a8bc"><span class="org-variable-name">img_noise</span> <span class="org-operator">=</span> skimage.util.random_noise<span class="org-rainbow-delimiters-depth-1">(</span>img, mode<span class="org-operator">=</span><span class="org-string">'gaussian'</span><span class="org-rainbow-delimiters-depth-1">)</span>
+
+<span class="org-variable-name">entropy</span> <span class="org-operator">=</span> skimage.measure.shannon_entropy<span class="org-rainbow-delimiters-depth-1">(</span>img_noise<span class="org-rainbow-delimiters-depth-1">)</span>
+<span class="org-builtin">print</span><span class="org-rainbow-delimiters-depth-1">(</span><span class="org-string">"Image with noise"</span>, entropy<span class="org-rainbow-delimiters-depth-1">)</span>
+</pre>
+</div>
+
+<pre class="example" id="orgef856eb">
+Image with noise 19.2941617568451
+</pre>
+
+<p>
+And finally lets see image comparison between the original image and
+image with noise.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-python" id="org05cd85c">cp.Plotting.image_subplot_style<span class="org-rainbow-delimiters-depth-1">(</span>
+    1, 2,
+    image_array<span class="org-operator">=</span><span class="org-rainbow-delimiters-depth-2">[</span>img,
+                 img_noise<span class="org-rainbow-delimiters-depth-2">]</span>,
+    show<span class="org-operator">=</span><span class="org-constant">False</span>, publish<span class="org-operator">=</span><span class="org-string">"images/Noise/shannon-comparison"</span>, rgb<span class="org-operator">=</span><span class="org-constant">None</span><span class="org-rainbow-delimiters-depth-1">)</span>
+</pre>
+</div>
+
+
+<div id="org626ceed" class="figure">
+<p><img src="images/Noise/shannon-comparison.png" alt="shannon-comparison.png" />
+</p>
+</div>
+
+<p>
+As can be seen visually, the image on the right has significant noise
+compared to the original image and using shannon's entropy to quantify
+this disorder.
+</p>
 </div>
 </div>
 
@@ -862,7 +925,7 @@ We now define the matrix and create a 2D array of Perlin noise.
 </div>
 
 <div class="org-src-container">
-<pre class="src src-python" id="orgd171160">plt.imshow<span class="org-rainbow-delimiters-depth-1">(</span>world,cmap<span class="org-operator">=</span><span class="org-string">'terrain'</span><span class="org-rainbow-delimiters-depth-1">)</span>
+<pre class="src src-python" id="org4155b26">plt.imshow<span class="org-rainbow-delimiters-depth-1">(</span>world,cmap<span class="org-operator">=</span><span class="org-string">'terrain'</span><span class="org-rainbow-delimiters-depth-1">)</span>
 
 cp.store_fig<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-string">"perlin-plot-2d-map"</span>,
              filepath <span class="org-operator">=</span> SAVE_PATH,
@@ -872,7 +935,7 @@ cp.store_fig<span class="org-rainbow-delimiters-depth-1">(</span><span class="or
 </div>
 
 
-<div id="org9a3c38f" class="figure">
+<div id="orgf7dcfab" class="figure">
 <p><img src="images/Noise/perlin-plot-2d-map.png" alt="perlin-plot-2d-map.png" />
 </p>
 </div>
@@ -906,7 +969,7 @@ We can have a quick look at the generated image.
 </div>
 
 <div class="org-src-container">
-<pre class="src src-python" id="org7778856"><span class="org-variable-name">fig</span> <span class="org-operator">=</span> plt.figure<span class="org-rainbow-delimiters-depth-1">()</span>
+<pre class="src src-python" id="orgcfa917d"><span class="org-variable-name">fig</span> <span class="org-operator">=</span> plt.figure<span class="org-rainbow-delimiters-depth-1">()</span>
 <span class="org-variable-name">ax</span> <span class="org-operator">=</span> fig.add_subplot<span class="org-rainbow-delimiters-depth-1">(</span>projection<span class="org-operator">=</span><span class="org-string">'3d'</span><span class="org-rainbow-delimiters-depth-1">)</span>
 ax.plot_surface<span class="org-rainbow-delimiters-depth-1">(</span>x,y,world,cmap<span class="org-operator">=</span><span class="org-string">'terrain'</span><span class="org-rainbow-delimiters-depth-1">)</span>
 
@@ -921,7 +984,7 @@ cp.store_fig<span class="org-rainbow-delimiters-depth-1">(</span><span class="or
 </div>
 
 
-<div id="org170df2f" class="figure">
+<div id="org546bfad" class="figure">
 <p><img src="images/Noise/perlin-plot-3d-map.png" alt="perlin-plot-3d-map.png" />
 </p>
 </div>
@@ -1002,7 +1065,7 @@ This would produce an image that looks like this:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-python" id="org776e983"><span class="org-variable-name">num_photons</span> <span class="org-operator">=</span> 500
+<pre class="src src-python" id="org21d45a4"><span class="org-variable-name">num_photons</span> <span class="org-operator">=</span> 500
 <span class="org-variable-name">num_pixels</span>  <span class="org-operator">=</span> 256
 <span class="org-variable-name">mu_p</span>        <span class="org-operator">=</span> num_photons <span class="org-operator">*</span> np.ones<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-rainbow-delimiters-depth-2">(</span>num_pixels, num_pixels<span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
 
@@ -1024,7 +1087,7 @@ cp.store_fig<span class="org-rainbow-delimiters-depth-1">(</span><span class="or
 </div>
 
 
-<div id="orgd763d6a" class="figure">
+<div id="org03265c0" class="figure">
 <p><img src="images/Noise/camera-noise-no-noise.png" alt="camera-noise-no-noise.png" />
 </p>
 </div>
@@ -1081,7 +1144,7 @@ a size of <span class="Code">num_pixels</span>.
 </table>
 
 <div class="org-src-container">
-<pre class="src src-python" id="orge66ed42">fig, <span class="org-rainbow-delimiters-depth-1">(</span><span class="org-variable-name">ax0</span>, <span class="org-variable-name">ax1</span><span class="org-rainbow-delimiters-depth-1">)</span> <span class="org-operator">=</span> plt.subplots<span class="org-rainbow-delimiters-depth-1">(</span>ncols<span class="org-operator">=</span>2<span class="org-rainbow-delimiters-depth-1">)</span>
+<pre class="src src-python" id="org0db82a5">fig, <span class="org-rainbow-delimiters-depth-1">(</span><span class="org-variable-name">ax0</span>, <span class="org-variable-name">ax1</span><span class="org-rainbow-delimiters-depth-1">)</span> <span class="org-operator">=</span> plt.subplots<span class="org-rainbow-delimiters-depth-1">(</span>ncols<span class="org-operator">=</span>2<span class="org-rainbow-delimiters-depth-1">)</span>
 <span class="org-variable-name">img0</span> <span class="org-operator">=</span> ax0.imshow<span class="org-rainbow-delimiters-depth-1">(</span>mu_p, vmin<span class="org-operator">=</span>400, vmax<span class="org-operator">=</span>600<span class="org-rainbow-delimiters-depth-1">)</span>
 ax0.set_xticks<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-rainbow-delimiters-depth-2">[]</span><span class="org-rainbow-delimiters-depth-1">)</span>, ax0.set_yticks<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-rainbow-delimiters-depth-2">[]</span><span class="org-rainbow-delimiters-depth-1">)</span>
 ax0.set_title<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-string">'No shot noise'</span><span class="org-rainbow-delimiters-depth-1">)</span>
@@ -1107,7 +1170,7 @@ cp.store_fig<span class="org-rainbow-delimiters-depth-1">(</span><span class="or
 </div>
 
 
-<div id="org87fedac" class="figure">
+<div id="org6aca05f" class="figure">
 <p><img src="images/Noise/camera-noise-poisson.png" alt="camera-noise-poisson.png" />
 </p>
 </div>
@@ -1117,7 +1180,7 @@ It is also worth looking at the distribution of the photons.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-python" id="org78aa4f6">plt.hist<span class="org-rainbow-delimiters-depth-1">(</span>shot_noise.ravel<span class="org-rainbow-delimiters-depth-2">()</span>, bins<span class="org-operator">=</span>np.arange<span class="org-rainbow-delimiters-depth-2">(</span>350, 650<span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
+<pre class="src src-python" id="org6a68dfb">plt.hist<span class="org-rainbow-delimiters-depth-1">(</span>shot_noise.ravel<span class="org-rainbow-delimiters-depth-2">()</span>, bins<span class="org-operator">=</span>np.arange<span class="org-rainbow-delimiters-depth-2">(</span>350, 650<span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
 plt.xlabel<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-string">'Number of photons per pixel'</span><span class="org-rainbow-delimiters-depth-1">)</span>
 plt.ylabel<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-string">'Frequency'</span><span class="org-rainbow-delimiters-depth-1">)</span>
 
@@ -1129,7 +1192,7 @@ cp.store_fig<span class="org-rainbow-delimiters-depth-1">(</span><span class="or
 </div>
 
 
-<div id="org5210e49" class="figure">
+<div id="org396dea1" class="figure">
 <p><img src="images/Noise/camera-photon-dist.png" alt="camera-photon-dist.png" />
 </p>
 </div>
@@ -1205,7 +1268,7 @@ product of the quantum efficiency with the realization of the field.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-python" id="org65ecfdc">fig, <span class="org-rainbow-delimiters-depth-1">(</span><span class="org-variable-name">ax0</span>, <span class="org-variable-name">ax1</span><span class="org-rainbow-delimiters-depth-1">)</span> <span class="org-operator">=</span> plt.subplots<span class="org-rainbow-delimiters-depth-1">(</span>ncols<span class="org-operator">=</span>2<span class="org-rainbow-delimiters-depth-1">)</span>
+<pre class="src src-python" id="org0f2d932">fig, <span class="org-rainbow-delimiters-depth-1">(</span><span class="org-variable-name">ax0</span>, <span class="org-variable-name">ax1</span><span class="org-rainbow-delimiters-depth-1">)</span> <span class="org-operator">=</span> plt.subplots<span class="org-rainbow-delimiters-depth-1">(</span>ncols<span class="org-operator">=</span>2<span class="org-rainbow-delimiters-depth-1">)</span>
 
 <span class="org-variable-name">img0</span> <span class="org-operator">=</span> ax0.imshow<span class="org-rainbow-delimiters-depth-1">(</span>shot_noise, vmin<span class="org-operator">=</span>200, vmax<span class="org-operator">=</span>600<span class="org-rainbow-delimiters-depth-1">)</span>
 ax0.set_xticks<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-rainbow-delimiters-depth-2">[]</span><span class="org-rainbow-delimiters-depth-1">)</span>, ax0.set_yticks<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-rainbow-delimiters-depth-2">[]</span><span class="org-rainbow-delimiters-depth-1">)</span>
@@ -1232,7 +1295,7 @@ cp.store_fig<span class="org-rainbow-delimiters-depth-1">(</span><span class="or
 </div>
 
 
-<div id="orge3a4eda" class="figure">
+<div id="org45d882c" class="figure">
 <p><img src="images/Noise/camera-photoelectron-numbers.png" alt="camera-photoelectron-numbers.png" />
 </p>
 </div>
@@ -1268,7 +1331,7 @@ Time to plot our results.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-python" id="org2c6afdd">fig, <span class="org-rainbow-delimiters-depth-1">(</span><span class="org-variable-name">ax0</span>, <span class="org-variable-name">ax1</span><span class="org-rainbow-delimiters-depth-1">)</span> <span class="org-operator">=</span> plt.subplots<span class="org-rainbow-delimiters-depth-1">(</span>ncols<span class="org-operator">=</span>2<span class="org-rainbow-delimiters-depth-1">)</span>
+<pre class="src src-python" id="org5e57a06">fig, <span class="org-rainbow-delimiters-depth-1">(</span><span class="org-variable-name">ax0</span>, <span class="org-variable-name">ax1</span><span class="org-rainbow-delimiters-depth-1">)</span> <span class="org-operator">=</span> plt.subplots<span class="org-rainbow-delimiters-depth-1">(</span>ncols<span class="org-operator">=</span>2<span class="org-rainbow-delimiters-depth-1">)</span>
 <span class="org-variable-name">img0</span> <span class="org-operator">=</span> ax0.imshow<span class="org-rainbow-delimiters-depth-1">(</span>electrons, vmin<span class="org-operator">=</span>250, vmax<span class="org-operator">=</span>450<span class="org-rainbow-delimiters-depth-1">)</span>
 ax0.set_xticks<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-rainbow-delimiters-depth-2">[]</span><span class="org-rainbow-delimiters-depth-1">)</span>
 ax0.set_yticks<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-rainbow-delimiters-depth-2">[]</span><span class="org-rainbow-delimiters-depth-1">)</span>
@@ -1297,7 +1360,7 @@ cp.store_fig<span class="org-rainbow-delimiters-depth-1">(</span><span class="or
 </div>
 
 
-<div id="org131ee42" class="figure">
+<div id="orgcb0ef21" class="figure">
 <p><img src="images/Noise/camera-dark-current.png" alt="camera-dark-current.png" />
 </p>
 </div>
@@ -1308,7 +1371,7 @@ sensor.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-python" id="org91381c3"><span class="org-variable-name">fig</span>, <span class="org-variable-name">ax</span> <span class="org-operator">=</span> plt.subplots<span class="org-rainbow-delimiters-depth-1">()</span>
+<pre class="src src-python" id="orgda448ba"><span class="org-variable-name">fig</span>, <span class="org-variable-name">ax</span> <span class="org-operator">=</span> plt.subplots<span class="org-rainbow-delimiters-depth-1">()</span>
 <span class="org-variable-name">img</span> <span class="org-operator">=</span> ax.imshow<span class="org-rainbow-delimiters-depth-1">(</span>electrons <span class="org-operator">-</span> electrons_out, vmin<span class="org-operator">=-</span>10, vmax<span class="org-operator">=</span>10<span class="org-rainbow-delimiters-depth-1">)</span>
 ax.set_xticks<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-rainbow-delimiters-depth-2">[]</span><span class="org-rainbow-delimiters-depth-1">)</span>
 ax.set_yticks<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-rainbow-delimiters-depth-2">[]</span><span class="org-rainbow-delimiters-depth-1">)</span>
@@ -1327,7 +1390,7 @@ cp.store_fig<span class="org-rainbow-delimiters-depth-1">(</span><span class="or
 </div>
 
 
-<div id="org2b5e2cf" class="figure">
+<div id="orgeeec782" class="figure">
 <p><img src="images/Noise/electron-plot.png" alt="electron-plot.png" />
 </p>
 </div>
@@ -1347,7 +1410,7 @@ ADU's are the units of grey scale that are output by monochrome cameras.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-python" id="orge3e43f6"><span class="org-variable-name">sensitivity</span> <span class="org-operator">=</span> 5.88 <span class="org-comment-delimiter"># </span><span class="org-comment">ADU/e-</span>
+<pre class="src src-python" id="org6116996"><span class="org-variable-name">sensitivity</span> <span class="org-operator">=</span> 5.88 <span class="org-comment-delimiter"># </span><span class="org-comment">ADU/e-</span>
 <span class="org-variable-name">bitdepth</span>    <span class="org-operator">=</span> 12
 <span class="org-variable-name">max_adu</span>     <span class="org-operator">=</span> <span class="org-builtin">int</span><span class="org-rainbow-delimiters-depth-1">(</span>2<span class="org-operator">**</span>bitdepth <span class="org-operator">-</span> 1<span class="org-rainbow-delimiters-depth-1">)</span>
 <span class="org-variable-name">adu</span>         <span class="org-operator">=</span> <span class="org-rainbow-delimiters-depth-1">(</span>electrons_out <span class="org-operator">*</span> sensitivity<span class="org-rainbow-delimiters-depth-1">)</span>
@@ -1369,7 +1432,7 @@ cp.store_fig<span class="org-rainbow-delimiters-depth-1">(</span><span class="or
 </div>
 
 
-<div id="orgf1ab209" class="figure">
+<div id="org9594322" class="figure">
 <p><img src="images/Noise/adu-plot.png" alt="adu-plot.png" />
 </p>
 </div>
@@ -1387,7 +1450,7 @@ each pixel in a Zyla, the average values will very nearly be 100.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-python" id="org55b1fea"><span class="org-variable-name">baseline</span>  <span class="org-operator">=</span> 100 <span class="org-comment-delimiter"># </span><span class="org-comment">ADU</span>
+<pre class="src src-python" id="orge9480ac"><span class="org-variable-name">baseline</span>  <span class="org-operator">=</span> 100 <span class="org-comment-delimiter"># </span><span class="org-comment">ADU</span>
 <span class="org-variable-name">adu</span>      <span class="org-operator">+=</span> baseline
 
 <span class="org-comment-delimiter"># </span><span class="org-comment">EDIT: Note that we could have easily just performed this next step once</span>
@@ -1411,7 +1474,7 @@ cp.store_fig<span class="org-rainbow-delimiters-depth-1">(</span><span class="or
 </div>
 
 
-<div id="orgc5cda41" class="figure">
+<div id="org4d0d351" class="figure">
 <p><img src="images/Noise/baseline-plot.png" alt="baseline-plot.png" />
 </p>
 </div>

@@ -153,6 +153,12 @@ pre.src-python::before {
 
 }
 
+pre.src-bash::before {
+  background-color: #24273a;
+  color: #c6d0f5;
+
+}
+
 pre,
 status {
   background-color: #24273a;
