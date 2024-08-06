@@ -1,0 +1,445 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Code for Digital Image Processing Histogram Operations</title>
+<meta name="author" content="Daniel McGuiness" />
+<meta name="generator" content="Org Mode" />
+<style>
+  #content { max-width: 60em; margin: auto; }
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #e6e6e6;
+    border-radius: 3px;
+    background-color: #f2f2f2;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: auto;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    top: -8px;
+    right: 12px;
+    padding: 3px;
+    color: #555;
+    background-color: #f2f2f299;
+  }
+  pre.src:hover:before { display: inline; margin-top: 14px;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-authinfo::before { content: 'Authinfo'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+  }
+  .equation {
+    vertical-align: middle;
+  }
+  .equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+  }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { }
+</style>
+<link rel="stylesheet" href="/Users/danielmcguiness/GitHub/MCI-Source-Files/Configuration/ScriptsHTML/style.css">
+<script type="text/javascript"  src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="/Users/danielmcguiness/GitHub/MCI-Source-Files/Configuration/ScriptsHTML/test.js">
+// @license magnet:?xt=urn:btih:1f739d935676111cfff4b4693e3816e664797050&amp;dn=gpl-3.0.txt GPL-v3-or-Later
+// @license-end
+</script>
+
+<script>
+// @license magnet:?xt=urn:btih:1f739d935676111cfff4b4693e3816e664797050&amp;dn=gpl-3.0.txt GPL-v3-or-Later
+org_html_manager.set("TOC_DEPTH", "3");
+org_html_manager.set("LINK_HOME", "");
+org_html_manager.set("LINK_UP", "index.html");
+org_html_manager.set("LOCAL_TOC", "1");
+org_html_manager.set("VIEW_BUTTONS", "0");
+org_html_manager.set("MOUSE_HINT", "underline");
+org_html_manager.set("FIXED_TOC", "0");
+org_html_manager.set("TOC", "1");
+org_html_manager.set("VIEW", "info");
+org_html_manager.setup();  // activate after the parameters are set
+// @license-end
+</script>
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href="index.html"> UP </a>
+ |
+ <a accesskey="H" href=""> HOME </a>
+</div><div id="content" class="content">
+<h1 class="title">Code for Digital Image Processing Histogram Operations</h1>
+<div id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#orgdefecbc">Introduction</a></li>
+<li><a href="#orgfafa00d">Histogram Generation from Image</a></li>
+<li><a href="#orgaa57be0">Application of Masks</a></li>
+<li><a href="#org8e6e8aa">Histogram Equalisation</a></li>
+<li><a href="#orgca6c98a">2D Histograms</a></li>
+</ul>
+</div>
+</div>
+<p>
+These are the code snippets used in <code>Histogram Operations</code>
+part of <code>Digital Image Processing</code>.
+</p>
+
+<div id="outline-container-orgdefecbc" class="outline-2">
+<h2 id="orgdefecbc">Introduction</h2>
+<div class="outline-text-2" id="text-orgdefecbc">
+<div class="org-src-container">
+<pre class="src src-python" id="orga1993d5"><span class="org-variable-name">lecplot_styles</span> <span class="org-operator">=</span> <span class="org-rainbow-delimiters-depth-1">{</span>
+    <span class="org-string">'axes.edgecolor'</span>: <span class="org-string">'(0.98, 0.98, 0.98)'</span>,
+    <span class="org-string">'axes.facecolor'</span>: <span class="org-string">'(0.98, 0.98, 0.98)'</span>,
+    <span class="org-string">'figure.facecolor'</span>: <span class="org-string">'(0.98, 0.98, 0.98)'</span>,
+    <span class="org-string">'axes.grid'</span>: <span class="org-constant">True</span>,
+    <span class="org-string">'axes.grid.which'</span>: <span class="org-string">'both'</span>,
+    <span class="org-string">'axes.spines.left'</span>: <span class="org-constant">True</span>,
+    <span class="org-string">'axes.spines.right'</span>: <span class="org-constant">False</span>,
+    <span class="org-string">'axes.spines.top'</span>: <span class="org-constant">False</span>,
+    <span class="org-string">'axes.spines.bottom'</span>: <span class="org-constant">False</span>,
+    <span class="org-string">'grid.color'</span>: <span class="org-string">'(0.98, 0.98, 0.98)'</span>,
+    <span class="org-string">'grid.linewidth'</span>: <span class="org-string">'1.2'</span>,
+    <span class="org-string">'xtick.color'</span>: <span class="org-string">'555555'</span>,
+    <span class="org-string">'xtick.major.bottom'</span>: <span class="org-constant">True</span>,
+    <span class="org-string">'xtick.minor.bottom'</span>: <span class="org-constant">True</span>,
+    <span class="org-string">'ytick.color'</span>: <span class="org-string">'555555'</span>,
+    <span class="org-string">'ytick.major.left'</span>: <span class="org-constant">True</span>,
+    <span class="org-string">'ytick.minor.left'</span>: <span class="org-constant">False</span>,
+<span class="org-rainbow-delimiters-depth-1">}</span>
+
+<span class="org-variable-name">font</span> <span class="org-operator">=</span> <span class="org-rainbow-delimiters-depth-1">{</span><span class="org-string">'size'</span>   : 16<span class="org-rainbow-delimiters-depth-1">}</span>
+plt.rc<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-string">'font'</span>, <span class="org-operator">**</span>font<span class="org-rainbow-delimiters-depth-1">)</span>
+plt.rcParams.update<span class="org-rainbow-delimiters-depth-1">(</span>lecplot_styles<span class="org-rainbow-delimiters-depth-1">)</span>
+plt.<span class="org-variable-name">rcParams</span><span class="org-rainbow-delimiters-depth-1">[</span><span class="org-string">'axes.axisbelow'</span><span class="org-rainbow-delimiters-depth-1">]</span> <span class="org-operator">=</span> <span class="org-constant">True</span>
+
+plt.rc<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-string">'xtick'</span>, labelsize<span class="org-operator">=</span>10<span class="org-rainbow-delimiters-depth-1">)</span>    
+plt.rc<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-string">'ytick'</span>, labelsize<span class="org-operator">=</span>10<span class="org-rainbow-delimiters-depth-1">)</span>    
+
+<span class="org-keyword">def</span> <span class="org-function-name">plot_settings</span><span class="org-rainbow-delimiters-depth-1">()</span>:
+    plt.grid<span class="org-rainbow-delimiters-depth-1">(</span>which<span class="org-operator">=</span><span class="org-string">'major'</span>, color<span class="org-operator">=</span><span class="org-string">'</span><span class="custom-1"><span class="custom-2">#DDDDDD</span></span><span class="org-string">'</span>, linewidth<span class="org-operator">=</span>0.8<span class="org-rainbow-delimiters-depth-1">)</span>
+    plt.grid<span class="org-rainbow-delimiters-depth-1">(</span>which<span class="org-operator">=</span><span class="org-string">'minor'</span>, color<span class="org-operator">=</span><span class="org-string">'</span><span class="custom"><span class="custom-2">#EEEEEE</span></span><span class="org-string">'</span>, linestyle<span class="org-operator">=</span><span class="org-string">':'</span>, linewidth<span class="org-operator">=</span>0.5<span class="org-rainbow-delimiters-depth-1">)</span>
+    plt.minorticks_on<span class="org-rainbow-delimiters-depth-1">()</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgfafa00d" class="outline-2">
+<h2 id="orgfafa00d">Histogram Generation from Image</h2>
+<div class="outline-text-2" id="text-orgfafa00d">
+<div class="org-src-container">
+<pre class="src src-python" id="org63a460c"><span class="org-keyword">import</span> cv2 <span class="org-keyword">as</span> cv
+<span class="org-keyword">import</span> numpy <span class="org-keyword">as</span> np
+<span class="org-keyword">from</span> matplotlib <span class="org-keyword">import</span> pyplot <span class="org-keyword">as</span> plt
+</pre>
+</div>
+
+<p>
+Let's also deifind our image for to use in the following
+exercises
+</p>
+
+<div class="org-src-container">
+<pre class="src src-python" id="org8f7672a"><span class="org-variable-name">image</span> <span class="org-operator">=</span> cv.imread<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-string">'Fruit.jpg'</span><span class="org-rainbow-delimiters-depth-1">)</span>
+cv.imwrite<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-string">"images/Histogram-Operations/reference-image.png"</span>, image<span class="org-rainbow-delimiters-depth-1">)</span>
+</pre>
+</div>
+
+
+<div id="org4b79e1c" class="figure">
+<p><img src="images/Histogram-Operations/reference-image.png" alt="reference-image.png" />
+</p>
+</div>
+
+<p>
+As can be seen from this image we have quite some blue
+environment (around the plate) and some nice (health)
+greenery with some on the darker side (kiwis) and some
+on the brighter side (grapes).
+</p>
+
+<p>
+It is also possible to percieve the vivid reds coming
+from the rapsberries.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-python" id="org63d52aa"><span class="org-variable-name">img</span> <span class="org-operator">=</span> cv.imread<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-string">'Fruit.jpg'</span>, cv.IMREAD_GRAYSCALE<span class="org-rainbow-delimiters-depth-1">)</span>
+plot_settings<span class="org-rainbow-delimiters-depth-1">()</span>
+plt.hist<span class="org-rainbow-delimiters-depth-1">(</span>img.ravel<span class="org-rainbow-delimiters-depth-2">()</span>,256,<span class="org-rainbow-delimiters-depth-2">[</span>0,256<span class="org-rainbow-delimiters-depth-2">]</span><span class="org-rainbow-delimiters-depth-1">)</span>
+plt.xlabel<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-string">"Pixel Value"</span><span class="org-rainbow-delimiters-depth-1">)</span>
+plt.ylabel<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-string">"Count"</span><span class="org-rainbow-delimiters-depth-1">)</span>
+plt.title<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-string">"Histogram of Grey Image"</span><span class="org-rainbow-delimiters-depth-1">)</span>
+plt.show<span class="org-rainbow-delimiters-depth-1">()</span>
+</pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-python" id="orga5915f2">plt.figure<span class="org-rainbow-delimiters-depth-1">(</span>figsize<span class="org-operator">=</span><span class="org-rainbow-delimiters-depth-2">(</span>12,5<span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
+plt.subplot<span class="org-rainbow-delimiters-depth-1">(</span>1,2,1<span class="org-rainbow-delimiters-depth-1">)</span>
+plt.imshow<span class="org-rainbow-delimiters-depth-1">(</span>img<span class="org-rainbow-delimiters-depth-1">)</span>
+plot_settings<span class="org-rainbow-delimiters-depth-1">()</span>
+plt.title<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-string">'Windowed Sine Wave'</span><span class="org-rainbow-delimiters-depth-1">)</span>
+
+plt.subplot<span class="org-rainbow-delimiters-depth-1">(</span>1,2,2<span class="org-rainbow-delimiters-depth-1">)</span>
+plt.hist<span class="org-rainbow-delimiters-depth-1">(</span>img.ravel<span class="org-rainbow-delimiters-depth-2">()</span>,256,<span class="org-rainbow-delimiters-depth-2">[</span>0,256<span class="org-rainbow-delimiters-depth-2">]</span><span class="org-rainbow-delimiters-depth-1">)</span>
+plot_settings<span class="org-rainbow-delimiters-depth-1">()</span>
+plt.title<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-string">'Also a Windowed Sine Wave'</span><span class="org-rainbow-delimiters-depth-1">)</span>
+
+plt.show<span class="org-rainbow-delimiters-depth-1">()</span>
+</pre>
+</div>
+
+
+<p>
+We can also observe the colour channels of the histogram
+</p>
+
+<div class="org-src-container">
+<pre class="src src-python" id="orgaa8ee6d"><span class="org-variable-name">img</span> <span class="org-operator">=</span> cv.imread<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-string">'Fruit.jpg'</span><span class="org-rainbow-delimiters-depth-1">)</span>
+<span class="org-variable-name">color</span> <span class="org-operator">=</span> <span class="org-rainbow-delimiters-depth-1">(</span><span class="org-string">'b'</span>,<span class="org-string">'g'</span>,<span class="org-string">'r'</span><span class="org-rainbow-delimiters-depth-1">)</span>
+<span class="org-keyword">for</span> i,col <span class="org-keyword">in</span> <span class="org-builtin">enumerate</span><span class="org-rainbow-delimiters-depth-1">(</span>color<span class="org-rainbow-delimiters-depth-1">)</span>:
+    <span class="org-variable-name">histr</span> <span class="org-operator">=</span> cv.calcHist<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-rainbow-delimiters-depth-2">[</span>img<span class="org-rainbow-delimiters-depth-2">]</span>,<span class="org-rainbow-delimiters-depth-2">[</span>i<span class="org-rainbow-delimiters-depth-2">]</span>,<span class="org-constant">None</span>,<span class="org-rainbow-delimiters-depth-2">[</span>256<span class="org-rainbow-delimiters-depth-2">]</span>,<span class="org-rainbow-delimiters-depth-2">[</span>0,256<span class="org-rainbow-delimiters-depth-2">]</span><span class="org-rainbow-delimiters-depth-1">)</span>
+    plt.plot<span class="org-rainbow-delimiters-depth-1">(</span>histr,color <span class="org-operator">=</span> col<span class="org-rainbow-delimiters-depth-1">)</span>
+    plt.xlim<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-rainbow-delimiters-depth-2">[</span>0,256<span class="org-rainbow-delimiters-depth-2">]</span><span class="org-rainbow-delimiters-depth-1">)</span>
+
+plot_settings<span class="org-rainbow-delimiters-depth-1">()</span>
+plt.show<span class="org-rainbow-delimiters-depth-1">()</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgaa57be0" class="outline-2">
+<h2 id="orgaa57be0">Application of Masks</h2>
+<div class="outline-text-2" id="text-orgaa57be0">
+<p>
+We used cv.calcHist() to find the histogram of the full image.
+</p>
+
+<p>
+What if you want to find histograms of some regions of an image?
+</p>
+
+<p>
+Just create a mask image with white color on the region you want
+to find histogram and black otherwise. Then pass this as the mask. 
+</p>
+
+<div class="org-src-container">
+<pre class="src src-python" id="orge53ba72"><span class="org-comment-delimiter"># </span><span class="org-comment">create a mask</span>
+<span class="org-variable-name">mask</span> <span class="org-operator">=</span> np.zeros<span class="org-rainbow-delimiters-depth-1">(</span>img.shape<span class="org-rainbow-delimiters-depth-2">[</span>:2<span class="org-rainbow-delimiters-depth-2">]</span>, np.uint8<span class="org-rainbow-delimiters-depth-1">)</span>
+<span class="org-variable-name">mask</span><span class="org-rainbow-delimiters-depth-1">[</span>100:300, 100:400<span class="org-rainbow-delimiters-depth-1">]</span> <span class="org-operator">=</span> 255
+<span class="org-variable-name">masked_img</span> <span class="org-operator">=</span> cv.bitwise_and<span class="org-rainbow-delimiters-depth-1">(</span>img,img,mask <span class="org-operator">=</span> mask<span class="org-rainbow-delimiters-depth-1">)</span>
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">Calculate histogram with mask and without mask</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">Check third argument for mask</span>
+<span class="org-variable-name">hist_full</span> <span class="org-operator">=</span> cv.calcHist<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-rainbow-delimiters-depth-2">[</span>img<span class="org-rainbow-delimiters-depth-2">]</span>,<span class="org-rainbow-delimiters-depth-2">[</span>0<span class="org-rainbow-delimiters-depth-2">]</span>,<span class="org-constant">None</span>,<span class="org-rainbow-delimiters-depth-2">[</span>256<span class="org-rainbow-delimiters-depth-2">]</span>,<span class="org-rainbow-delimiters-depth-2">[</span>0,256<span class="org-rainbow-delimiters-depth-2">]</span><span class="org-rainbow-delimiters-depth-1">)</span>
+<span class="org-variable-name">hist_mask</span> <span class="org-operator">=</span> cv.calcHist<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-rainbow-delimiters-depth-2">[</span>img<span class="org-rainbow-delimiters-depth-2">]</span>,<span class="org-rainbow-delimiters-depth-2">[</span>0<span class="org-rainbow-delimiters-depth-2">]</span>,mask,<span class="org-rainbow-delimiters-depth-2">[</span>256<span class="org-rainbow-delimiters-depth-2">]</span>,<span class="org-rainbow-delimiters-depth-2">[</span>0,256<span class="org-rainbow-delimiters-depth-2">]</span><span class="org-rainbow-delimiters-depth-1">)</span>
+
+plt.subplot<span class="org-rainbow-delimiters-depth-1">(</span>221<span class="org-rainbow-delimiters-depth-1">)</span>, plt.imshow<span class="org-rainbow-delimiters-depth-1">(</span>img, <span class="org-string">'gray'</span><span class="org-rainbow-delimiters-depth-1">)</span>
+plt.subplot<span class="org-rainbow-delimiters-depth-1">(</span>222<span class="org-rainbow-delimiters-depth-1">)</span>, plt.imshow<span class="org-rainbow-delimiters-depth-1">(</span>mask,<span class="org-string">'gray'</span><span class="org-rainbow-delimiters-depth-1">)</span>
+plt.subplot<span class="org-rainbow-delimiters-depth-1">(</span>223<span class="org-rainbow-delimiters-depth-1">)</span>, plt.imshow<span class="org-rainbow-delimiters-depth-1">(</span>masked_img, <span class="org-string">'gray'</span><span class="org-rainbow-delimiters-depth-1">)</span>
+plt.subplot<span class="org-rainbow-delimiters-depth-1">(</span>224<span class="org-rainbow-delimiters-depth-1">)</span>, plt.plot<span class="org-rainbow-delimiters-depth-1">(</span>hist_full<span class="org-rainbow-delimiters-depth-1">)</span>, plt.plot<span class="org-rainbow-delimiters-depth-1">(</span>hist_mask<span class="org-rainbow-delimiters-depth-1">)</span>
+plt.xlim<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-rainbow-delimiters-depth-2">[</span>0,256<span class="org-rainbow-delimiters-depth-2">]</span><span class="org-rainbow-delimiters-depth-1">)</span>
+
+plt.show<span class="org-rainbow-delimiters-depth-1">()</span>
+</pre>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-org8e6e8aa" class="outline-2">
+<h2 id="org8e6e8aa">Histogram Equalisation</h2>
+<div class="outline-text-2" id="text-org8e6e8aa">
+<div class="org-src-container">
+<pre class="src src-python" id="orgf5b0d36"><span class="org-variable-name">hist</span>,<span class="org-variable-name">bins</span> <span class="org-operator">=</span> np.histogram<span class="org-rainbow-delimiters-depth-1">(</span>img.flatten<span class="org-rainbow-delimiters-depth-2">()</span>,256,<span class="org-rainbow-delimiters-depth-2">[</span>0,256<span class="org-rainbow-delimiters-depth-2">]</span><span class="org-rainbow-delimiters-depth-1">)</span>
+
+<span class="org-variable-name">cdf</span> <span class="org-operator">=</span> hist.cumsum<span class="org-rainbow-delimiters-depth-1">()</span>
+<span class="org-variable-name">cdf_normalized</span> <span class="org-operator">=</span> cdf <span class="org-operator">*</span> <span class="org-builtin">float</span><span class="org-rainbow-delimiters-depth-1">(</span>hist.<span class="org-builtin">max</span><span class="org-rainbow-delimiters-depth-2">()</span><span class="org-rainbow-delimiters-depth-1">)</span> <span class="org-operator">/</span> cdf.<span class="org-builtin">max</span><span class="org-rainbow-delimiters-depth-1">()</span>
+
+plt.plot<span class="org-rainbow-delimiters-depth-1">(</span>cdf_normalized, color <span class="org-operator">=</span> <span class="org-string">'b'</span><span class="org-rainbow-delimiters-depth-1">)</span>
+plt.hist<span class="org-rainbow-delimiters-depth-1">(</span>img.flatten<span class="org-rainbow-delimiters-depth-2">()</span>,256,<span class="org-rainbow-delimiters-depth-2">[</span>0,256<span class="org-rainbow-delimiters-depth-2">]</span>, color <span class="org-operator">=</span> <span class="org-string">'r'</span><span class="org-rainbow-delimiters-depth-1">)</span>
+plt.xlim<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-rainbow-delimiters-depth-2">[</span>0,256<span class="org-rainbow-delimiters-depth-2">]</span><span class="org-rainbow-delimiters-depth-1">)</span>
+plt.legend<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-rainbow-delimiters-depth-2">(</span><span class="org-string">'cdf'</span>,<span class="org-string">'histogram'</span><span class="org-rainbow-delimiters-depth-2">)</span>, loc <span class="org-operator">=</span> <span class="org-string">'upper left'</span><span class="org-rainbow-delimiters-depth-1">)</span>
+plt.show<span class="org-rainbow-delimiters-depth-1">()</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgca6c98a" class="outline-2">
+<h2 id="orgca6c98a">2D Histograms</h2>
+<div class="outline-text-2" id="text-orgca6c98a">
+<div class="org-src-container">
+<pre class="src src-python" id="orgd628245"><span class="org-variable-name">hsv</span> <span class="org-operator">=</span> cv.cvtColor<span class="org-rainbow-delimiters-depth-1">(</span>img,cv.COLOR_BGR2HSV<span class="org-rainbow-delimiters-depth-1">)</span>
+
+<span class="org-variable-name">hist</span> <span class="org-operator">=</span> cv.calcHist<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-rainbow-delimiters-depth-2">[</span>hsv<span class="org-rainbow-delimiters-depth-2">]</span>, <span class="org-rainbow-delimiters-depth-2">[</span>0, 1<span class="org-rainbow-delimiters-depth-2">]</span>, <span class="org-constant">None</span>, <span class="org-rainbow-delimiters-depth-2">[</span>180, 256<span class="org-rainbow-delimiters-depth-2">]</span>, <span class="org-rainbow-delimiters-depth-2">[</span>0, 180, 0, 256<span class="org-rainbow-delimiters-depth-2">]</span><span class="org-rainbow-delimiters-depth-1">)</span>
+plt.imshow<span class="org-rainbow-delimiters-depth-1">(</span>hist,interpolation <span class="org-operator">=</span> <span class="org-string">'nearest'</span><span class="org-rainbow-delimiters-depth-1">)</span>
+plt.show<span class="org-rainbow-delimiters-depth-1">()</span>
+</pre>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: Daniel McGuiness</p>
+</div>
+</body>
+</html>

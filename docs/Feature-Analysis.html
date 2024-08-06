@@ -1,0 +1,875 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Code for Digital Image Processing Feature Analysis</title>
+<meta name="author" content="Daniel McGuiness" />
+<meta name="generator" content="Org Mode" />
+<style>
+  #content { max-width: 60em; margin: auto; }
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #e6e6e6;
+    border-radius: 3px;
+    background-color: #f2f2f2;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: auto;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    top: -8px;
+    right: 12px;
+    padding: 3px;
+    color: #555;
+    background-color: #f2f2f299;
+  }
+  pre.src:hover:before { display: inline; margin-top: 14px;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-authinfo::before { content: 'Authinfo'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+  }
+  .equation {
+    vertical-align: middle;
+  }
+  .equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+  }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { }
+</style>
+<link rel="stylesheet" href="/Users/danielmcguiness/GitHub/MCI-Source-Files/Configuration/ScriptsHTML/style.css">
+<script type="text/javascript"  src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="/Users/danielmcguiness/GitHub/MCI-Source-Files/Configuration/ScriptsHTML/test.js">
+// @license magnet:?xt=urn:btih:1f739d935676111cfff4b4693e3816e664797050&amp;dn=gpl-3.0.txt GPL-v3-or-Later
+// @license-end
+</script>
+
+<script>
+// @license magnet:?xt=urn:btih:1f739d935676111cfff4b4693e3816e664797050&amp;dn=gpl-3.0.txt GPL-v3-or-Later
+org_html_manager.set("TOC_DEPTH", "3");
+org_html_manager.set("LINK_HOME", "");
+org_html_manager.set("LINK_UP", "index.html");
+org_html_manager.set("LOCAL_TOC", "1");
+org_html_manager.set("VIEW_BUTTONS", "0");
+org_html_manager.set("MOUSE_HINT", "underline");
+org_html_manager.set("FIXED_TOC", "0");
+org_html_manager.set("TOC", "1");
+org_html_manager.set("VIEW", "info");
+org_html_manager.setup();  // activate after the parameters are set
+// @license-end
+</script>
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href="index.html"> UP </a>
+ |
+ <a accesskey="H" href=""> HOME </a>
+</div><div id="content" class="content">
+<h1 class="title">Code for Digital Image Processing Feature Analysis</h1>
+<div id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#org5877a62">Introduction</a>
+<ul>
+<li><a href="#org16fdcfb">Preamble</a></li>
+</ul>
+</li>
+<li><a href="#org99f9a43">Harris Corner Detection</a></li>
+<li><a href="#org372c4b1">Scale Invariant Feature Transform</a></li>
+<li><a href="#org9a4cdfd">Speeded-Up Robust Features</a></li>
+<li><a href="#org2ea2bb7">ORB Feature Extractor</a>
+<ul>
+<li><a href="#orgb76b498">OpenCV Implementation</a></li>
+<li><a href="#orgfb0b7c9">scikit-image Implementation</a></li>
+</ul>
+</li>
+<li><a href="#org3570d20">Adaptive Thresholding</a></li>
+</ul>
+</div>
+</div>
+<p>
+These are the code snippets used in <code>Feature Analysis</code>
+part of <code>Digital Image Processing</code>.
+</p>
+
+<div id="outline-container-org5877a62" class="outline-2">
+<h2 id="org5877a62">Introduction</h2>
+<div class="outline-text-2" id="text-org5877a62">
+</div>
+<div id="outline-container-org16fdcfb" class="outline-3">
+<h3 id="org16fdcfb">Preamble</h3>
+<div class="outline-text-3" id="text-org16fdcfb">
+<div class="org-src-container">
+<pre class="src src-python" id="org7786cda"><span class="org-keyword">import</span> cv2 <span class="org-keyword">as</span> cv
+<span class="org-keyword">import</span> matplotlib.pyplot <span class="org-keyword">as</span> plt
+<span class="org-keyword">import</span> matplotlib.colors  <span class="org-comment-delimiter"># </span><span class="org-comment">all related to colours</span>
+<span class="org-keyword">from</span> matplotlib.image <span class="org-keyword">import</span> imread
+<span class="org-keyword">import</span> numpy <span class="org-keyword">as</span> np
+</pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-python" id="org44eb661"><span class="org-comment-delimiter"># </span><span class="org-comment">Class focused on plotting functions with a sense of visual aesthetics</span>
+<span class="org-keyword">class</span> <span class="org-type">Plotting</span>:
+    <span class="org-comment-delimiter"># </span><span class="org-comment">Set the colour parameter for plots to fit beamer metropolis theme</span>
+    plt.<span class="org-variable-name">rcParams</span><span class="org-rainbow-delimiters-depth-1">[</span><span class="org-string">"figure.facecolor"</span><span class="org-rainbow-delimiters-depth-1">]</span> <span class="org-operator">=</span> <span class="org-string">"(0.98, 0.98, 0.98)"</span>
+    plt.rcParams.update<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-rainbow-delimiters-depth-2">{</span><span class="org-string">'axes.facecolor'</span>: <span class="org-string">'(0.98, 0.98, 0.98)'</span><span class="org-rainbow-delimiters-depth-2">}</span><span class="org-rainbow-delimiters-depth-1">)</span>
+    matplotlib.colors.ColorConverter.<span class="org-variable-name">colors</span><span class="org-rainbow-delimiters-depth-1">[</span><span class="org-string">'bg1'</span><span class="org-rainbow-delimiters-depth-1">]</span> <span class="org-operator">=</span> <span class="org-rainbow-delimiters-depth-1">(</span>0.98, 0.98, 0.98<span class="org-rainbow-delimiters-depth-1">)</span>
+
+    @<span class="org-builtin">staticmethod</span>
+    <span class="org-keyword">def</span> <span class="org-function-name">image_subplot_style</span><span class="org-rainbow-delimiters-depth-1">(</span>row, column, image_array, publish<span class="org-operator">=</span><span class="org-constant">None</span>, show<span class="org-operator">=</span><span class="org-constant">None</span>, rgb<span class="org-operator">=</span><span class="org-constant">None</span>, title<span class="org-operator">=</span><span class="org-constant">None</span>,
+                            cmap_array<span class="org-operator">=</span><span class="org-constant">None</span>, set_cmap<span class="org-operator">=</span><span class="org-constant">False</span><span class="org-rainbow-delimiters-depth-1">)</span>:
+        <span class="org-doc">"""Presents a set of images in a grid of subplots.</span>
+
+<span class="org-doc">        :param figsize: Figure size for your subplot.</span>
+<span class="org-doc">        :param title: Add title to your plot. Treated as array.</span>
+<span class="org-doc">        :param cmap_array: colormap array, if none entered it is treated as None.</span>
+<span class="org-doc">        :param row: Number of rows in an image.</span>
+<span class="org-doc">        :param column: Number of columns in an image.</span>
+<span class="org-doc">        :param image_array: Write here the images in an array you want in the plot in the order you want it to show.</span>
+<span class="org-doc">        :param publish: Write the name of the file you want to save it as (.eps, 200 dpi).</span>
+<span class="org-doc">        :param show: Just activates plt.show().</span>
+<span class="org-doc">        :param rgb: Sets print colour to true.</span>
+<span class="org-doc">        """</span>
+
+        <span class="org-comment-delimiter"># </span><span class="org-comment">noinspection PyTypeChecker</span>
+        <span class="org-variable-name">fig_plot</span>, <span class="org-variable-name">axes_plot</span> <span class="org-operator">=</span> plt.subplots<span class="org-rainbow-delimiters-depth-1">(</span>row, column, sharex<span class="org-operator">=</span><span class="org-constant">True</span>, sharey<span class="org-operator">=</span><span class="org-constant">True</span><span class="org-rainbow-delimiters-depth-1">)</span>
+
+        <span class="org-keyword">for</span> ind, ax_loop <span class="org-keyword">in</span> <span class="org-builtin">enumerate</span><span class="org-rainbow-delimiters-depth-1">(</span>axes_plot.flatten<span class="org-rainbow-delimiters-depth-2">()</span><span class="org-rainbow-delimiters-depth-1">)</span>:
+
+            Plotting.remove_borders<span class="org-rainbow-delimiters-depth-1">(</span>ax_loop<span class="org-rainbow-delimiters-depth-1">)</span>  <span class="org-comment-delimiter"># </span><span class="org-comment">remove unnecessary borders</span>
+
+            ax_loop.tick_params<span class="org-rainbow-delimiters-depth-1">(</span>left<span class="org-operator">=</span><span class="org-constant">False</span>, right<span class="org-operator">=</span><span class="org-constant">False</span>, labelleft<span class="org-operator">=</span><span class="org-constant">False</span>, labelbottom<span class="org-operator">=</span><span class="org-constant">False</span>, bottom<span class="org-operator">=</span><span class="org-constant">False</span><span class="org-rainbow-delimiters-depth-1">)</span>
+
+            ax_loop.imshow<span class="org-rainbow-delimiters-depth-1">(</span>image_array<span class="org-rainbow-delimiters-depth-2">[</span>ind<span class="org-rainbow-delimiters-depth-2">][</span>:<span class="org-rainbow-delimiters-depth-2">][</span>:<span class="org-rainbow-delimiters-depth-2">]</span><span class="org-rainbow-delimiters-depth-1">)</span>  <span class="org-comment-delimiter"># </span><span class="org-comment">print image for subplot</span>
+
+            <span class="org-keyword">if</span> rgb:  <span class="org-comment-delimiter"># </span><span class="org-comment">convert image bgr to rgb</span>
+                <span class="org-keyword">if</span> set_cmap <span class="org-keyword">is</span> <span class="org-constant">True</span>:
+                    ax_loop.imshow<span class="org-rainbow-delimiters-depth-1">(</span>Plotting.bgr2rgb<span class="org-rainbow-delimiters-depth-2">(</span>image_array<span class="org-rainbow-delimiters-depth-3">[</span>ind<span class="org-rainbow-delimiters-depth-3">][</span>:<span class="org-rainbow-delimiters-depth-3">][</span>:<span class="org-rainbow-delimiters-depth-3">]</span><span class="org-rainbow-delimiters-depth-2">)</span>, cmap<span class="org-operator">=</span>cmap_array<span class="org-rainbow-delimiters-depth-2">[</span>ind<span class="org-rainbow-delimiters-depth-2">]</span><span class="org-rainbow-delimiters-depth-1">)</span>
+                <span class="org-keyword">else</span>:
+                    ax_loop.imshow<span class="org-rainbow-delimiters-depth-1">(</span>Plotting.bgr2rgb<span class="org-rainbow-delimiters-depth-2">(</span>image_array<span class="org-rainbow-delimiters-depth-3">[</span>ind<span class="org-rainbow-delimiters-depth-3">][</span>:<span class="org-rainbow-delimiters-depth-3">][</span>:<span class="org-rainbow-delimiters-depth-3">]</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
+
+            <span class="org-keyword">if</span> title <span class="org-keyword">is</span> <span class="org-constant">None</span>:
+
+                <span class="org-comment-delimiter"># </span><span class="org-comment">Determine where to put the title on the image</span>
+                <span class="org-keyword">if</span> ind <span class="org-operator">&lt;</span> column:
+                    ax_loop.set_title<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-string">"("</span> <span class="org-operator">+</span> <span class="org-builtin">str</span><span class="org-rainbow-delimiters-depth-2">(</span><span class="org-builtin">chr</span><span class="org-rainbow-delimiters-depth-3">(</span><span class="org-builtin">ord</span><span class="org-rainbow-delimiters-depth-4">(</span><span class="org-string">'a'</span><span class="org-rainbow-delimiters-depth-4">)</span> <span class="org-operator">+</span> ind<span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span> <span class="org-operator">+</span> <span class="org-string">")"</span>, fontsize<span class="org-operator">=</span>12<span class="org-rainbow-delimiters-depth-1">)</span>
+                <span class="org-keyword">else</span>:
+                    ax_loop.set_xlabel<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-string">"("</span> <span class="org-operator">+</span> <span class="org-builtin">str</span><span class="org-rainbow-delimiters-depth-2">(</span><span class="org-builtin">chr</span><span class="org-rainbow-delimiters-depth-3">(</span><span class="org-builtin">ord</span><span class="org-rainbow-delimiters-depth-4">(</span><span class="org-string">'a'</span><span class="org-rainbow-delimiters-depth-4">)</span> <span class="org-operator">+</span> ind<span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span> <span class="org-operator">+</span> <span class="org-string">")"</span>, fontsize<span class="org-operator">=</span>12<span class="org-rainbow-delimiters-depth-1">)</span>
+
+            <span class="org-keyword">else</span>:
+                <span class="org-comment-delimiter"># </span><span class="org-comment">Determine where to put the title on the image</span>
+                <span class="org-keyword">if</span> ind <span class="org-operator">&lt;</span> column:
+                    ax_loop.set_title<span class="org-rainbow-delimiters-depth-1">(</span>title<span class="org-rainbow-delimiters-depth-2">[</span>ind<span class="org-rainbow-delimiters-depth-2">]</span>, fontsize<span class="org-operator">=</span>12<span class="org-rainbow-delimiters-depth-1">)</span>
+                <span class="org-keyword">else</span>:
+                    ax_loop.set_xlabel<span class="org-rainbow-delimiters-depth-1">(</span>title<span class="org-rainbow-delimiters-depth-2">[</span>ind<span class="org-rainbow-delimiters-depth-2">]</span>, fontsize<span class="org-operator">=</span>12<span class="org-rainbow-delimiters-depth-1">)</span>
+
+        Plotting.printer<span class="org-rainbow-delimiters-depth-1">(</span>show, publish<span class="org-rainbow-delimiters-depth-1">)</span>
+
+    @<span class="org-builtin">staticmethod</span>
+    <span class="org-keyword">def</span> <span class="org-function-name">plot_subplot_style</span><span class="org-rainbow-delimiters-depth-1">(</span>fig_subplot, axes_subplot<span class="org-rainbow-delimiters-depth-1">)</span>:
+        <span class="org-doc">"""Some standard aesthetics for the matplotlib function</span>
+
+<span class="org-doc">        :param fig_subplot: figure for the subplot.</span>
+<span class="org-doc">        :param axes_subplot: axes for the subplot.</span>
+<span class="org-doc">        """</span>
+
+        axes_subplot.spines<span class="org-rainbow-delimiters-depth-1">[</span><span class="org-string">'top'</span><span class="org-rainbow-delimiters-depth-1">]</span>.set_visible<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-constant">False</span><span class="org-rainbow-delimiters-depth-1">)</span>
+        axes_subplot.spines<span class="org-rainbow-delimiters-depth-1">[</span><span class="org-string">'right'</span><span class="org-rainbow-delimiters-depth-1">]</span>.set_visible<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-constant">False</span><span class="org-rainbow-delimiters-depth-1">)</span>
+        axes_subplot.xaxis.set_tick_params<span class="org-rainbow-delimiters-depth-1">(</span>width<span class="org-operator">=</span>2<span class="org-rainbow-delimiters-depth-1">)</span>
+        axes_subplot.yaxis.set_tick_params<span class="org-rainbow-delimiters-depth-1">(</span>width<span class="org-operator">=</span>2<span class="org-rainbow-delimiters-depth-1">)</span>
+        plt.<span class="org-variable-name">rcParams</span><span class="org-rainbow-delimiters-depth-1">[</span><span class="org-string">'axes.linewidth'</span><span class="org-rainbow-delimiters-depth-1">]</span> <span class="org-operator">=</span> 2
+        fig_subplot.tight_layout<span class="org-rainbow-delimiters-depth-1">()</span>
+
+    @<span class="org-builtin">staticmethod</span>
+    <span class="org-keyword">def</span> <span class="org-function-name">bgr2rgb</span><span class="org-rainbow-delimiters-depth-1">(</span>image_in_bgr<span class="org-rainbow-delimiters-depth-1">)</span>:
+        <span class="org-doc">"""Converts an image from BGR space to RGB.</span>
+
+<span class="org-doc">        :param image_in_bgr: image in BGR format.</span>
+<span class="org-doc">        :return: image in RGB format.</span>
+<span class="org-doc">        """</span>
+        <span class="org-keyword">return</span> cv.cvtColor<span class="org-rainbow-delimiters-depth-1">(</span>image_in_bgr, cv.COLOR_BGR2RGB<span class="org-rainbow-delimiters-depth-1">)</span>
+
+    @<span class="org-builtin">classmethod</span>
+    <span class="org-keyword">def</span> <span class="org-function-name">compare_images</span><span class="org-rainbow-delimiters-depth-1">(</span>cls, original, altered<span class="org-rainbow-delimiters-depth-1">)</span>:
+        <span class="org-doc">"""Creates two individual windows to showcase the filters effect</span>
+
+<span class="org-doc">        :param original: Original unaltered image</span>
+<span class="org-doc">        :param altered: Output altered image</span>
+<span class="org-doc">        """</span>
+        <span class="org-comment-delimiter"># </span><span class="org-comment">A static function to showcase both the original and the altered image</span>
+        cv.imshow<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-string">'Original Image'</span>, original<span class="org-rainbow-delimiters-depth-1">)</span>
+        cv.imshow<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-string">"Output Image"</span>, altered<span class="org-rainbow-delimiters-depth-1">)</span>
+
+        <span class="org-comment-delimiter"># </span><span class="org-comment">Wait and close all windows</span>
+        cv.waitKey<span class="org-rainbow-delimiters-depth-1">(</span>0<span class="org-rainbow-delimiters-depth-1">)</span>
+        cv.destroyAllWindows<span class="org-rainbow-delimiters-depth-1">()</span>
+
+    @<span class="org-builtin">classmethod</span>
+    <span class="org-keyword">def</span> <span class="org-function-name">printer</span><span class="org-rainbow-delimiters-depth-1">(</span>cls, show<span class="org-operator">=</span><span class="org-constant">None</span>, publish<span class="org-operator">=</span><span class="org-constant">None</span><span class="org-rainbow-delimiters-depth-1">)</span>:
+
+        <span class="org-comment-delimiter"># </span><span class="org-comment">To print the plot in a nice .eps file in 300 dpi format.</span>
+        <span class="org-keyword">if</span> publish:
+            plt.savefig<span class="org-rainbow-delimiters-depth-1">(</span>publish <span class="org-operator">+</span> <span class="org-string">".png"</span>, <span class="org-builtin">format</span><span class="org-operator">=</span><span class="org-string">'png'</span>, dpi<span class="org-operator">=</span>300, bbox_inches<span class="org-operator">=</span><span class="org-string">'tight'</span><span class="org-rainbow-delimiters-depth-1">)</span>
+
+        <span class="org-comment-delimiter"># </span><span class="org-comment">To lazy to write plt.show()</span>
+        <span class="org-keyword">if</span> show:
+            plt.show<span class="org-rainbow-delimiters-depth-1">()</span>
+
+    @<span class="org-builtin">classmethod</span>
+    <span class="org-keyword">def</span> <span class="org-function-name">color_loop</span><span class="org-rainbow-delimiters-depth-1">(</span>cls<span class="org-rainbow-delimiters-depth-1">)</span>:
+        <span class="org-variable-name">prop_cycle</span> <span class="org-operator">=</span> plt.rcParams<span class="org-rainbow-delimiters-depth-1">[</span><span class="org-string">'axes.prop_cycle'</span><span class="org-rainbow-delimiters-depth-1">]</span>
+        <span class="org-variable-name">colors</span> <span class="org-operator">=</span> prop_cycle.by_key<span class="org-rainbow-delimiters-depth-1">()[</span><span class="org-string">'color'</span><span class="org-rainbow-delimiters-depth-1">]</span>
+        <span class="org-keyword">return</span> colors
+
+    @<span class="org-builtin">classmethod</span>
+    <span class="org-keyword">def</span> <span class="org-function-name">remove_borders</span><span class="org-rainbow-delimiters-depth-1">(</span>cls, axes_rm_borders<span class="org-rainbow-delimiters-depth-1">)</span>:
+        axes_rm_borders.spines<span class="org-rainbow-delimiters-depth-1">[</span><span class="org-string">'top'</span><span class="org-rainbow-delimiters-depth-1">]</span>.set_visible<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-constant">False</span><span class="org-rainbow-delimiters-depth-1">)</span>
+        axes_rm_borders.spines<span class="org-rainbow-delimiters-depth-1">[</span><span class="org-string">'right'</span><span class="org-rainbow-delimiters-depth-1">]</span>.set_visible<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-constant">False</span><span class="org-rainbow-delimiters-depth-1">)</span>
+        axes_rm_borders.spines<span class="org-rainbow-delimiters-depth-1">[</span><span class="org-string">'bottom'</span><span class="org-rainbow-delimiters-depth-1">]</span>.set_visible<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-constant">False</span><span class="org-rainbow-delimiters-depth-1">)</span>
+        axes_rm_borders.spines<span class="org-rainbow-delimiters-depth-1">[</span><span class="org-string">'left'</span><span class="org-rainbow-delimiters-depth-1">]</span>.set_visible<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-constant">False</span><span class="org-rainbow-delimiters-depth-1">)</span>
+        axes_rm_borders.tick_params<span class="org-rainbow-delimiters-depth-1">(</span>which<span class="org-operator">=</span><span class="org-string">'both'</span>, size<span class="org-operator">=</span>0, labelsize<span class="org-operator">=</span>0<span class="org-rainbow-delimiters-depth-1">)</span>
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-org99f9a43" class="outline-2">
+<h2 id="org99f9a43">Harris Corner Detection</h2>
+<div class="outline-text-2" id="text-org99f9a43">
+<p>
+The Harris corner detector is a corner detection operator that is
+commonly used in computer vision algorithms to extract corners and
+infer features of an image.
+</p>
+
+<p>
+It was first introduced by Chris Harris and Mike Stephens in 1988 upon
+the improvement of Moravec's corner detector.
+</p>
+
+<p>
+First step is to load the necessary modules for the code to work.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-python" id="org26d61a9"><span class="org-keyword">import</span> matplotlib.pyplot <span class="org-keyword">as</span> plt 
+<span class="org-keyword">import</span> numpy <span class="org-keyword">as</span> np
+<span class="org-keyword">import</span> cv2
+<span class="org-keyword">from</span> skimage <span class="org-keyword">import</span> data <span class="org-comment-delimiter"># </span><span class="org-comment">for smaple image</span>
+</pre>
+</div>
+
+<p>
+Now it is time to get the image and generate 
+</p>
+
+<div class="org-src-container">
+<pre class="src src-python" id="org2a163ef"><span class="org-comment-delimiter"># </span><span class="org-comment">Read in the image</span>
+<span class="org-variable-name">image</span> <span class="org-operator">=</span> data.brick<span class="org-rainbow-delimiters-depth-1">()</span> <span class="org-comment-delimiter"># </span><span class="org-comment">Load the image</span>
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">Make a copy of the image</span>
+<span class="org-variable-name">image_copy</span> <span class="org-operator">=</span> np.copy<span class="org-rainbow-delimiters-depth-1">(</span>image<span class="org-rainbow-delimiters-depth-1">)</span>
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">Change color to RGB (from BGR)</span>
+<span class="org-comment-delimiter">#</span><span class="org-comment">image_copy = cv2.cvtColor(image_copy, cv2.COLOR_BGR2RGB)</span>
+
+Plotting.image_subplot_style<span class="org-rainbow-delimiters-depth-1">(</span>1, 1, image_array<span class="org-operator">=</span><span class="org-rainbow-delimiters-depth-2">[</span>image<span class="org-rainbow-delimiters-depth-2">]</span>,
+                                 show<span class="org-operator">=</span><span class="org-constant">True</span>,
+                                 publish<span class="org-operator">=</span><span class="org-constant">False</span>,
+                                 rgb<span class="org-operator">=</span><span class="org-constant">False</span><span class="org-rainbow-delimiters-depth-1">)</span>
+</pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-python" id="org7242291"><span class="org-comment-delimiter"># </span><span class="org-comment">Convert to grayscale</span>
+<span class="org-variable-name">gray</span> <span class="org-operator">=</span> cv2.cvtColor<span class="org-rainbow-delimiters-depth-1">(</span>image_copy, cv2.COLOR_RGB2GRAY<span class="org-rainbow-delimiters-depth-1">)</span>
+<span class="org-variable-name">gray</span> <span class="org-operator">=</span> np.float32<span class="org-rainbow-delimiters-depth-1">(</span>gray<span class="org-rainbow-delimiters-depth-1">)</span>
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">Detect corners </span>
+<span class="org-variable-name">dst</span> <span class="org-operator">=</span> cv2.cornerHarris<span class="org-rainbow-delimiters-depth-1">(</span>gray, 2, 3, 0.04<span class="org-rainbow-delimiters-depth-1">)</span>
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">Dilate corner image to enhance corner points</span>
+<span class="org-variable-name">dst</span> <span class="org-operator">=</span> cv2.dilate<span class="org-rainbow-delimiters-depth-1">(</span>dst,<span class="org-constant">None</span><span class="org-rainbow-delimiters-depth-1">)</span>
+
+plt.imshow<span class="org-rainbow-delimiters-depth-1">(</span>dst, cmap<span class="org-operator">=</span><span class="org-string">'gray'</span><span class="org-rainbow-delimiters-depth-1">)</span>
+
+plt.show<span class="org-rainbow-delimiters-depth-1">()</span>
+</pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-python" id="orgf0cea02"><span class="org-comment-delimiter"># </span><span class="org-comment">This value vary depending on the image and how many corners you want to detect</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">Try changing this free parameter, 0.1, to be larger or smaller and see what happens</span>
+<span class="org-variable-name">thresh</span> <span class="org-operator">=</span> 0.01<span class="org-operator">*</span>dst.<span class="org-builtin">max</span><span class="org-rainbow-delimiters-depth-1">()</span>
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">Create an image copy to draw corners on</span>
+<span class="org-variable-name">corner_image</span> <span class="org-operator">=</span> np.copy<span class="org-rainbow-delimiters-depth-1">(</span>image_copy<span class="org-rainbow-delimiters-depth-1">)</span>
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">Iterate through all the corners and draw them on the image (if they pass the threshold)</span>
+<span class="org-keyword">for</span> j <span class="org-keyword">in</span> <span class="org-builtin">range</span><span class="org-rainbow-delimiters-depth-1">(</span>0, dst.shape<span class="org-rainbow-delimiters-depth-2">[</span>0<span class="org-rainbow-delimiters-depth-2">]</span><span class="org-rainbow-delimiters-depth-1">)</span>:
+    <span class="org-keyword">for</span> i <span class="org-keyword">in</span> <span class="org-builtin">range</span><span class="org-rainbow-delimiters-depth-1">(</span>0, dst.shape<span class="org-rainbow-delimiters-depth-2">[</span>1<span class="org-rainbow-delimiters-depth-2">]</span><span class="org-rainbow-delimiters-depth-1">)</span>:
+        <span class="org-keyword">if</span><span class="org-rainbow-delimiters-depth-1">(</span>dst<span class="org-rainbow-delimiters-depth-2">[</span>j,i<span class="org-rainbow-delimiters-depth-2">]</span> <span class="org-operator">&gt;</span> thresh<span class="org-rainbow-delimiters-depth-1">)</span>:
+            <span class="org-comment-delimiter"># </span><span class="org-comment">image, center pt, radius, color, thickness</span>
+            cv2.circle<span class="org-rainbow-delimiters-depth-1">(</span> corner_image, <span class="org-rainbow-delimiters-depth-2">(</span>i, j<span class="org-rainbow-delimiters-depth-2">)</span>, 1, <span class="org-rainbow-delimiters-depth-2">(</span>0,255,0<span class="org-rainbow-delimiters-depth-2">)</span>, 1<span class="org-rainbow-delimiters-depth-1">)</span>
+
+plt.imshow<span class="org-rainbow-delimiters-depth-1">(</span>corner_image<span class="org-rainbow-delimiters-depth-1">)</span>
+plt.show<span class="org-rainbow-delimiters-depth-1">()</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org372c4b1" class="outline-2">
+<h2 id="org372c4b1">Scale Invariant Feature Transform</h2>
+<div class="outline-text-2" id="text-org372c4b1">
+<p>
+SIFT stands for Scale-Invariant Feature Transform and was first presented
+in 2004, by D.Lowe, University of British Columbia.
+</p>
+
+<p>
+SIFT is invariance to image scale and rotation.
+This algorithm is patented, so this algorithm is included in the
+Non-free module in OpenCV.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-python" id="org9992ffb"><span class="org-keyword">import</span> cv2
+<span class="org-keyword">import</span> matplotlib.pyplot <span class="org-keyword">as</span> plt
+<span class="org-keyword">import</span> numpy <span class="org-keyword">as</span> np
+<span class="org-keyword">from</span> skimage <span class="org-keyword">import</span> data
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">Read in the image</span>
+<span class="org-variable-name">image</span> <span class="org-operator">=</span> origin_image <span class="org-operator">=</span> data.astronaut<span class="org-rainbow-delimiters-depth-1">()</span> <span class="org-comment-delimiter"># </span><span class="org-comment">Load the image</span>
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">Convert the training image to RGB</span>
+<span class="org-variable-name">training_image</span> <span class="org-operator">=</span> cv2.cvtColor<span class="org-rainbow-delimiters-depth-1">(</span>image1, cv2.COLOR_BGR2RGB<span class="org-rainbow-delimiters-depth-1">)</span>
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">Convert the training image to gray scale</span>
+<span class="org-variable-name">training_gray</span> <span class="org-operator">=</span> cv2.cvtColor<span class="org-rainbow-delimiters-depth-1">(</span>training_image, cv2.COLOR_RGB2GRAY<span class="org-rainbow-delimiters-depth-1">)</span>
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">Create test image by adding Scale Invariance and Rotational Invariance</span>
+<span class="org-variable-name">test_image</span> <span class="org-operator">=</span> cv2.pyrDown<span class="org-rainbow-delimiters-depth-1">(</span>training_image<span class="org-rainbow-delimiters-depth-1">)</span>
+<span class="org-variable-name">test_image</span> <span class="org-operator">=</span> cv2.pyrDown<span class="org-rainbow-delimiters-depth-1">(</span>test_image<span class="org-rainbow-delimiters-depth-1">)</span>
+<span class="org-variable-name">num_rows</span>, <span class="org-variable-name">num_cols</span> <span class="org-operator">=</span> test_image.shape<span class="org-rainbow-delimiters-depth-1">[</span>:2<span class="org-rainbow-delimiters-depth-1">]</span>
+
+<span class="org-variable-name">rotation_matrix</span> <span class="org-operator">=</span> cv2.getRotationMatrix2D<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-rainbow-delimiters-depth-2">(</span>num_cols<span class="org-operator">/</span>2, num_rows<span class="org-operator">/</span>2<span class="org-rainbow-delimiters-depth-2">)</span>, 30, 1<span class="org-rainbow-delimiters-depth-1">)</span>
+<span class="org-variable-name">test_image</span> <span class="org-operator">=</span> cv2.warpAffine<span class="org-rainbow-delimiters-depth-1">(</span>test_image, rotation_matrix, <span class="org-rainbow-delimiters-depth-2">(</span>num_cols, num_rows<span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
+
+<span class="org-variable-name">test_gray</span> <span class="org-operator">=</span> cv2.cvtColor<span class="org-rainbow-delimiters-depth-1">(</span>test_image, cv2.COLOR_RGB2GRAY<span class="org-rainbow-delimiters-depth-1">)</span>
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">Display traning image and testing image</span>
+<span class="org-variable-name">fx</span>, <span class="org-variable-name">plots</span> <span class="org-operator">=</span> plt.subplots<span class="org-rainbow-delimiters-depth-1">(</span>1, 2, figsize<span class="org-operator">=</span><span class="org-rainbow-delimiters-depth-2">(</span>20,10<span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
+
+plots<span class="org-rainbow-delimiters-depth-1">[</span>0<span class="org-rainbow-delimiters-depth-1">]</span>.set_title<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-string">"Training Image"</span><span class="org-rainbow-delimiters-depth-1">)</span>
+plots<span class="org-rainbow-delimiters-depth-1">[</span>0<span class="org-rainbow-delimiters-depth-1">]</span>.imshow<span class="org-rainbow-delimiters-depth-1">(</span>training_image<span class="org-rainbow-delimiters-depth-1">)</span>
+
+plots<span class="org-rainbow-delimiters-depth-1">[</span>1<span class="org-rainbow-delimiters-depth-1">]</span>.set_title<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-string">"Testing Image"</span><span class="org-rainbow-delimiters-depth-1">)</span>
+plots<span class="org-rainbow-delimiters-depth-1">[</span>1<span class="org-rainbow-delimiters-depth-1">]</span>.imshow<span class="org-rainbow-delimiters-depth-1">(</span>test_image<span class="org-rainbow-delimiters-depth-1">)</span>
+</pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-python" id="orgb5f65ef"><span class="org-variable-name">sift</span> <span class="org-operator">=</span> cv2.xfeatures2d.SIFT_create<span class="org-rainbow-delimiters-depth-1">()</span>
+
+<span class="org-variable-name">train_keypoints</span>, <span class="org-variable-name">train_descriptor</span> <span class="org-operator">=</span> sift.detectAndCompute<span class="org-rainbow-delimiters-depth-1">(</span>training_gray, <span class="org-constant">None</span><span class="org-rainbow-delimiters-depth-1">)</span>
+<span class="org-variable-name">test_keypoints</span>, <span class="org-variable-name">test_descriptor</span> <span class="org-operator">=</span> sift.detectAndCompute<span class="org-rainbow-delimiters-depth-1">(</span>test_gray, <span class="org-constant">None</span><span class="org-rainbow-delimiters-depth-1">)</span>
+
+<span class="org-variable-name">keypoints_without_size</span> <span class="org-operator">=</span> np.copy<span class="org-rainbow-delimiters-depth-1">(</span>training_image<span class="org-rainbow-delimiters-depth-1">)</span>
+<span class="org-variable-name">keypoints_with_size</span> <span class="org-operator">=</span> np.copy<span class="org-rainbow-delimiters-depth-1">(</span>training_image<span class="org-rainbow-delimiters-depth-1">)</span>
+
+cv2.drawKeypoints<span class="org-rainbow-delimiters-depth-1">(</span>training_image, train_keypoints, keypoints_without_size, color <span class="org-operator">=</span> <span class="org-rainbow-delimiters-depth-2">(</span>0, 255, 0<span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
+
+cv2.drawKeypoints<span class="org-rainbow-delimiters-depth-1">(</span>training_image, train_keypoints, keypoints_with_size, flags <span class="org-operator">=</span> cv2.DRAW_MATCHES_FLAGS_DRAW_RICH_KEYPOINTS<span class="org-rainbow-delimiters-depth-1">)</span>
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">Display image with and without keypoints size</span>
+<span class="org-variable-name">fx</span>, <span class="org-variable-name">plots</span> <span class="org-operator">=</span> plt.subplots<span class="org-rainbow-delimiters-depth-1">(</span>1, 2, figsize<span class="org-operator">=</span><span class="org-rainbow-delimiters-depth-2">(</span>20,10<span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
+
+plots<span class="org-rainbow-delimiters-depth-1">[</span>0<span class="org-rainbow-delimiters-depth-1">]</span>.set_title<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-string">"Train keypoints With Size"</span><span class="org-rainbow-delimiters-depth-1">)</span>
+plots<span class="org-rainbow-delimiters-depth-1">[</span>0<span class="org-rainbow-delimiters-depth-1">]</span>.imshow<span class="org-rainbow-delimiters-depth-1">(</span>keypoints_with_size, cmap<span class="org-operator">=</span><span class="org-string">'gray'</span><span class="org-rainbow-delimiters-depth-1">)</span>
+
+plots<span class="org-rainbow-delimiters-depth-1">[</span>1<span class="org-rainbow-delimiters-depth-1">]</span>.set_title<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-string">"Train keypoints Without Size"</span><span class="org-rainbow-delimiters-depth-1">)</span>
+plots<span class="org-rainbow-delimiters-depth-1">[</span>1<span class="org-rainbow-delimiters-depth-1">]</span>.imshow<span class="org-rainbow-delimiters-depth-1">(</span>keypoints_without_size, cmap<span class="org-operator">=</span><span class="org-string">'gray'</span><span class="org-rainbow-delimiters-depth-1">)</span>
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">Print the number of keypoints detected in the training image</span>
+<span class="org-builtin">print</span><span class="org-rainbow-delimiters-depth-1">(</span><span class="org-string">"Number of Keypoints Detected In The Training Image: "</span>, <span class="org-builtin">len</span><span class="org-rainbow-delimiters-depth-2">(</span>train_keypoints<span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">Print the number of keypoints detected in the query image</span>
+<span class="org-builtin">print</span><span class="org-rainbow-delimiters-depth-1">(</span><span class="org-string">"Number of Keypoints Detected In The Query Image: "</span>, <span class="org-builtin">len</span><span class="org-rainbow-delimiters-depth-2">(</span>test_keypoints<span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
+</pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-python" id="org539fc73"><span class="org-comment-delimiter"># </span><span class="org-comment">Create a Brute Force Matcher object.</span>
+<span class="org-variable-name">bf</span> <span class="org-operator">=</span> cv2.BFMatcher<span class="org-rainbow-delimiters-depth-1">(</span>cv2.NORM_L1, crossCheck <span class="org-operator">=</span> <span class="org-constant">False</span><span class="org-rainbow-delimiters-depth-1">)</span>
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">Perform the matching between the SIFT descriptors of the training image and the test image</span>
+<span class="org-variable-name">matches</span> <span class="org-operator">=</span> bf.<span class="org-keyword">match</span><span class="org-rainbow-delimiters-depth-1">(</span>train_descriptor, test_descriptor<span class="org-rainbow-delimiters-depth-1">)</span>
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">The matches with shorter distance are the ones we want.</span>
+<span class="org-variable-name">matches</span> <span class="org-operator">=</span> <span class="org-builtin">sorted</span><span class="org-rainbow-delimiters-depth-1">(</span>matches, key <span class="org-operator">=</span> <span class="org-keyword">lambda</span> x : x.distance<span class="org-rainbow-delimiters-depth-1">)</span>
+
+<span class="org-variable-name">result</span> <span class="org-operator">=</span> cv2.drawMatches<span class="org-rainbow-delimiters-depth-1">(</span>training_image, train_keypoints, test_gray, test_keypoints, matches, test_gray, flags <span class="org-operator">=</span> 2<span class="org-rainbow-delimiters-depth-1">)</span>
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">Display the best matching points</span>
+plt.<span class="org-variable-name">rcParams</span><span class="org-rainbow-delimiters-depth-1">[</span><span class="org-string">'figure.figsize'</span><span class="org-rainbow-delimiters-depth-1">]</span> <span class="org-operator">=</span> <span class="org-rainbow-delimiters-depth-1">[</span>14.0, 7.0<span class="org-rainbow-delimiters-depth-1">]</span>
+plt.title<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-string">'Best Matching Points'</span><span class="org-rainbow-delimiters-depth-1">)</span>
+plt.imshow<span class="org-rainbow-delimiters-depth-1">(</span>result<span class="org-rainbow-delimiters-depth-1">)</span>
+plt.show<span class="org-rainbow-delimiters-depth-1">()</span>
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">Print total number of matching points between the training and query images</span>
+<span class="org-builtin">print</span><span class="org-rainbow-delimiters-depth-1">(</span><span class="org-string">"</span><span class="org-constant">\n</span><span class="org-string">Number of Matching Keypoints Between The Training and Query Images: "</span>, <span class="org-builtin">len</span><span class="org-rainbow-delimiters-depth-2">(</span>matches<span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org9a4cdfd" class="outline-2">
+<h2 id="org9a4cdfd">Speeded-Up Robust Features</h2>
+<div class="outline-text-2" id="text-org9a4cdfd">
+<p>
+First we need to implrt the necessary modules
+</p>
+
+<div class="org-src-container">
+<pre class="src src-python" id="org9ceb421"><span class="org-keyword">import</span> cv2
+<span class="org-keyword">import</span> matplotlib.pyplot <span class="org-keyword">as</span> plt
+<span class="org-keyword">import</span> numpy <span class="org-keyword">as</span> np
+<span class="org-keyword">from</span> cv2 <span class="org-keyword">import</span> xfeatures2d
+</pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-python" id="orgaf82bb4"><span class="org-variable-name">image1</span> <span class="org-operator">=</span> data.astronaut<span class="org-rainbow-delimiters-depth-1">()</span> <span class="org-comment-delimiter"># </span><span class="org-comment">Load the image</span>
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">Convert the training image to RGB</span>
+<span class="org-variable-name">training_image</span> <span class="org-operator">=</span> cv2.cvtColor<span class="org-rainbow-delimiters-depth-1">(</span>image1, cv2.COLOR_BGR2RGB<span class="org-rainbow-delimiters-depth-1">)</span>
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">Convert the training image to gray scale</span>
+<span class="org-variable-name">training_gray</span> <span class="org-operator">=</span> cv2.cvtColor<span class="org-rainbow-delimiters-depth-1">(</span>training_image, cv2.COLOR_RGB2GRAY<span class="org-rainbow-delimiters-depth-1">)</span>
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">Create test image by adding Scale Invariance and Rotational Invariance</span>
+<span class="org-variable-name">test_image</span> <span class="org-operator">=</span> cv2.pyrDown<span class="org-rainbow-delimiters-depth-1">(</span>training_image<span class="org-rainbow-delimiters-depth-1">)</span>
+<span class="org-variable-name">test_image</span> <span class="org-operator">=</span> cv2.pyrDown<span class="org-rainbow-delimiters-depth-1">(</span>test_image<span class="org-rainbow-delimiters-depth-1">)</span>
+<span class="org-variable-name">num_rows</span>, <span class="org-variable-name">num_cols</span> <span class="org-operator">=</span> test_image.shape<span class="org-rainbow-delimiters-depth-1">[</span>:2<span class="org-rainbow-delimiters-depth-1">]</span>
+
+<span class="org-variable-name">rotation_matrix</span> <span class="org-operator">=</span> cv2.getRotationMatrix2D<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-rainbow-delimiters-depth-2">(</span>num_cols<span class="org-operator">/</span>2, num_rows<span class="org-operator">/</span>2<span class="org-rainbow-delimiters-depth-2">)</span>, 30, 1<span class="org-rainbow-delimiters-depth-1">)</span>
+<span class="org-variable-name">test_image</span> <span class="org-operator">=</span> cv2.warpAffine<span class="org-rainbow-delimiters-depth-1">(</span>test_image, rotation_matrix, <span class="org-rainbow-delimiters-depth-2">(</span>num_cols, num_rows<span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
+
+<span class="org-variable-name">test_gray</span> <span class="org-operator">=</span> cv2.cvtColor<span class="org-rainbow-delimiters-depth-1">(</span>test_image, cv2.COLOR_RGB2GRAY<span class="org-rainbow-delimiters-depth-1">)</span>
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">Display traning image and testing image</span>
+<span class="org-variable-name">fx</span>, <span class="org-variable-name">plots</span> <span class="org-operator">=</span> plt.subplots<span class="org-rainbow-delimiters-depth-1">(</span>1, 2, figsize<span class="org-operator">=</span><span class="org-rainbow-delimiters-depth-2">(</span>20,10<span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
+
+plots<span class="org-rainbow-delimiters-depth-1">[</span>0<span class="org-rainbow-delimiters-depth-1">]</span>.set_title<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-string">"Training Image"</span><span class="org-rainbow-delimiters-depth-1">)</span>
+plots<span class="org-rainbow-delimiters-depth-1">[</span>0<span class="org-rainbow-delimiters-depth-1">]</span>.imshow<span class="org-rainbow-delimiters-depth-1">(</span>training_image<span class="org-rainbow-delimiters-depth-1">)</span>
+
+plots<span class="org-rainbow-delimiters-depth-1">[</span>1<span class="org-rainbow-delimiters-depth-1">]</span>.set_title<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-string">"Testing Image"</span><span class="org-rainbow-delimiters-depth-1">)</span>
+plots<span class="org-rainbow-delimiters-depth-1">[</span>1<span class="org-rainbow-delimiters-depth-1">]</span>.imshow<span class="org-rainbow-delimiters-depth-1">(</span>test_image<span class="org-rainbow-delimiters-depth-1">)</span>
+plt.show<span class="org-rainbow-delimiters-depth-1">()</span>
+</pre>
+</div>
+
+<p>
+NOTE: For xfeatures2d to work you need to install pip install opencv-contrib-python
+</p>
+
+<div class="org-src-container">
+<pre class="src src-python" id="orgbb340d9"><span class="org-variable-name">surf</span> <span class="org-operator">=</span> cv2.xfeatures2d.SURF_create<span class="org-rainbow-delimiters-depth-1">(</span>800<span class="org-rainbow-delimiters-depth-1">)</span>
+
+<span class="org-variable-name">train_keypoints</span>, <span class="org-variable-name">train_descriptor</span> <span class="org-operator">=</span> surf.detectAndCompute<span class="org-rainbow-delimiters-depth-1">(</span>training_gray, <span class="org-constant">None</span><span class="org-rainbow-delimiters-depth-1">)</span>
+<span class="org-variable-name">test_keypoints</span>, <span class="org-variable-name">test_descriptor</span> <span class="org-operator">=</span> surf.detectAndCompute<span class="org-rainbow-delimiters-depth-1">(</span>test_gray, <span class="org-constant">None</span><span class="org-rainbow-delimiters-depth-1">)</span>
+
+<span class="org-variable-name">keypoints_without_size</span> <span class="org-operator">=</span> np.copy<span class="org-rainbow-delimiters-depth-1">(</span>training_image<span class="org-rainbow-delimiters-depth-1">)</span>
+<span class="org-variable-name">keypoints_with_size</span> <span class="org-operator">=</span> np.copy<span class="org-rainbow-delimiters-depth-1">(</span>training_image<span class="org-rainbow-delimiters-depth-1">)</span>
+
+cv2.drawKeypoints<span class="org-rainbow-delimiters-depth-1">(</span>training_image, train_keypoints, keypoints_without_size, color <span class="org-operator">=</span> <span class="org-rainbow-delimiters-depth-2">(</span>0, 255, 0<span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
+
+cv2.drawKeypoints<span class="org-rainbow-delimiters-depth-1">(</span>training_image, train_keypoints, keypoints_with_size, flags <span class="org-operator">=</span> cv2.DRAW_MATCHES_FLAGS_DRAW_RICH_KEYPOINTS<span class="org-rainbow-delimiters-depth-1">)</span>
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">Display image with and without keypoints size</span>
+<span class="org-variable-name">fx</span>, <span class="org-variable-name">plots</span> <span class="org-operator">=</span> plt.subplots<span class="org-rainbow-delimiters-depth-1">(</span>1, 2, figsize<span class="org-operator">=</span><span class="org-rainbow-delimiters-depth-2">(</span>20,10<span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
+
+plots<span class="org-rainbow-delimiters-depth-1">[</span>0<span class="org-rainbow-delimiters-depth-1">]</span>.set_title<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-string">"Train keypoints With Size"</span><span class="org-rainbow-delimiters-depth-1">)</span>
+plots<span class="org-rainbow-delimiters-depth-1">[</span>0<span class="org-rainbow-delimiters-depth-1">]</span>.imshow<span class="org-rainbow-delimiters-depth-1">(</span>keypoints_with_size, cmap<span class="org-operator">=</span><span class="org-string">'gray'</span><span class="org-rainbow-delimiters-depth-1">)</span>
+
+plots<span class="org-rainbow-delimiters-depth-1">[</span>1<span class="org-rainbow-delimiters-depth-1">]</span>.set_title<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-string">"Train keypoints Without Size"</span><span class="org-rainbow-delimiters-depth-1">)</span>
+plots<span class="org-rainbow-delimiters-depth-1">[</span>1<span class="org-rainbow-delimiters-depth-1">]</span>.imshow<span class="org-rainbow-delimiters-depth-1">(</span>keypoints_without_size, cmap<span class="org-operator">=</span><span class="org-string">'gray'</span><span class="org-rainbow-delimiters-depth-1">)</span>
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">Print the number of keypoints detected in the training image</span>
+<span class="org-builtin">print</span><span class="org-rainbow-delimiters-depth-1">(</span><span class="org-string">"Number of Keypoints Detected In The Training Image: "</span>, <span class="org-builtin">len</span><span class="org-rainbow-delimiters-depth-2">(</span>train_keypoints<span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">Print the number of keypoints detected in the query image</span>
+<span class="org-builtin">print</span><span class="org-rainbow-delimiters-depth-1">(</span><span class="org-string">"Number of Keypoints Detected In The Query Image: "</span>, <span class="org-builtin">len</span><span class="org-rainbow-delimiters-depth-2">(</span>test_keypoints<span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org2ea2bb7" class="outline-2">
+<h2 id="org2ea2bb7">ORB Feature Extractor</h2>
+<div class="outline-text-2" id="text-org2ea2bb7">
+</div>
+<div id="outline-container-orgb76b498" class="outline-3">
+<h3 id="orgb76b498">OpenCV Implementation</h3>
+<div class="outline-text-3" id="text-orgb76b498">
+<p>
+Oriented FAST and Rotated BRIEF (ORB) was developed at OpenCV labs
+by Ethan Rublee, Vincent Rabaud, Kurt Konolige, and Gary R. Bradski
+in 2011, as an efficient and viable alternative to SIFT and SURF.
+</p>
+
+<p>
+ORB was conceived mainly because SIFT and SURF are patented algorithms.
+ORB, however, is free to use.
+</p>
+
+<p>
+Start with importing the required modules.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-python" id="org0f2d467"><span class="org-keyword">import</span> cv2
+<span class="org-keyword">import</span> matplotlib.pyplot <span class="org-keyword">as</span> plt
+<span class="org-keyword">import</span> numpy <span class="org-keyword">as</span> np
+<span class="org-keyword">from</span> skimage <span class="org-keyword">import</span> data
+</pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-python" id="org49580f1"><span class="org-variable-name">origin_image</span> <span class="org-operator">=</span> data.astronaut<span class="org-rainbow-delimiters-depth-1">()</span> <span class="org-comment-delimiter"># </span><span class="org-comment">Load the image</span>
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">Convert the training image to RGB</span>
+<span class="org-variable-name">training_image</span> <span class="org-operator">=</span> cv2.cvtColor<span class="org-rainbow-delimiters-depth-1">(</span>origin_image, cv2.COLOR_RGB2RGB<span class="org-rainbow-delimiters-depth-1">)</span>
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">Convert the training image to gray scale</span>
+<span class="org-variable-name">training_gray</span> <span class="org-operator">=</span> cv2.cvtColor<span class="org-rainbow-delimiters-depth-1">(</span>training_image, cv2.COLOR_RGB2GRAY<span class="org-rainbow-delimiters-depth-1">)</span>
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">Create test image by adding Scale Invariance and Rotational Invariance</span>
+<span class="org-variable-name">test_image</span> <span class="org-operator">=</span> cv2.pyrDown<span class="org-rainbow-delimiters-depth-1">(</span>training_image<span class="org-rainbow-delimiters-depth-1">)</span>
+<span class="org-variable-name">test_image</span> <span class="org-operator">=</span> cv2.pyrDown<span class="org-rainbow-delimiters-depth-1">(</span>test_image<span class="org-rainbow-delimiters-depth-1">)</span>
+
+<span class="org-variable-name">num_rows</span>, <span class="org-variable-name">num_cols</span> <span class="org-operator">=</span> test_image.shape<span class="org-rainbow-delimiters-depth-1">[</span>:2<span class="org-rainbow-delimiters-depth-1">]</span>
+
+<span class="org-variable-name">rotation_matrix</span> <span class="org-operator">=</span> cv2.getRotationMatrix2D<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-rainbow-delimiters-depth-2">(</span>num_cols<span class="org-operator">/</span>2, num_rows<span class="org-operator">/</span>2<span class="org-rainbow-delimiters-depth-2">)</span>, 30, 1<span class="org-rainbow-delimiters-depth-1">)</span>
+<span class="org-variable-name">test_image</span> <span class="org-operator">=</span> cv2.warpAffine<span class="org-rainbow-delimiters-depth-1">(</span>test_image, rotation_matrix, <span class="org-rainbow-delimiters-depth-2">(</span>num_cols, num_rows<span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
+
+<span class="org-variable-name">test_gray</span> <span class="org-operator">=</span> cv2.cvtColor<span class="org-rainbow-delimiters-depth-1">(</span>test_image, cv2.COLOR_RGB2GRAY<span class="org-rainbow-delimiters-depth-1">)</span>
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">Display traning image and testing image</span>
+<span class="org-variable-name">fx</span>, <span class="org-variable-name">plots</span> <span class="org-operator">=</span> plt.subplots<span class="org-rainbow-delimiters-depth-1">(</span>1, 2, figsize<span class="org-operator">=</span><span class="org-rainbow-delimiters-depth-2">(</span>20,10<span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
+
+plots<span class="org-rainbow-delimiters-depth-1">[</span>0<span class="org-rainbow-delimiters-depth-1">]</span>.set_title<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-string">"Training Image"</span><span class="org-rainbow-delimiters-depth-1">)</span>
+plots<span class="org-rainbow-delimiters-depth-1">[</span>0<span class="org-rainbow-delimiters-depth-1">]</span>.imshow<span class="org-rainbow-delimiters-depth-1">(</span>training_image<span class="org-rainbow-delimiters-depth-1">)</span>
+
+plots<span class="org-rainbow-delimiters-depth-1">[</span>1<span class="org-rainbow-delimiters-depth-1">]</span>.set_title<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-string">"Testing Image"</span><span class="org-rainbow-delimiters-depth-1">)</span>
+plots<span class="org-rainbow-delimiters-depth-1">[</span>1<span class="org-rainbow-delimiters-depth-1">]</span>.imshow<span class="org-rainbow-delimiters-depth-1">(</span>test_image<span class="org-rainbow-delimiters-depth-1">)</span>
+plt.show<span class="org-rainbow-delimiters-depth-1">()</span>
+</pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-python" id="org5174be8"><span class="org-variable-name">orb</span> <span class="org-operator">=</span> cv2.ORB_create<span class="org-rainbow-delimiters-depth-1">()</span>
+
+<span class="org-variable-name">train_keypoints</span>, <span class="org-variable-name">train_descriptor</span> <span class="org-operator">=</span> orb.detectAndCompute<span class="org-rainbow-delimiters-depth-1">(</span>training_gray, <span class="org-constant">None</span><span class="org-rainbow-delimiters-depth-1">)</span>
+<span class="org-variable-name">test_keypoints</span>, <span class="org-variable-name">test_descriptor</span> <span class="org-operator">=</span> orb.detectAndCompute<span class="org-rainbow-delimiters-depth-1">(</span>test_gray, <span class="org-constant">None</span><span class="org-rainbow-delimiters-depth-1">)</span>
+
+<span class="org-variable-name">keypoints_without_size</span> <span class="org-operator">=</span> np.copy<span class="org-rainbow-delimiters-depth-1">(</span>training_image<span class="org-rainbow-delimiters-depth-1">)</span>
+<span class="org-variable-name">keypoints_with_size</span> <span class="org-operator">=</span> np.copy<span class="org-rainbow-delimiters-depth-1">(</span>training_image<span class="org-rainbow-delimiters-depth-1">)</span>
+
+cv2.drawKeypoints<span class="org-rainbow-delimiters-depth-1">(</span>training_image, train_keypoints, keypoints_without_size, color <span class="org-operator">=</span> <span class="org-rainbow-delimiters-depth-2">(</span>0, 255, 0<span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
+
+cv2.drawKeypoints<span class="org-rainbow-delimiters-depth-1">(</span>training_image, train_keypoints, keypoints_with_size, flags <span class="org-operator">=</span> cv2.DRAW_MATCHES_FLAGS_DRAW_RICH_KEYPOINTS<span class="org-rainbow-delimiters-depth-1">)</span>
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">Display image with and without keypoints size</span>
+<span class="org-variable-name">fx</span>, <span class="org-variable-name">plots</span> <span class="org-operator">=</span> plt.subplots<span class="org-rainbow-delimiters-depth-1">(</span>1, 2, figsize<span class="org-operator">=</span><span class="org-rainbow-delimiters-depth-2">(</span>20,10<span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
+
+plots<span class="org-rainbow-delimiters-depth-1">[</span>0<span class="org-rainbow-delimiters-depth-1">]</span>.set_title<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-string">"Train keypoints With Size"</span><span class="org-rainbow-delimiters-depth-1">)</span>
+plots<span class="org-rainbow-delimiters-depth-1">[</span>0<span class="org-rainbow-delimiters-depth-1">]</span>.imshow<span class="org-rainbow-delimiters-depth-1">(</span>keypoints_with_size, cmap<span class="org-operator">=</span><span class="org-string">'gray'</span><span class="org-rainbow-delimiters-depth-1">)</span>
+
+plots<span class="org-rainbow-delimiters-depth-1">[</span>1<span class="org-rainbow-delimiters-depth-1">]</span>.set_title<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-string">"Train keypoints Without Size"</span><span class="org-rainbow-delimiters-depth-1">)</span>
+plots<span class="org-rainbow-delimiters-depth-1">[</span>1<span class="org-rainbow-delimiters-depth-1">]</span>.imshow<span class="org-rainbow-delimiters-depth-1">(</span>keypoints_without_size, cmap<span class="org-operator">=</span><span class="org-string">'gray'</span><span class="org-rainbow-delimiters-depth-1">)</span>
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">Print the number of keypoints detected in the training image</span>
+<span class="org-builtin">print</span><span class="org-rainbow-delimiters-depth-1">(</span><span class="org-string">"Number of Keypoints Detected In The Training Image: "</span>, <span class="org-builtin">len</span><span class="org-rainbow-delimiters-depth-2">(</span>train_keypoints<span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">Print the number of keypoints detected in the query image</span>
+<span class="org-builtin">print</span><span class="org-rainbow-delimiters-depth-1">(</span><span class="org-string">"Number of Keypoints Detected In The Query Image: "</span>, <span class="org-builtin">len</span><span class="org-rainbow-delimiters-depth-2">(</span>test_keypoints<span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
+</pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-python" id="orgf686572"><span class="org-comment-delimiter"># </span><span class="org-comment">Create a Brute Force Matcher object.</span>
+<span class="org-variable-name">bf</span> <span class="org-operator">=</span> cv2.BFMatcher<span class="org-rainbow-delimiters-depth-1">(</span>cv2.NORM_HAMMING, crossCheck <span class="org-operator">=</span> <span class="org-constant">True</span><span class="org-rainbow-delimiters-depth-1">)</span>
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">Perform the matching between the ORB descriptors of the training image and the test image</span>
+<span class="org-variable-name">matches</span> <span class="org-operator">=</span> bf.<span class="org-keyword">match</span><span class="org-rainbow-delimiters-depth-1">(</span>train_descriptor, test_descriptor<span class="org-rainbow-delimiters-depth-1">)</span>
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">The matches with shorter distance are the ones we want.</span>
+<span class="org-variable-name">matches</span> <span class="org-operator">=</span> <span class="org-builtin">sorted</span><span class="org-rainbow-delimiters-depth-1">(</span>matches, key <span class="org-operator">=</span> <span class="org-keyword">lambda</span> x : x.distance<span class="org-rainbow-delimiters-depth-1">)</span>
+
+<span class="org-variable-name">result</span> <span class="org-operator">=</span> cv2.drawMatches<span class="org-rainbow-delimiters-depth-1">(</span>training_image, train_keypoints, test_gray, test_keypoints, matches, test_gray, flags <span class="org-operator">=</span> 2<span class="org-rainbow-delimiters-depth-1">)</span>
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">Display the best matching points</span>
+plt.<span class="org-variable-name">rcParams</span><span class="org-rainbow-delimiters-depth-1">[</span><span class="org-string">'figure.figsize'</span><span class="org-rainbow-delimiters-depth-1">]</span> <span class="org-operator">=</span> <span class="org-rainbow-delimiters-depth-1">[</span>14.0, 7.0<span class="org-rainbow-delimiters-depth-1">]</span>
+plt.title<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-string">'Best Matching Points'</span><span class="org-rainbow-delimiters-depth-1">)</span>
+plt.imshow<span class="org-rainbow-delimiters-depth-1">(</span>result<span class="org-rainbow-delimiters-depth-1">)</span>
+plt.show<span class="org-rainbow-delimiters-depth-1">()</span>
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">Print total number of matching points between the training and query images</span>
+<span class="org-builtin">print</span><span class="org-rainbow-delimiters-depth-1">(</span><span class="org-string">"</span><span class="org-constant">\n</span><span class="org-string">Number of Matching Keypoints Between The Training and Query Images: "</span>, <span class="org-builtin">len</span><span class="org-rainbow-delimiters-depth-2">(</span>matches<span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
+
+</pre>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-orgfb0b7c9" class="outline-3">
+<h3 id="orgfb0b7c9">scikit-image Implementation</h3>
+<div class="outline-text-3" id="text-orgfb0b7c9">
+<div class="org-src-container">
+<pre class="src src-python" id="orgc6fcb69"><span class="org-keyword">from</span> skimage <span class="org-keyword">import</span> data
+<span class="org-keyword">from</span> skimage <span class="org-keyword">import</span> transform
+<span class="org-keyword">from</span> skimage.feature <span class="org-keyword">import</span> match_descriptors, ORB, plot_matches
+<span class="org-keyword">from</span> skimage.color <span class="org-keyword">import</span> rgb2gray
+<span class="org-keyword">import</span> matplotlib.pyplot <span class="org-keyword">as</span> plt
+
+
+<span class="org-variable-name">img1</span> <span class="org-operator">=</span> rgb2gray<span class="org-rainbow-delimiters-depth-1">(</span>data.astronaut<span class="org-rainbow-delimiters-depth-2">()</span><span class="org-rainbow-delimiters-depth-1">)</span>
+<span class="org-variable-name">img2</span> <span class="org-operator">=</span> transform.rotate<span class="org-rainbow-delimiters-depth-1">(</span>img1, 180<span class="org-rainbow-delimiters-depth-1">)</span>
+<span class="org-variable-name">tform</span> <span class="org-operator">=</span> transform.AffineTransform<span class="org-rainbow-delimiters-depth-1">(</span>scale<span class="org-operator">=</span><span class="org-rainbow-delimiters-depth-2">(</span>1.3, 1.1<span class="org-rainbow-delimiters-depth-2">)</span>, rotation<span class="org-operator">=</span>0.5, translation<span class="org-operator">=</span><span class="org-rainbow-delimiters-depth-2">(</span>0, <span class="org-operator">-</span>200<span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
+<span class="org-variable-name">img3</span> <span class="org-operator">=</span> transform.warp<span class="org-rainbow-delimiters-depth-1">(</span>img1, tform<span class="org-rainbow-delimiters-depth-1">)</span>
+
+<span class="org-variable-name">descriptor_extractor</span> <span class="org-operator">=</span> ORB<span class="org-rainbow-delimiters-depth-1">(</span>n_keypoints<span class="org-operator">=</span>200<span class="org-rainbow-delimiters-depth-1">)</span>
+
+descriptor_extractor.detect_and_extract<span class="org-rainbow-delimiters-depth-1">(</span>img1<span class="org-rainbow-delimiters-depth-1">)</span>
+<span class="org-variable-name">keypoints1</span> <span class="org-operator">=</span> descriptor_extractor.keypoints
+<span class="org-variable-name">descriptors1</span> <span class="org-operator">=</span> descriptor_extractor.descriptors
+
+descriptor_extractor.detect_and_extract<span class="org-rainbow-delimiters-depth-1">(</span>img2<span class="org-rainbow-delimiters-depth-1">)</span>
+<span class="org-variable-name">keypoints2</span> <span class="org-operator">=</span> descriptor_extractor.keypoints
+<span class="org-variable-name">descriptors2</span> <span class="org-operator">=</span> descriptor_extractor.descriptors
+
+descriptor_extractor.detect_and_extract<span class="org-rainbow-delimiters-depth-1">(</span>img3<span class="org-rainbow-delimiters-depth-1">)</span>
+<span class="org-variable-name">keypoints3</span> <span class="org-operator">=</span> descriptor_extractor.keypoints
+<span class="org-variable-name">descriptors3</span> <span class="org-operator">=</span> descriptor_extractor.descriptors
+
+<span class="org-variable-name">matches12</span> <span class="org-operator">=</span> match_descriptors<span class="org-rainbow-delimiters-depth-1">(</span>descriptors1, descriptors2, cross_check<span class="org-operator">=</span><span class="org-constant">True</span><span class="org-rainbow-delimiters-depth-1">)</span>
+<span class="org-variable-name">matches13</span> <span class="org-operator">=</span> match_descriptors<span class="org-rainbow-delimiters-depth-1">(</span>descriptors1, descriptors3, cross_check<span class="org-operator">=</span><span class="org-constant">True</span><span class="org-rainbow-delimiters-depth-1">)</span>
+
+<span class="org-variable-name">fig</span>, <span class="org-variable-name">ax</span> <span class="org-operator">=</span> plt.subplots<span class="org-rainbow-delimiters-depth-1">(</span>nrows<span class="org-operator">=</span>2, ncols<span class="org-operator">=</span>1<span class="org-rainbow-delimiters-depth-1">)</span>
+
+plt.gray<span class="org-rainbow-delimiters-depth-1">()</span>
+
+plot_matches<span class="org-rainbow-delimiters-depth-1">(</span>ax<span class="org-rainbow-delimiters-depth-2">[</span>0<span class="org-rainbow-delimiters-depth-2">]</span>, img1, img2, keypoints1, keypoints2, matches12<span class="org-rainbow-delimiters-depth-1">)</span>
+ax<span class="org-rainbow-delimiters-depth-1">[</span>0<span class="org-rainbow-delimiters-depth-1">]</span>.axis<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-string">'off'</span><span class="org-rainbow-delimiters-depth-1">)</span>
+ax<span class="org-rainbow-delimiters-depth-1">[</span>0<span class="org-rainbow-delimiters-depth-1">]</span>.set_title<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-string">"Original Image vs. Transformed Image"</span><span class="org-rainbow-delimiters-depth-1">)</span>
+
+plot_matches<span class="org-rainbow-delimiters-depth-1">(</span>ax<span class="org-rainbow-delimiters-depth-2">[</span>1<span class="org-rainbow-delimiters-depth-2">]</span>, img1, img3, keypoints1, keypoints3, matches13<span class="org-rainbow-delimiters-depth-1">)</span>
+ax<span class="org-rainbow-delimiters-depth-1">[</span>1<span class="org-rainbow-delimiters-depth-1">]</span>.axis<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-string">'off'</span><span class="org-rainbow-delimiters-depth-1">)</span>
+ax<span class="org-rainbow-delimiters-depth-1">[</span>1<span class="org-rainbow-delimiters-depth-1">]</span>.set_title<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-string">"Original Image vs. Transformed Image"</span><span class="org-rainbow-delimiters-depth-1">)</span>
+
+plt.show<span class="org-rainbow-delimiters-depth-1">()</span>
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org3570d20" class="outline-2">
+<h2 id="org3570d20">Adaptive Thresholding</h2>
+<div class="outline-text-2" id="text-org3570d20">
+<div class="org-src-container">
+<pre class="src src-python" id="org01438d8"><span class="org-keyword">import</span> cv2 <span class="org-keyword">as</span> cv
+<span class="org-keyword">import</span> numpy <span class="org-keyword">as</span> np
+<span class="org-keyword">from</span> matplotlib <span class="org-keyword">import</span> pyplot <span class="org-keyword">as</span> plt
+
+<span class="org-variable-name">img</span> <span class="org-operator">=</span> cv.imread<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-string">'Sample-Images/Chess.jpg'</span>, cv.IMREAD_GRAYSCALE<span class="org-rainbow-delimiters-depth-1">)</span>
+<span class="org-keyword">assert</span> img <span class="org-keyword">is</span> <span class="org-keyword">not</span> <span class="org-constant">None</span>, <span class="org-string">"file could not be read, check with os.path.exists()"</span>
+<span class="org-variable-name">img</span> <span class="org-operator">=</span> cv.medianBlur<span class="org-rainbow-delimiters-depth-1">(</span>img,5<span class="org-rainbow-delimiters-depth-1">)</span>
+
+<span class="org-variable-name">ret</span>,<span class="org-variable-name">th1</span> <span class="org-operator">=</span> cv.threshold<span class="org-rainbow-delimiters-depth-1">(</span>img,127,255,cv.THRESH_BINARY<span class="org-rainbow-delimiters-depth-1">)</span>
+<span class="org-variable-name">th2</span> <span class="org-operator">=</span> cv.adaptiveThreshold<span class="org-rainbow-delimiters-depth-1">(</span>img,255,cv.ADAPTIVE_THRESH_MEAN_C,\
+            cv.THRESH_BINARY,11,2<span class="org-rainbow-delimiters-depth-1">)</span>
+<span class="org-variable-name">th3</span> <span class="org-operator">=</span> cv.adaptiveThreshold<span class="org-rainbow-delimiters-depth-1">(</span>img,255,cv.ADAPTIVE_THRESH_GAUSSIAN_C,\
+            cv.THRESH_BINARY,11,2<span class="org-rainbow-delimiters-depth-1">)</span>
+
+<span class="org-variable-name">titles</span> <span class="org-operator">=</span> <span class="org-rainbow-delimiters-depth-1">[</span><span class="org-string">'Original Image'</span>, <span class="org-string">'Global Thresholding (v = 127)'</span>,
+            <span class="org-string">'Adaptive Mean Thresholding'</span>, <span class="org-string">'Adaptive Gaussian Thresholding'</span><span class="org-rainbow-delimiters-depth-1">]</span>
+<span class="org-variable-name">images</span> <span class="org-operator">=</span> <span class="org-rainbow-delimiters-depth-1">[</span>img, th1, th2, th3<span class="org-rainbow-delimiters-depth-1">]</span>
+
+<span class="org-keyword">for</span> i <span class="org-keyword">in</span> <span class="org-builtin">range</span><span class="org-rainbow-delimiters-depth-1">(</span>4<span class="org-rainbow-delimiters-depth-1">)</span>:
+    plt.subplot<span class="org-rainbow-delimiters-depth-1">(</span>2,2,i<span class="org-operator">+</span>1<span class="org-rainbow-delimiters-depth-1">)</span>,plt.imshow<span class="org-rainbow-delimiters-depth-1">(</span>images<span class="org-rainbow-delimiters-depth-2">[</span>i<span class="org-rainbow-delimiters-depth-2">]</span>,<span class="org-string">'gray'</span><span class="org-rainbow-delimiters-depth-1">)</span>
+    plt.title<span class="org-rainbow-delimiters-depth-1">(</span>titles<span class="org-rainbow-delimiters-depth-2">[</span>i<span class="org-rainbow-delimiters-depth-2">]</span><span class="org-rainbow-delimiters-depth-1">)</span>
+    plt.xticks<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-rainbow-delimiters-depth-2">[]</span><span class="org-rainbow-delimiters-depth-1">)</span>,plt.yticks<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-rainbow-delimiters-depth-2">[]</span><span class="org-rainbow-delimiters-depth-1">)</span>
+plt.show<span class="org-rainbow-delimiters-depth-1">()</span>
+</pre>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: Daniel McGuiness</p>
+</div>
+</body>
+</html>
