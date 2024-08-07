@@ -1,15 +1,15 @@
 
 # Table of Contents
 
-1.  [A Gentle Introduction](#orgf9d4f1c)
-    1.  [Lecture Information](#org33b5f32)
-        1.  [Assignments](#orgf7e9b9e)
-    2.  [The Lecture Structure](#orgb5cae0e)
-    3.  [Code Supplement](#org94a0f06)
-    4.  [Reading List](#org159a80f)
+1.  [A Gentle Introduction](#org6bdbe1a)
+    1.  [Lecture Information](#orga66fad8)
+        1.  [Assignments](#org8ab78d2)
+    2.  [The Lecture Structure](#org6649915)
+    3.  [Code Supplement](#org1715c47)
+    4.  [Reading List](#orgddf167e)
 
 
-<a id="orgf9d4f1c"></a>
+<a id="org6bdbe1a"></a>
 
 # A Gentle Introduction
 
@@ -22,7 +22,7 @@ focus will be on the topics of:
 4.  An example of using ML in image recognition techniques.
 
 
-<a id="org33b5f32"></a>
+<a id="orga66fad8"></a>
 
 ## Lecture Information
 
@@ -118,7 +118,7 @@ The details of the lecture are given below.
 </table>
 
 
-<a id="orgf7e9b9e"></a>
+<a id="org8ab78d2"></a>
 
 ### Assignments
 
@@ -161,135 +161,135 @@ The grade breakdown is as follows:
 </tbody>
 </table>
 
-1.  Individual Assignment
+**Individual Assignment**
 
-    An individual assignment will be given to you to work on. This assignment will consist of
-    questions pertaining to concepts and image processing techniques.
-    
-    The grade breakdown is as follows:
-    
-    <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
-    
-    
-    <colgroup>
-    <col  class="org-left" />
-    
-    <col  class="org-right" />
-    </colgroup>
-    <thead>
-    <tr>
-    <th scope="col" class="org-left">DEFINITION</th>
-    <th scope="col" class="org-right">GRADE (%)</th>
-    </tr>
-    </thead>
-    
-    <tbody>
-    <tr>
-    <td class="org-left">Report Style</td>
-    <td class="org-right">15</td>
-    </tr>
-    
-    
-    <tr>
-    <td class="org-left">Q1 - Blurring Filters</td>
-    <td class="org-right">15</td>
-    </tr>
-    
-    
-    <tr>
-    <td class="org-left">Q2 - Image Channel Analysis</td>
-    <td class="org-right">15</td>
-    </tr>
-    
-    
-    <tr>
-    <td class="org-left">Q3 - RNG Map Generation</td>
-    <td class="org-right">10</td>
-    </tr>
-    
-    
-    <tr>
-    <td class="org-left">Q4 - Image Cleaning</td>
-    <td class="org-right">10</td>
-    </tr>
-    
-    
-    <tr>
-    <td class="org-left">Q5 - Shape Recognition</td>
-    <td class="org-right">30</td>
-    </tr>
-    
-    
-    <tr>
-    <td class="org-left">Q6 - Image Quality Comparison</td>
-    <td class="org-right">10</td>
-    </tr>
-    
-    
-    <tr>
-    <td class="org-left">Sum</td>
-    <td class="org-right">100</td>
-    </tr>
-    </tbody>
-    </table>
-    
-    **NOTE:** The assignment is individual and is not meant to be worked as a group. Once the
-    code and the work is submitted it will be vetted against a software to determine
-    if any collusion has occured.
+An individual assignment will be given to you to work on. This assignment will consist of
+questions pertaining to concepts and image processing techniques.
 
-2.  Group Assignment
+The grade breakdown is as follows:
 
-    The group assignment focuses on a student defined project which its presentation will be
-    done in the last 3 sessions of the course. You are to come up with a group and a project
-    within the first 3 weeks of the lecture otherwise one will be given to you.
-    
-    The grade breakdown is as follows:
-    
-    <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
-    
-    
-    <colgroup>
-    <col  class="org-left" />
-    
-    <col  class="org-right" />
-    </colgroup>
-    <thead>
-    <tr>
-    <th scope="col" class="org-left">DEFINITION</th>
-    <th scope="col" class="org-right">GRADE (%)</th>
-    </tr>
-    </thead>
-    
-    <tbody>
-    <tr>
-    <td class="org-left">Report Style</td>
-    <td class="org-right">15</td>
-    </tr>
-    
-    
-    <tr>
-    <td class="org-left">Content</td>
-    <td class="org-right">55</td>
-    </tr>
-    
-    
-    <tr>
-    <td class="org-left">Q &amp; A</td>
-    <td class="org-right">30</td>
-    </tr>
-    </tbody>
-    </table>
-    
-    In report writing students must declare their contribution to the work and they will be
-    asked regarding their field of work during the Q&A (i.e., if Student A has worked with
-    blurring filter he may be asked on why a specific one is chosen and/or the concepts and
-    maths behind the said filter).
-    
-    **NOTE:** Students will be graded based on their contribution to the project and answers
-    during the Q&A, therefore will be graded individually.
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
 
 
-<a id="orgb5cae0e"></a>
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-right" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">DEFINITION</th>
+<th scope="col" class="org-right">GRADE (%)</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td class="org-left">Report Style</td>
+<td class="org-right">15</td>
+</tr>
+
+
+<tr>
+<td class="org-left">Q1 - Blurring Filters</td>
+<td class="org-right">15</td>
+</tr>
+
+
+<tr>
+<td class="org-left">Q2 - Image Channel Analysis</td>
+<td class="org-right">10</td>
+</tr>
+
+
+<tr>
+<td class="org-left">Q3 - RNG Map Generation</td>
+<td class="org-right">10</td>
+</tr>
+
+
+<tr>
+<td class="org-left">Q4 - Image Cleaning</td>
+<td class="org-right">10</td>
+</tr>
+
+
+<tr>
+<td class="org-left">Q5 - Shape Recognition</td>
+<td class="org-right">30</td>
+</tr>
+
+
+<tr>
+<td class="org-left">Q6 - Image Quality Comparison</td>
+<td class="org-right">10</td>
+</tr>
+
+
+<tr>
+<td class="org-left">Sum</td>
+<td class="org-right">100</td>
+</tr>
+</tbody>
+</table>
+
+**NOTE:** The assignment is individual and is not meant to be worked as a group. Once the
+code and the work is submitted it will be vetted against a software to determine
+if any collusion has occured.
+
+**Group Assignment**
+
+The group assignment focuses on a student defined project which its presentation will be
+done in the last 3 sessions of the course. You are to come up with a group and a project
+within the first 3 weeks of the lecture otherwise one will be given to you.
+
+The grade breakdown is as follows:
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-right" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">DEFINITION</th>
+<th scope="col" class="org-right">GRADE (%)</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td class="org-left">Report Style</td>
+<td class="org-right">15</td>
+</tr>
+
+
+<tr>
+<td class="org-left">Content</td>
+<td class="org-right">55</td>
+</tr>
+
+
+<tr>
+<td class="org-left">Q &amp; A</td>
+<td class="org-right">30</td>
+</tr>
+</tbody>
+</table>
+
+In report writing students must declare their contribution to the work and they will be
+asked regarding their field of work during the Q&A (i.e., if Student A has worked with
+blurring filter he may be asked on why a specific one is chosen and/or the concepts and
+maths behind the said filter).
+
+**NOTE:** Students will be graded based on their contribution to the project and answers
+during the Q&A, therefore will be graded individually.
+
+
+<a id="org6649915"></a>
 
 ## The Lecture Structure
 
@@ -432,7 +432,7 @@ methods in improving/analysing gathered images. The structure of the lecture is 
 </table>
 
 
-<a id="org94a0f06"></a>
+<a id="org1715c47"></a>
 
 ## Code Supplement
 
@@ -442,7 +442,7 @@ it is not feasible to fit all the content of the code to the slides and it is ea
 [Visit the Code Supplement Website](https://dtmc0945.github.io/L-MCI-BSc-Digital-Image-Processing/)
 
 
-<a id="org159a80f"></a>
+<a id="orgddf167e"></a>
 
 ## Reading List
 
@@ -455,6 +455,4 @@ mandatory.
 2.  Szeliski R. "Computer Vision: Algorithms and Applications" Springer 2022.
 3.  Nixon M. et. al "Feature Extraction and Image Processing for Computer Vision" Academic press 2019
 4.  Gonzalez R. "Digital Image Processing" Pearson 2009.
-
-**White Papers**
 
