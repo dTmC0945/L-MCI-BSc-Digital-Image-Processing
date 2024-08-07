@@ -1,19 +1,19 @@
 
 # Table of Contents
 
-1.  [A Gentle Introduction](#org1d30fca)
-    1.  [Lecture Information](#org2876f43)
-        1.  [Assignments](#org257c920)
-    2.  [The Lecture Structure](#org2ac4af3)
-    3.  [Code Supplement](#orgc6af504)
-    4.  [Reading List](#org6149af4)
+1.  [A Gentle Introduction](#orgf9d4f1c)
+    1.  [Lecture Information](#org33b5f32)
+        1.  [Assignments](#orgf7e9b9e)
+    2.  [The Lecture Structure](#orgb5cae0e)
+    3.  [Code Supplement](#org94a0f06)
+    4.  [Reading List](#org159a80f)
 
 
-<a id="org1d30fca"></a>
+<a id="orgf9d4f1c"></a>
 
 # A Gentle Introduction
 
-Welcome to the lecture materials for use in B.Sc - Digital Image Processing where our
+Welcome to the lecture materials for use in **B.Sc - Digital Image Processing** where our
 focus will be on the topics of:
 
 1.  Fundamentals on discrete mathematics,
@@ -22,11 +22,11 @@ focus will be on the topics of:
 4.  An example of using ML in image recognition techniques.
 
 
-<a id="org2876f43"></a>
+<a id="org33b5f32"></a>
 
 ## Lecture Information
 
-The details of the lecture are given below
+The details of the lecture are given below.
 
 <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
 
@@ -94,13 +94,13 @@ The details of the lecture are given below
 
 <tr>
 <td class="org-left">SWS Total</td>
-<td class="org-left">3</td>
+<td class="org-left">4</td>
 </tr>
 
 
 <tr>
 <td class="org-left">Total Units</td>
-<td class="org-left">45</td>
+<td class="org-left">60</td>
 </tr>
 
 
@@ -118,22 +118,178 @@ The details of the lecture are given below
 </table>
 
 
-<a id="org257c920"></a>
+<a id="orgf7e9b9e"></a>
 
 ### Assignments
 
-There will be two (2) assignments for this course
+There will be two (**2**) assignments for this course.
+
+The grade breakdown is as follows:
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-right" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">DEFINITION</th>
+<th scope="col" class="org-right">GRADE (%)</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td class="org-left">Individual Assignment</td>
+<td class="org-right">40</td>
+</tr>
+
+
+<tr>
+<td class="org-left">Group Assignment</td>
+<td class="org-right">60</td>
+</tr>
+
+
+<tr>
+<td class="org-left">Sum</td>
+<td class="org-right">100</td>
+</tr>
+</tbody>
+</table>
 
 1.  Individual Assignment
 
     An individual assignment will be given to you to work on. This assignment will consist of
-    questions pertaining to concepts and image processing techniques. The grade breakdown is
-    as follows:
+    questions pertaining to concepts and image processing techniques.
+    
+    The grade breakdown is as follows:
+    
+    <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+    
+    
+    <colgroup>
+    <col  class="org-left" />
+    
+    <col  class="org-right" />
+    </colgroup>
+    <thead>
+    <tr>
+    <th scope="col" class="org-left">DEFINITION</th>
+    <th scope="col" class="org-right">GRADE (%)</th>
+    </tr>
+    </thead>
+    
+    <tbody>
+    <tr>
+    <td class="org-left">Report Style</td>
+    <td class="org-right">15</td>
+    </tr>
+    
+    
+    <tr>
+    <td class="org-left">Q1 - Blurring Filters</td>
+    <td class="org-right">15</td>
+    </tr>
+    
+    
+    <tr>
+    <td class="org-left">Q2 - Image Channel Analysis</td>
+    <td class="org-right">15</td>
+    </tr>
+    
+    
+    <tr>
+    <td class="org-left">Q3 - RNG Map Generation</td>
+    <td class="org-right">10</td>
+    </tr>
+    
+    
+    <tr>
+    <td class="org-left">Q4 - Image Cleaning</td>
+    <td class="org-right">10</td>
+    </tr>
+    
+    
+    <tr>
+    <td class="org-left">Q5 - Shape Recognition</td>
+    <td class="org-right">30</td>
+    </tr>
+    
+    
+    <tr>
+    <td class="org-left">Q6 - Image Quality Comparison</td>
+    <td class="org-right">10</td>
+    </tr>
+    
+    
+    <tr>
+    <td class="org-left">Sum</td>
+    <td class="org-right">100</td>
+    </tr>
+    </tbody>
+    </table>
+    
+    **NOTE:** The assignment is individual and is not meant to be worked as a group. Once the
+    code and the work is submitted it will be vetted against a software to determine
+    if any collusion has occured.
 
 2.  Group Assignment
 
+    The group assignment focuses on a student defined project which its presentation will be
+    done in the last 3 sessions of the course. You are to come up with a group and a project
+    within the first 3 weeks of the lecture otherwise one will be given to you.
+    
+    The grade breakdown is as follows:
+    
+    <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+    
+    
+    <colgroup>
+    <col  class="org-left" />
+    
+    <col  class="org-right" />
+    </colgroup>
+    <thead>
+    <tr>
+    <th scope="col" class="org-left">DEFINITION</th>
+    <th scope="col" class="org-right">GRADE (%)</th>
+    </tr>
+    </thead>
+    
+    <tbody>
+    <tr>
+    <td class="org-left">Report Style</td>
+    <td class="org-right">15</td>
+    </tr>
+    
+    
+    <tr>
+    <td class="org-left">Content</td>
+    <td class="org-right">55</td>
+    </tr>
+    
+    
+    <tr>
+    <td class="org-left">Q &amp; A</td>
+    <td class="org-right">30</td>
+    </tr>
+    </tbody>
+    </table>
+    
+    In report writing students must declare their contribution to the work and they will be
+    asked regarding their field of work during the Q&A (i.e., if Student A has worked with
+    blurring filter he may be asked on why a specific one is chosen and/or the concepts and
+    maths behind the said filter).
+    
+    **NOTE:** Students will be graded based on their contribution to the project and answers
+    during the Q&A, therefore will be graded individually.
 
-<a id="org2ac4af3"></a>
+
+<a id="orgb5cae0e"></a>
 
 ## The Lecture Structure
 
@@ -276,22 +432,29 @@ methods in improving/analysing gathered images. The structure of the lecture is 
 </table>
 
 
-<a id="orgc6af504"></a>
+<a id="org94a0f06"></a>
 
 ## Code Supplement
 
 The Code supplement is a Github webpage dedicated to hosting all the relevant code used in the lecture as
 it is not feasible to fit all the content of the code to the slides and it is easier to share this way.
 
+[Visit the Code Supplement Website](https://dtmc0945.github.io/L-MCI-BSc-Digital-Image-Processing/)
 
-<a id="org6149af4"></a>
+
+<a id="org159a80f"></a>
 
 ## Reading List
 
-Books
+The following materials are recommend reading for the coure but by no means are they
+mandatory.
 
-1. Young I. "Fundamentals of Image Processing" Delft 1998.
-2. Szeliski R. "Computer Vision: Algorithms and Applications" Springer 2022.
-3. Nixon M. et. al "Feature Extraction and Image Processing for Computer Vision" Academic press 2019
-4. Gonzalez R. "Digital Image Processing" Pearson 2009. 
+**Books**
+
+1.  Young I. "Fundamentals of Image Processing" Delft 1998.
+2.  Szeliski R. "Computer Vision: Algorithms and Applications" Springer 2022.
+3.  Nixon M. et. al "Feature Extraction and Image Processing for Computer Vision" Academic press 2019
+4.  Gonzalez R. "Digital Image Processing" Pearson 2009.
+
+**White Papers**
 

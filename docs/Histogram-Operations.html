@@ -192,9 +192,9 @@
     { background-color: #ffff00; color: #000000; font-weight: bold; }
   .org-svg { }
 </style>
-<link rel="stylesheet" href="/Users/danielmcguiness/GitHub/MCI-Source-Files/Configuration/ScriptsHTML/style.css">
+<link rel="stylesheet" href="config/style.css">
 <script type="text/javascript"  src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="/Users/danielmcguiness/GitHub/MCI-Source-Files/Configuration/ScriptsHTML/test.js">
+<script src="config/test.js">
 // @license magnet:?xt=urn:btih:1f739d935676111cfff4b4693e3816e664797050&amp;dn=gpl-3.0.txt GPL-v3-or-Later
 // @license-end
 </script>
@@ -230,6 +230,7 @@ org_html_manager.setup();  // activate after the parameters are set
 <li><a href="#orgaa57be0">Application of Masks</a></li>
 <li><a href="#org8e6e8aa">Histogram Equalisation</a></li>
 <li><a href="#orgca6c98a">2D Histograms</a></li>
+<li><a href="#org278d944">Bonus: Steganography</a></li>
 </ul>
 </div>
 </div>
@@ -241,39 +242,16 @@ part of <code>Digital Image Processing</code>.
 <div id="outline-container-orgdefecbc" class="outline-2">
 <h2 id="orgdefecbc">Introduction</h2>
 <div class="outline-text-2" id="text-orgdefecbc">
+<p>
+The following is a custom package written to handle plotting
+and other functions required by the lecture.
+</p>
+
 <div class="org-src-container">
-<pre class="src src-python" id="orga1993d5"><span class="org-variable-name">lecplot_styles</span> <span class="org-operator">=</span> <span class="org-rainbow-delimiters-depth-1">{</span>
-    <span class="org-string">'axes.edgecolor'</span>: <span class="org-string">'(0.98, 0.98, 0.98)'</span>,
-    <span class="org-string">'axes.facecolor'</span>: <span class="org-string">'(0.98, 0.98, 0.98)'</span>,
-    <span class="org-string">'figure.facecolor'</span>: <span class="org-string">'(0.98, 0.98, 0.98)'</span>,
-    <span class="org-string">'axes.grid'</span>: <span class="org-constant">True</span>,
-    <span class="org-string">'axes.grid.which'</span>: <span class="org-string">'both'</span>,
-    <span class="org-string">'axes.spines.left'</span>: <span class="org-constant">True</span>,
-    <span class="org-string">'axes.spines.right'</span>: <span class="org-constant">False</span>,
-    <span class="org-string">'axes.spines.top'</span>: <span class="org-constant">False</span>,
-    <span class="org-string">'axes.spines.bottom'</span>: <span class="org-constant">False</span>,
-    <span class="org-string">'grid.color'</span>: <span class="org-string">'(0.98, 0.98, 0.98)'</span>,
-    <span class="org-string">'grid.linewidth'</span>: <span class="org-string">'1.2'</span>,
-    <span class="org-string">'xtick.color'</span>: <span class="org-string">'555555'</span>,
-    <span class="org-string">'xtick.major.bottom'</span>: <span class="org-constant">True</span>,
-    <span class="org-string">'xtick.minor.bottom'</span>: <span class="org-constant">True</span>,
-    <span class="org-string">'ytick.color'</span>: <span class="org-string">'555555'</span>,
-    <span class="org-string">'ytick.major.left'</span>: <span class="org-constant">True</span>,
-    <span class="org-string">'ytick.minor.left'</span>: <span class="org-constant">False</span>,
-<span class="org-rainbow-delimiters-depth-1">}</span>
-
-<span class="org-variable-name">font</span> <span class="org-operator">=</span> <span class="org-rainbow-delimiters-depth-1">{</span><span class="org-string">'size'</span>   : 16<span class="org-rainbow-delimiters-depth-1">}</span>
-plt.rc<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-string">'font'</span>, <span class="org-operator">**</span>font<span class="org-rainbow-delimiters-depth-1">)</span>
-plt.rcParams.update<span class="org-rainbow-delimiters-depth-1">(</span>lecplot_styles<span class="org-rainbow-delimiters-depth-1">)</span>
-plt.<span class="org-variable-name">rcParams</span><span class="org-rainbow-delimiters-depth-1">[</span><span class="org-string">'axes.axisbelow'</span><span class="org-rainbow-delimiters-depth-1">]</span> <span class="org-operator">=</span> <span class="org-constant">True</span>
-
-plt.rc<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-string">'xtick'</span>, labelsize<span class="org-operator">=</span>10<span class="org-rainbow-delimiters-depth-1">)</span>    
-plt.rc<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-string">'ytick'</span>, labelsize<span class="org-operator">=</span>10<span class="org-rainbow-delimiters-depth-1">)</span>    
-
-<span class="org-keyword">def</span> <span class="org-function-name">plot_settings</span><span class="org-rainbow-delimiters-depth-1">()</span>:
-    plt.grid<span class="org-rainbow-delimiters-depth-1">(</span>which<span class="org-operator">=</span><span class="org-string">'major'</span>, color<span class="org-operator">=</span><span class="org-string">'</span><span class="custom-1"><span class="custom-2">#DDDDDD</span></span><span class="org-string">'</span>, linewidth<span class="org-operator">=</span>0.8<span class="org-rainbow-delimiters-depth-1">)</span>
-    plt.grid<span class="org-rainbow-delimiters-depth-1">(</span>which<span class="org-operator">=</span><span class="org-string">'minor'</span>, color<span class="org-operator">=</span><span class="org-string">'</span><span class="custom"><span class="custom-2">#EEEEEE</span></span><span class="org-string">'</span>, linestyle<span class="org-operator">=</span><span class="org-string">':'</span>, linewidth<span class="org-operator">=</span>0.5<span class="org-rainbow-delimiters-depth-1">)</span>
-    plt.minorticks_on<span class="org-rainbow-delimiters-depth-1">()</span>
+<pre class="src src-python" id="org577124d"><span class="org-keyword">import</span> ChalcedonPy <span class="org-keyword">as</span> cp <span class="org-comment-delimiter"># </span><span class="org-comment">custom-pakcage for lecture materials and publications</span>
+<span class="org-variable-name">SAVE_PATH</span> <span class="org-operator">=</span> <span class="org-string">"Histogram-Operations"</span> <span class="org-comment-delimiter"># </span><span class="org-comment">sets the default save path</span>
+<span class="org-variable-name">style</span><span class="org-operator">=</span><span class="org-string">"web"</span> <span class="org-comment-delimiter"># </span><span class="org-comment">sets the default rcParams stylce sheet</span>
+cp.plot_settings<span class="org-rainbow-delimiters-depth-1">(</span>size<span class="org-operator">=</span><span class="org-constant">None</span>, style<span class="org-operator">=</span>style<span class="org-rainbow-delimiters-depth-1">)</span> <span class="org-comment-delimiter"># </span><span class="org-comment">set global style for matplotlib</span>
 </pre>
 </div>
 </div>
@@ -283,7 +261,7 @@ plt.rc<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-stri
 <h2 id="orgfafa00d">Histogram Generation from Image</h2>
 <div class="outline-text-2" id="text-orgfafa00d">
 <div class="org-src-container">
-<pre class="src src-python" id="org9ef4485"><span class="org-keyword">import</span> cv2 <span class="org-keyword">as</span> cv
+<pre class="src src-python" id="org82b154f"><span class="org-keyword">import</span> cv2 <span class="org-keyword">as</span> cv
 <span class="org-keyword">import</span> numpy <span class="org-keyword">as</span> np
 <span class="org-keyword">from</span> matplotlib <span class="org-keyword">import</span> pyplot <span class="org-keyword">as</span> plt
 </pre>
@@ -295,13 +273,13 @@ exercises
 </p>
 
 <div class="org-src-container">
-<pre class="src src-python" id="orgcb75e6a"><span class="org-variable-name">image</span> <span class="org-operator">=</span> cv.imread<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-string">'Fruit.jpg'</span><span class="org-rainbow-delimiters-depth-1">)</span>
+<pre class="src src-python" id="org27dfc0b"><span class="org-variable-name">image</span> <span class="org-operator">=</span> cv.imread<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-string">'Fruit.jpg'</span><span class="org-rainbow-delimiters-depth-1">)</span>
 cv.imwrite<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-string">"images/Histogram-Operations/reference-image.png"</span>, image<span class="org-rainbow-delimiters-depth-1">)</span>
 </pre>
 </div>
 
 
-<div id="orgdaade6e" class="figure">
+<div id="orgff22ae4" class="figure">
 <p><img src="images/Histogram-Operations/reference-image.png" alt="reference-image.png" />
 </p>
 </div>
@@ -319,7 +297,7 @@ from the rapsberries.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-python" id="orgeaef54e"><span class="org-variable-name">img</span> <span class="org-operator">=</span> cv.imread<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-string">'Fruit.jpg'</span>, cv.IMREAD_GRAYSCALE<span class="org-rainbow-delimiters-depth-1">)</span>
+<pre class="src src-python" id="org35c1903"><span class="org-variable-name">img</span> <span class="org-operator">=</span> cv.imread<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-string">'Fruit.jpg'</span>, cv.IMREAD_GRAYSCALE<span class="org-rainbow-delimiters-depth-1">)</span>
 plot_settings<span class="org-rainbow-delimiters-depth-1">()</span>
 plt.hist<span class="org-rainbow-delimiters-depth-1">(</span>img.ravel<span class="org-rainbow-delimiters-depth-2">()</span>,256,<span class="org-rainbow-delimiters-depth-2">[</span>0,256<span class="org-rainbow-delimiters-depth-2">]</span><span class="org-rainbow-delimiters-depth-1">)</span>
 plt.xlabel<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-string">"Pixel Value"</span><span class="org-rainbow-delimiters-depth-1">)</span>
@@ -351,7 +329,7 @@ We can also observe the colour channels of the histogram
 </p>
 
 <div class="org-src-container">
-<pre class="src src-python" id="org2cf2bf7"><span class="org-variable-name">img</span> <span class="org-operator">=</span> cv.imread<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-string">'Fruit.jpg'</span><span class="org-rainbow-delimiters-depth-1">)</span>
+<pre class="src src-python" id="org3bafb96"><span class="org-variable-name">img</span> <span class="org-operator">=</span> cv.imread<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-string">'Fruit.jpg'</span><span class="org-rainbow-delimiters-depth-1">)</span>
 <span class="org-variable-name">color</span> <span class="org-operator">=</span> <span class="org-rainbow-delimiters-depth-1">(</span><span class="org-string">'b'</span>,<span class="org-string">'g'</span>,<span class="org-string">'r'</span><span class="org-rainbow-delimiters-depth-1">)</span>
 <span class="org-keyword">for</span> i,col <span class="org-keyword">in</span> <span class="org-builtin">enumerate</span><span class="org-rainbow-delimiters-depth-1">(</span>color<span class="org-rainbow-delimiters-depth-1">)</span>:
     <span class="org-variable-name">histr</span> <span class="org-operator">=</span> cv.calcHist<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-rainbow-delimiters-depth-2">[</span>img<span class="org-rainbow-delimiters-depth-2">]</span>,<span class="org-rainbow-delimiters-depth-2">[</span>i<span class="org-rainbow-delimiters-depth-2">]</span>,<span class="org-constant">None</span>,<span class="org-rainbow-delimiters-depth-2">[</span>256<span class="org-rainbow-delimiters-depth-2">]</span>,<span class="org-rainbow-delimiters-depth-2">[</span>0,256<span class="org-rainbow-delimiters-depth-2">]</span><span class="org-rainbow-delimiters-depth-1">)</span>
@@ -382,7 +360,7 @@ to find histogram and black otherwise. Then pass this as the mask.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-python" id="org8d5f870"><span class="org-comment-delimiter"># </span><span class="org-comment">create a mask</span>
+<pre class="src src-python" id="org28c3f24"><span class="org-comment-delimiter"># </span><span class="org-comment">create a mask</span>
 <span class="org-variable-name">mask</span> <span class="org-operator">=</span> np.zeros<span class="org-rainbow-delimiters-depth-1">(</span>img.shape<span class="org-rainbow-delimiters-depth-2">[</span>:2<span class="org-rainbow-delimiters-depth-2">]</span>, np.uint8<span class="org-rainbow-delimiters-depth-1">)</span>
 <span class="org-variable-name">mask</span><span class="org-rainbow-delimiters-depth-1">[</span>100:300, 100:400<span class="org-rainbow-delimiters-depth-1">]</span> <span class="org-operator">=</span> 255
 <span class="org-variable-name">masked_img</span> <span class="org-operator">=</span> cv.bitwise_and<span class="org-rainbow-delimiters-depth-1">(</span>img,img,mask <span class="org-operator">=</span> mask<span class="org-rainbow-delimiters-depth-1">)</span>
@@ -409,7 +387,7 @@ plt.show<span class="org-rainbow-delimiters-depth-1">()</span>
 <h2 id="org8e6e8aa">Histogram Equalisation</h2>
 <div class="outline-text-2" id="text-org8e6e8aa">
 <div class="org-src-container">
-<pre class="src src-python" id="org2a455a7"><span class="org-variable-name">hist</span>,<span class="org-variable-name">bins</span> <span class="org-operator">=</span> np.histogram<span class="org-rainbow-delimiters-depth-1">(</span>img.flatten<span class="org-rainbow-delimiters-depth-2">()</span>,256,<span class="org-rainbow-delimiters-depth-2">[</span>0,256<span class="org-rainbow-delimiters-depth-2">]</span><span class="org-rainbow-delimiters-depth-1">)</span>
+<pre class="src src-python" id="orgea1cd81"><span class="org-variable-name">hist</span>,<span class="org-variable-name">bins</span> <span class="org-operator">=</span> np.histogram<span class="org-rainbow-delimiters-depth-1">(</span>img.flatten<span class="org-rainbow-delimiters-depth-2">()</span>,256,<span class="org-rainbow-delimiters-depth-2">[</span>0,256<span class="org-rainbow-delimiters-depth-2">]</span><span class="org-rainbow-delimiters-depth-1">)</span>
 
 <span class="org-variable-name">cdf</span> <span class="org-operator">=</span> hist.cumsum<span class="org-rainbow-delimiters-depth-1">()</span>
 <span class="org-variable-name">cdf_normalized</span> <span class="org-operator">=</span> cdf <span class="org-operator">*</span> <span class="org-builtin">float</span><span class="org-rainbow-delimiters-depth-1">(</span>hist.<span class="org-builtin">max</span><span class="org-rainbow-delimiters-depth-2">()</span><span class="org-rainbow-delimiters-depth-1">)</span> <span class="org-operator">/</span> cdf.<span class="org-builtin">max</span><span class="org-rainbow-delimiters-depth-1">()</span>
@@ -428,13 +406,174 @@ plt.show<span class="org-rainbow-delimiters-depth-1">()</span>
 <h2 id="orgca6c98a">2D Histograms</h2>
 <div class="outline-text-2" id="text-orgca6c98a">
 <div class="org-src-container">
-<pre class="src src-python" id="orgab53db8"><span class="org-variable-name">hsv</span> <span class="org-operator">=</span> cv.cvtColor<span class="org-rainbow-delimiters-depth-1">(</span>img,cv.COLOR_BGR2HSV<span class="org-rainbow-delimiters-depth-1">)</span>
+<pre class="src src-python" id="org5b7ba71"><span class="org-variable-name">hsv</span> <span class="org-operator">=</span> cv.cvtColor<span class="org-rainbow-delimiters-depth-1">(</span>img,cv.COLOR_BGR2HSV<span class="org-rainbow-delimiters-depth-1">)</span>
 
 <span class="org-variable-name">hist</span> <span class="org-operator">=</span> cv.calcHist<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-rainbow-delimiters-depth-2">[</span>hsv<span class="org-rainbow-delimiters-depth-2">]</span>, <span class="org-rainbow-delimiters-depth-2">[</span>0, 1<span class="org-rainbow-delimiters-depth-2">]</span>, <span class="org-constant">None</span>, <span class="org-rainbow-delimiters-depth-2">[</span>180, 256<span class="org-rainbow-delimiters-depth-2">]</span>, <span class="org-rainbow-delimiters-depth-2">[</span>0, 180, 0, 256<span class="org-rainbow-delimiters-depth-2">]</span><span class="org-rainbow-delimiters-depth-1">)</span>
 plt.imshow<span class="org-rainbow-delimiters-depth-1">(</span>hist,interpolation <span class="org-operator">=</span> <span class="org-string">'nearest'</span><span class="org-rainbow-delimiters-depth-1">)</span>
 plt.show<span class="org-rainbow-delimiters-depth-1">()</span>
 </pre>
 </div>
+</div>
+</div>
+
+
+<div id="outline-container-org278d944" class="outline-2">
+<h2 id="org278d944">Bonus: Steganography</h2>
+<div class="outline-text-2" id="text-org278d944">
+<p>
+As Wikipedia states,
+</p>
+
+<blockquote>
+<p>
+Steganography is the practice of concealing a message within another
+message or a physical object.
+</p>
+</blockquote>
+
+<p>
+Today, we are going to do an implementation. We will make a program that writes
+text to images and reads it from there.
+</p>
+
+<p>
+We assign pixel values to each possible character. This is more of a proof of concept but
+anyone is welcome to improve on it.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-python" id="orga2a12f9"><span class="org-keyword">from</span> PIL <span class="org-keyword">import</span> Image <span class="org-comment-delimiter"># </span><span class="org-comment">For reading images</span>
+<span class="org-keyword">import</span> string <span class="org-comment-delimiter"># </span><span class="org-comment">constants containing letters and digits.</span>
+</pre>
+</div>
+
+<p>
+Now we use the Image class to open the image
+at the path the user has specified. We then get the width and height.
+</p>
+
+<p>
+We first have two variables that contain the RGB tuples of the starting and ending pixel.
+This is used to know where the message starts and ends, but we currently
+only use the endingPixel variable.
+</p>
+
+<p>
+After that, we also define two dictionaries that will
+contain the relations between letters and pixels.
+</p>
+
+<p>
+To fill these dictionaries, we use a loop. We enumerate over
+the <span class="Code"></span>, digits, and ' ' and store them in the dictionaries.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-python" id="orgff8e9a0"><span class="org-comment-delimiter"># </span><span class="org-comment">Open the image.</span>
+<span class="org-variable-name">image</span> <span class="org-operator">=</span> Image.<span class="org-builtin">open</span><span class="org-rainbow-delimiters-depth-1">(</span><span class="org-string">"Fruit.jpg"</span><span class="org-rainbow-delimiters-depth-1">)</span>
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">Get the image size and save it.</span>
+<span class="org-variable-name">width</span>, <span class="org-variable-name">height</span> <span class="org-operator">=</span> image.size
+
+<span class="org-variable-name">startingPixel</span> <span class="org-operator">=</span> <span class="org-rainbow-delimiters-depth-1">(</span>10, 10, 255<span class="org-rainbow-delimiters-depth-1">)</span>
+<span class="org-variable-name">endingPixel</span> <span class="org-operator">=</span> <span class="org-rainbow-delimiters-depth-1">(</span>255, 20, 20<span class="org-rainbow-delimiters-depth-1">)</span>
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">Dictionary which hold the relations between pixels and characters</span>
+<span class="org-variable-name">lettersToPixels</span> <span class="org-operator">=</span> <span class="org-rainbow-delimiters-depth-1">{}</span>
+<span class="org-variable-name">pixelsToLetters</span> <span class="org-operator">=</span> <span class="org-rainbow-delimiters-depth-1">{}</span>
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">Making the relations using the string library</span>
+<span class="org-keyword">for</span> i, letter <span class="org-keyword">in</span> <span class="org-builtin">enumerate</span><span class="org-rainbow-delimiters-depth-1">(</span>string.ascii_letters <span class="org-operator">+</span> string.digits <span class="org-operator">+</span> <span class="org-string">' '</span><span class="org-rainbow-delimiters-depth-1">)</span>:
+    <span class="org-variable-name">lettersToPixels</span><span class="org-rainbow-delimiters-depth-1">[</span>letter<span class="org-rainbow-delimiters-depth-1">]</span> <span class="org-operator">=</span> i
+    <span class="org-variable-name">pixelsToLetters</span><span class="org-rainbow-delimiters-depth-1">[</span>i<span class="org-rainbow-delimiters-depth-1">]</span> <span class="org-operator">=</span> letter
+</pre>
+</div>
+
+<p>
+Now let us get to hiding messages in images. If the mode specified by the user is write,
+we know the user wants to write. But we also check if the text was set.
+After that, we also assert if the text length is greater than the image width.
+</p>
+
+<p>
+After that, we draw the starting pixel onto the image at position (0, 0), which is the top left.
+</p>
+
+<p>
+After that, we loop / enumerate over the text the
+user has given us. We draw the pixel representing this character
+at (index+1, 0), meaning the top row of pixels will contain the message.
+We added one because we already drew a pixel at (0, 0). The color is made
+up of (11, lettersToPixels[letter], 11), so the middle color, green, will
+change depending on the letter.
+</p>
+
+<p>
+At the end of the writing part, we also draw the ending pixel after the letters and save the image.
+</p>
+
+
+<div class="org-src-container">
+<pre class="src src-python" id="org3c5fc13"><span class="org-keyword">def</span> <span class="org-function-name">write</span><span class="org-rainbow-delimiters-depth-1">(</span>message<span class="org-rainbow-delimiters-depth-1">)</span>:
+    <span class="org-keyword">assert</span> <span class="org-builtin">len</span><span class="org-rainbow-delimiters-depth-1">(</span>message<span class="org-rainbow-delimiters-depth-1">)</span> <span class="org-operator">&lt;</span> width
+    <span class="org-comment-delimiter"># </span><span class="org-comment">Draw the starting Pixel</span>
+    image.putpixel<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-rainbow-delimiters-depth-2">(</span>0, 0<span class="org-rainbow-delimiters-depth-2">)</span>, startingPixel<span class="org-rainbow-delimiters-depth-1">)</span>
+
+    <span class="org-comment-delimiter"># </span><span class="org-comment">Draw a pixel for each letter in the test</span>
+    <span class="org-keyword">for</span> index, letter <span class="org-keyword">in</span> <span class="org-builtin">enumerate</span><span class="org-rainbow-delimiters-depth-1">(</span>message<span class="org-rainbow-delimiters-depth-1">)</span>:
+
+        <span class="org-comment-delimiter"># </span><span class="org-comment">The Middle value (g = green) is the number in the dictionary</span>
+        image.putpixel<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-rainbow-delimiters-depth-2">(</span>index<span class="org-operator">+</span>1, 0<span class="org-rainbow-delimiters-depth-2">)</span>, <span class="org-rainbow-delimiters-depth-2">(</span>11, lettersToPixels<span class="org-rainbow-delimiters-depth-3">[</span>letter<span class="org-rainbow-delimiters-depth-3">]</span>, 11<span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
+
+            <span class="org-comment-delimiter"># </span><span class="org-comment">Draw the ending Pixel</span>
+    image.putpixel<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-rainbow-delimiters-depth-2">(</span>index<span class="org-operator">+</span>2, 0<span class="org-rainbow-delimiters-depth-2">)</span>, endingPixel<span class="org-rainbow-delimiters-depth-1">)</span>
+
+        <span class="org-comment-delimiter"># </span><span class="org-comment">Save the image to the same place</span>
+    image.save<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-string">"images/Histogram-Operations/encrypted-fruit.png"</span><span class="org-rainbow-delimiters-depth-1">)</span>
+
+write<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-string">"hello"</span><span class="org-rainbow-delimiters-depth-1">)</span>
+
+</pre>
+</div>
+
+
+<div id="org002a665" class="figure">
+<p><img src="images/Histogram-Operations/encrypted-fruit.png" alt="encrypted-fruit.png" />
+</p>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-python" id="org13258f0"><span class="org-keyword">def</span> <span class="org-function-name">read</span><span class="org-rainbow-delimiters-depth-1">()</span>:
+    <span class="org-variable-name">image</span> <span class="org-operator">=</span> Image.<span class="org-builtin">open</span><span class="org-rainbow-delimiters-depth-1">(</span><span class="org-string">"images/Histogram-Operations/encrypted-fruit.png"</span><span class="org-rainbow-delimiters-depth-1">)</span>
+
+    <span class="org-variable-name">text</span> <span class="org-operator">=</span> <span class="org-string">''</span>
+
+    <span class="org-variable-name">index</span> <span class="org-operator">=</span> 1
+    <span class="org-keyword">while</span> <span class="org-constant">True</span>:
+        <span class="org-comment-delimiter"># </span><span class="org-comment">Loop throug each pixel in the top row</span>
+        <span class="org-variable-name">pixel</span> <span class="org-operator">=</span> image.getpixel<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-rainbow-delimiters-depth-2">(</span>index, 0<span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
+
+        <span class="org-comment-delimiter"># </span><span class="org-comment">if the pixel is the ending pixel, we break the loop</span>
+        <span class="org-keyword">if</span> pixel <span class="org-operator">==</span> endingPixel:
+            <span class="org-keyword">break</span>
+        <span class="org-keyword">try</span>:
+            <span class="org-comment-delimiter"># </span><span class="org-comment">Get the letter from the dictionary with the g (green) value.</span>
+            <span class="org-variable-name">text</span> <span class="org-operator">+=</span> pixelsToLetters<span class="org-rainbow-delimiters-depth-1">[</span>pixel<span class="org-rainbow-delimiters-depth-2">[</span>1<span class="org-rainbow-delimiters-depth-2">]</span><span class="org-rainbow-delimiters-depth-1">]</span>
+        <span class="org-keyword">except</span>:
+            <span class="org-keyword">pass</span>
+
+        <span class="org-variable-name">index</span> <span class="org-operator">+=</span> 1
+
+         <span class="org-comment-delimiter"># </span><span class="org-comment">Print out the text</span>
+    <span class="org-builtin">print</span><span class="org-rainbow-delimiters-depth-1">(</span>text<span class="org-rainbow-delimiters-depth-1">)</span>
+
+read<span class="org-rainbow-delimiters-depth-1">()</span>
+</pre>
+</div>
+
+<pre class="example" id="orgc682a79">
+hello
+</pre>
 </div>
 </div>
 </div>

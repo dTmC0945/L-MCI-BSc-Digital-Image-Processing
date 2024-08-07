@@ -439,6 +439,10 @@ hr {
   width: 100%;
 }
 
+.Hlight {
+    color: #fab387;
+}
+
 fieldset {
   border: 1px solid white;
   color: white;
