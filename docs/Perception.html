@@ -192,9 +192,9 @@
     { background-color: #ffff00; color: #000000; font-weight: bold; }
   .org-svg { }
 </style>
-<link rel="stylesheet" href="/Users/danielmcguiness/GitHub/MCI-Source-Files/Configuration/ScriptsHTML/style.css">
+<link rel="stylesheet" href="config/style.css">
 <script type="text/javascript"  src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="/Users/danielmcguiness/GitHub/MCI-Source-Files/Configuration/ScriptsHTML/test.js">
+<script src="config/test.js">
 // @license magnet:?xt=urn:btih:1f739d935676111cfff4b4693e3816e664797050&amp;dn=gpl-3.0.txt GPL-v3-or-Later
 // @license-end
 </script>
@@ -226,16 +226,342 @@ org_html_manager.setup();  // activate after the parameters are set
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
 <li><a href="#org3428509">Introduction</a></li>
+<li><a href="#orgc7b0b44">Visible Colour</a></li>
+<li><a href="#orgc925108">Colour Gamut Standards</a></li>
+<li><a href="#org9d0f02e">Simulating Colour Blindness</a></li>
+<li><a href="#orgb2f69ca">Colour Models</a></li>
+<li><a href="#org2c2ceed">References</a></li>
 </ul>
 </div>
 </div>
 <p>
-These are the code snippets used in <code>Perception</code>
-part of <code>Digital Image Processing</code>.
+These are the code snippets used in <span class="Hlight">Perception</span>
+part of <span class="Hlight">Digital Image Processing</span>.
 </p>
 
 <div id="outline-container-org3428509" class="outline-2">
 <h2 id="org3428509">Introduction</h2>
+<div class="outline-text-2" id="text-org3428509">
+<p>
+Below is the required packages for the figure saving/styles
+to work.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-python" id="org3ff75d6"><span class="org-keyword">import</span> ChalcedonPy <span class="org-keyword">as</span> cp <span class="org-comment-delimiter"># </span><span class="org-comment">custom-pakcage for lecture materials and publications</span>
+<span class="org-variable-name">SAVE_PATH</span> <span class="org-operator">=</span> <span class="org-string">"Perception"</span> <span class="org-comment-delimiter"># </span><span class="org-comment">sets the default save path</span>
+<span class="org-variable-name">style</span><span class="org-operator">=</span><span class="org-string">"web"</span> <span class="org-comment-delimiter"># </span><span class="org-comment">sets the default rcParams stylce sheet</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgc7b0b44" class="outline-2">
+<h2 id="orgc7b0b44">Visible Colour</h2>
+<div class="outline-text-2" id="text-orgc7b0b44">
+<p>
+Let's start simple and observe the visible spectrum according
+to the CIE 1931 2 standard <a href="#citeproc_bib_item_1">[1]</a>. For more information on the standard, please
+click <a href="https://en.wikipedia.org/wiki/CIE_1931_color_space">here</a>.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-python" id="orgde78a8d"><span class="org-keyword">from</span> colour.plotting <span class="org-keyword">import</span> <span class="org-operator">*</span>
+<span class="org-keyword">import</span> matplotlib.pyplot <span class="org-keyword">as</span> plt
+<span class="org-comment-delimiter"># </span><span class="org-comment">To allow saving the plot</span>
+plot_visible_spectrum<span class="org-rainbow-delimiters-depth-1">(</span>show<span class="org-operator">=</span><span class="org-constant">False</span><span class="org-rainbow-delimiters-depth-1">)</span>
+
+cp.store_fig<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-string">"visible-colour"</span>,
+             filepath <span class="org-operator">=</span> SAVE_PATH,
+             style <span class="org-operator">=</span> style,
+             close <span class="org-operator">=</span> <span class="org-constant">True</span><span class="org-rainbow-delimiters-depth-1">)</span>
+</pre>
+</div>
+
+
+<div id="org2ab3462" class="figure">
+<p><img src="images/Perception/visible-colour.png" alt="visible-colour.png" />
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgc925108" class="outline-2">
+<h2 id="orgc925108">Colour Gamut Standards</h2>
+<div class="outline-text-2" id="text-orgc925108">
+<p>
+Below is the plotting of the color gamut of visible to the human eye. 
+</p>
+
+<div class="org-src-container">
+<pre class="src src-python" id="org03b030d"><span class="org-keyword">from</span> colour.plotting <span class="org-keyword">import</span> plot_chromaticity_diagram_CIE1931
+<span class="org-keyword">import</span> colour
+
+colour.plotting.plot_chromaticity_diagram_CIE1931<span class="org-rainbow-delimiters-depth-1">(</span>show<span class="org-operator">=</span><span class="org-constant">False</span><span class="org-rainbow-delimiters-depth-1">)</span>
+
+cp.store_fig<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-string">"cie-1931"</span>,
+             filepath <span class="org-operator">=</span> SAVE_PATH,
+             style <span class="org-operator">=</span> style,
+             close <span class="org-operator">=</span> <span class="org-constant">True</span><span class="org-rainbow-delimiters-depth-1">)</span>
+
+</pre>
+</div>
+
+
+<div id="org253b00f" class="figure">
+<p><img src="images/Perception/cie-1931.png" alt="cie-1931.png" />
+</p>
+</div>
+
+<p>
+Below is the plotting of the sRGB gamut of
+the standard <a href="#citeproc_bib_item_2">[2]</a>. For more information on the standard please
+click <a href="https://www.w3.org/Graphics/Color/sRGB.html">here</a>.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-python" id="org3de4c1e"><span class="org-keyword">from</span> colour.plotting <span class="org-keyword">import</span> plot_chromaticity_diagram_CIE1931
+<span class="org-keyword">import</span> colour
+
+colour.plotting.plot_RGB_colourspaces_in_chromaticity_diagram_CIE1931<span class="org-rainbow-delimiters-depth-1">(</span>
+    <span class="org-rainbow-delimiters-depth-2">[</span><span class="org-string">"sRGB"</span><span class="org-rainbow-delimiters-depth-2">]</span>, show<span class="org-operator">=</span><span class="org-constant">False</span><span class="org-rainbow-delimiters-depth-1">)</span>
+
+cp.store_fig<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-string">"cie-1931-sRGB"</span>,
+             filepath <span class="org-operator">=</span> SAVE_PATH,
+             style <span class="org-operator">=</span> style,
+             close <span class="org-operator">=</span> <span class="org-constant">True</span><span class="org-rainbow-delimiters-depth-1">)</span>
+
+</pre>
+</div>
+
+
+<div id="org4a044ef" class="figure">
+<p><img src="images/Perception/cie-1931-adobe-wide-gamut.png" alt="cie-1931-adobe-wide-gamut.png" />
+</p>
+</div>
+
+<p>
+Below is the plotting of the Adobe RGB (1998) gamut of
+the standard.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-python" id="orgcc1a0fb"><span class="org-keyword">from</span> colour.plotting <span class="org-keyword">import</span> plot_chromaticity_diagram_CIE1931
+<span class="org-keyword">import</span> colour
+
+colour.plotting.plot_RGB_colourspaces_in_chromaticity_diagram_CIE1931<span class="org-rainbow-delimiters-depth-1">(</span>
+    <span class="org-rainbow-delimiters-depth-2">[</span><span class="org-string">"Adobe RGB (1998)"</span><span class="org-rainbow-delimiters-depth-2">]</span>, show<span class="org-operator">=</span><span class="org-constant">False</span><span class="org-rainbow-delimiters-depth-1">)</span>
+
+cp.store_fig<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-string">"cie-1931-adobe-RGB"</span>,
+             filepath <span class="org-operator">=</span> SAVE_PATH,
+             style <span class="org-operator">=</span> style,
+             close <span class="org-operator">=</span> <span class="org-constant">True</span><span class="org-rainbow-delimiters-depth-1">)</span>
+
+</pre>
+</div>
+
+
+<div id="org1c60ccc" class="figure">
+<p><img src="images/Perception/cie-1931-adobe-RGB.png" alt="cie-1931-adobe-RGB.png" />
+</p>
+</div>
+
+<p>
+Below is the plotting of the Adobe Wide Gamut RGB of
+the standard.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-python" id="org73cc4cc"><span class="org-keyword">from</span> colour.plotting <span class="org-keyword">import</span> plot_chromaticity_diagram_CIE1931
+<span class="org-keyword">import</span> colour
+
+colour.plotting.plot_RGB_colourspaces_in_chromaticity_diagram_CIE1931<span class="org-rainbow-delimiters-depth-1">(</span>
+    <span class="org-rainbow-delimiters-depth-2">[</span><span class="org-string">"Adobe Wide Gamut RGB"</span><span class="org-rainbow-delimiters-depth-2">]</span>, show<span class="org-operator">=</span><span class="org-constant">False</span><span class="org-rainbow-delimiters-depth-1">)</span>
+
+cp.store_fig<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-string">"cie-1931-adobe-wide-gamut"</span>,
+             filepath <span class="org-operator">=</span> SAVE_PATH,
+             style <span class="org-operator">=</span> style,
+             close <span class="org-operator">=</span> <span class="org-constant">True</span><span class="org-rainbow-delimiters-depth-1">)</span>
+
+</pre>
+</div>
+
+
+<div id="orgbc58439" class="figure">
+<p><img src="images/Perception/cie-1931-adobe-wide-gamut.png" alt="cie-1931-adobe-wide-gamut.png" />
+</p>
+</div>
+
+
+<p>
+Below is the plotting of the proPhoto of
+the standard.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-python" id="org9aabfda"><span class="org-keyword">from</span> colour.plotting <span class="org-keyword">import</span> plot_chromaticity_diagram_CIE1931
+<span class="org-keyword">import</span> colour
+
+colour.plotting.plot_RGB_colourspaces_in_chromaticity_diagram_CIE1931<span class="org-rainbow-delimiters-depth-1">(</span>
+    <span class="org-rainbow-delimiters-depth-2">[</span><span class="org-string">"ProPhoto RGB"</span><span class="org-rainbow-delimiters-depth-2">]</span>, show<span class="org-operator">=</span><span class="org-constant">False</span><span class="org-rainbow-delimiters-depth-1">)</span>
+
+cp.store_fig<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-string">"cie-1931-pro-photo"</span>,
+             filepath <span class="org-operator">=</span> SAVE_PATH,
+             style <span class="org-operator">=</span> style,
+             close <span class="org-operator">=</span> <span class="org-constant">True</span><span class="org-rainbow-delimiters-depth-1">)</span>
+
+</pre>
+</div>
+
+
+<div id="org355f200" class="figure">
+<p><img src="images/Perception/cie-1931-pro-photo.png" alt="cie-1931-pro-photo.png" />
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org9d0f02e" class="outline-2">
+<h2 id="org9d0f02e">Simulating Colour Blindness</h2>
+<div class="outline-text-2" id="text-org9d0f02e">
+<p>
+The following code snippet simulates the behaviour of deuteranomaly
+<a href="#citeproc_bib_item_3">[3]</a>.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-python" id="org8ebea6c"><span class="org-keyword">from</span> daltonlens <span class="org-keyword">import</span> convert, simulate, generate
+<span class="org-keyword">import</span> PIL
+<span class="org-keyword">import</span> numpy <span class="org-keyword">as</span> np
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">Generate a test image that spans the RGB range</span>
+<span class="org-variable-name">im</span> <span class="org-operator">=</span> np.asarray<span class="org-rainbow-delimiters-depth-1">(</span>PIL.Image.<span class="org-builtin">open</span><span class="org-rainbow-delimiters-depth-2">(</span><span class="org-string">"Sample-Images/Fruit.jpg"</span><span class="org-rainbow-delimiters-depth-2">)</span>.convert<span class="org-rainbow-delimiters-depth-2">(</span><span class="org-string">'RGB'</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">Create a simulator using the Vi&#233;not 1999 algorithm.</span>
+<span class="org-variable-name">simulator</span> <span class="org-operator">=</span> simulate.Simulator_Vienot1999<span class="org-rainbow-delimiters-depth-1">()</span>
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">Apply  to get a simulation of deuteranomaly</span>
+<span class="org-variable-name">deutan_im</span> <span class="org-operator">=</span> simulator.simulate_cvd <span class="org-rainbow-delimiters-depth-1">(</span>im, simulate.Deficiency.DEUTAN, severity<span class="org-operator">=</span>0.8<span class="org-rainbow-delimiters-depth-1">)</span>
+
+plt.imshow<span class="org-rainbow-delimiters-depth-1">(</span>deutan_im<span class="org-rainbow-delimiters-depth-1">)</span>
+
+cp.store_fig<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-string">"im-deuteranomaly"</span>,
+             filepath <span class="org-operator">=</span> SAVE_PATH, style <span class="org-operator">=</span> style, close <span class="org-operator">=</span> <span class="org-constant">True</span><span class="org-rainbow-delimiters-depth-1">)</span>
+</pre>
+</div>
+
+
+<div id="orgbf6b6d6" class="figure">
+<p><img src="images/Perception/im-protanomaly.png" alt="im-protanomaly.png" />
+</p>
+</div>
+
+<p>
+The following code snippet simulates the behaviour of protanomaly
+<a href="#citeproc_bib_item_3">[3]</a>.
+</p>
+
+<p>
+daltonlens is a package designed to simulate the effects on colour blindess.
+For the source code plase have a look at <a href="https://github.com/DaltonLens/DaltonLens-Python">here</a>.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-python" id="orgbd9af70"><span class="org-keyword">from</span> daltonlens <span class="org-keyword">import</span> convert, simulate, generate
+<span class="org-keyword">import</span> PIL
+<span class="org-keyword">import</span> numpy <span class="org-keyword">as</span> np
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">Generate a test image that spans the RGB range</span>
+<span class="org-variable-name">im</span> <span class="org-operator">=</span> np.asarray<span class="org-rainbow-delimiters-depth-1">(</span>PIL.Image.<span class="org-builtin">open</span><span class="org-rainbow-delimiters-depth-2">(</span><span class="org-string">"Sample-Images/Fruit.jpg"</span><span class="org-rainbow-delimiters-depth-2">)</span>.convert<span class="org-rainbow-delimiters-depth-2">(</span><span class="org-string">'RGB'</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">Create a simulator using the Vi&#233;not 1999 algorithm.</span>
+<span class="org-variable-name">simulator</span> <span class="org-operator">=</span> simulate.Simulator_Vienot1999<span class="org-rainbow-delimiters-depth-1">()</span>
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">Apply to get a simulation of deuteranomaly</span>
+<span class="org-variable-name">protan_im</span> <span class="org-operator">=</span> simulator.simulate_cvd <span class="org-rainbow-delimiters-depth-1">(</span>im, simulate.Deficiency.PROTAN, severity<span class="org-operator">=</span>0.8<span class="org-rainbow-delimiters-depth-1">)</span>
+
+plt.imshow<span class="org-rainbow-delimiters-depth-1">(</span>protan_im<span class="org-rainbow-delimiters-depth-1">)</span>
+
+cp.store_fig<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-string">"im-protanomaly"</span>,
+             filepath <span class="org-operator">=</span> SAVE_PATH,
+             style <span class="org-operator">=</span> style,
+             close <span class="org-operator">=</span> <span class="org-constant">True</span><span class="org-rainbow-delimiters-depth-1">)</span>
+</pre>
+</div>
+
+
+<div id="org86a2390" class="figure">
+<p><img src="images/Perception/im-deuteranomaly.png" alt="im-deuteranomaly.png" />
+</p>
+</div>
+
+<p>
+The following code snippet simulates the behaviour of tritanomaly
+<a href="#citeproc_bib_item_3">[3]</a>, <a href="#citeproc_bib_item_4">[4]</a>
+</p>
+
+<div class="org-src-container">
+<pre class="src src-python" id="org427cff7"><span class="org-keyword">from</span> daltonlens <span class="org-keyword">import</span> convert, simulate, generate
+<span class="org-keyword">import</span> PIL
+<span class="org-keyword">import</span> numpy <span class="org-keyword">as</span> np
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">Generate a test image that spans the RGB range</span>
+<span class="org-variable-name">im</span> <span class="org-operator">=</span> np.asarray<span class="org-rainbow-delimiters-depth-1">(</span>PIL.Image.<span class="org-builtin">open</span><span class="org-rainbow-delimiters-depth-2">(</span><span class="org-string">"Sample-Images/Fruit.jpg"</span><span class="org-rainbow-delimiters-depth-2">)</span>.convert<span class="org-rainbow-delimiters-depth-2">(</span><span class="org-string">'RGB'</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">Create a simulator using the Vi&#233;not 1999 algorithm.</span>
+<span class="org-variable-name">simulator</span> <span class="org-operator">=</span> simulate.Simulator_Vienot1999<span class="org-rainbow-delimiters-depth-1">()</span>
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">Apply to get a simulation of deuteranomaly</span>
+<span class="org-variable-name">tritan_im</span> <span class="org-operator">=</span> simulator.simulate_cvd <span class="org-rainbow-delimiters-depth-1">(</span>im, simulate.Deficiency.TRITAN, severity<span class="org-operator">=</span>0.8<span class="org-rainbow-delimiters-depth-1">)</span>
+
+plt.imshow<span class="org-rainbow-delimiters-depth-1">(</span>tritan_im<span class="org-rainbow-delimiters-depth-1">)</span>
+
+cp.store_fig<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-string">"im-tritanomaly"</span>,
+             filepath <span class="org-operator">=</span> SAVE_PATH,
+             style <span class="org-operator">=</span> style,
+             close <span class="org-operator">=</span> <span class="org-constant">True</span><span class="org-rainbow-delimiters-depth-1">)</span>
+</pre>
+</div>
+
+
+<div id="org42ada93" class="figure">
+<p><img src="images/Perception/im-tritanomaly.png" alt="im-tritanomaly.png" />
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgb2f69ca" class="outline-2">
+<h2 id="orgb2f69ca">Colour Models</h2>
+<div class="outline-text-2" id="text-orgb2f69ca">
+<div class="org-src-container">
+<pre class="src src-python" id="orgeb3380f"><span class="org-keyword">from</span> PIL <span class="org-keyword">import</span> Image
+<span class="org-variable-name">im</span> <span class="org-operator">=</span> Image.fromarray<span class="org-rainbow-delimiters-depth-1">(</span>, mode<span class="org-operator">=</span><span class="org-string">"CMYK"</span><span class="org-rainbow-delimiters-depth-1">)</span>
+im.save<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-string">"your_file.jpeg"</span><span class="org-rainbow-delimiters-depth-1">)</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org2c2ceed" class="outline-2">
+<h2 id="org2c2ceed">References</h2>
+<div class="outline-text-2" id="text-org2c2ceed">
+<style>.csl-left-margin{float: left; padding-right: 0em;}
+ .csl-right-inline{margin: 0 0 0 1em;}</style><div class="csl-bib-body">
+  <div class="csl-entry"><a id="citeproc_bib_item_1"></a>
+    <div class="csl-left-margin">[1]</div><div class="csl-right-inline">Y. Ohno, “Cie fundamentals for color measurements,” in <i>Nip &#38; digital fabrication conference</i>, Society of Imaging Science and Technology, 2000, pp. 540–545.</div>
+  </div>
+  <div class="csl-entry"><a id="citeproc_bib_item_2"></a>
+    <div class="csl-left-margin">[2]</div><div class="csl-right-inline">M. Stokes, “A standard default color space for the internet-srgb,” <i>Http://www. w3. org/graphics/color/srgb. html</i>, 1996.</div>
+  </div>
+  <div class="csl-entry"><a id="citeproc_bib_item_3"></a>
+    <div class="csl-left-margin">[3]</div><div class="csl-right-inline">L. M. Hurvich, “Color vision deficiencies,” <i>Handbook of sensory physiology</i>, vol. 7, no. 4, pp. 582–624, 1972.</div>
+  </div>
+  <div class="csl-entry"><a id="citeproc_bib_item_4"></a>
+    <div class="csl-left-margin">[4]</div><div class="csl-right-inline">F. Vienot, H. Brettel, and J. D. Mollon, “Digital video colourmaps for checking the legibility of displays by dichromats,” <i>Color research &#38; application: Endorsed by inter-society color council, the colour group (great britain), canadian society for color, color science association of japan, dutch society for the study of color, the swedish colour centre foundation, colour society of australia, centre français de la couleur</i>, vol. 24, no. 4, pp. 243–252, 1999.</div>
+  </div>
+</div>
+</div>
 </div>
 </div>
 <div id="postamble" class="status">

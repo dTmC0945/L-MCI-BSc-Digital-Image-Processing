@@ -313,14 +313,14 @@ and printing the function.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-python" id="org4278107"><span class="org-variable-name">A</span> <span class="org-operator">=</span> <span class="org-rainbow-delimiters-depth-1">[</span>1,1,2,2,1<span class="org-rainbow-delimiters-depth-1">]</span>
+<pre class="src src-python" id="org5bb2cab"><span class="org-variable-name">A</span> <span class="org-operator">=</span> <span class="org-rainbow-delimiters-depth-1">[</span>1,1,2,2,1<span class="org-rainbow-delimiters-depth-1">]</span>
 <span class="org-variable-name">B</span> <span class="org-operator">=</span> <span class="org-rainbow-delimiters-depth-1">[</span>1,1,1,3<span class="org-rainbow-delimiters-depth-1">]</span>
 
 <span class="org-builtin">print</span><span class="org-rainbow-delimiters-depth-1">(</span>convolve_1d<span class="org-rainbow-delimiters-depth-2">(</span>A, B<span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
 </pre>
 </div>
 
-<pre class="example" id="orgac63cf8">
+<pre class="example" id="org5318449">
 [1, 2, 4, 8, 8, 9, 7, 3]
 </pre>
 </div>
@@ -342,6 +342,7 @@ First import the necessary modules.
 <span class="org-keyword">import</span> matplotlib.pyplot <span class="org-keyword">as</span> plt
 <span class="org-keyword">import</span> scipy.stats <span class="org-keyword">as</span> st
 <span class="org-keyword">import</span> scipy.signal <span class="org-keyword">as</span> sig
+<span class="org-keyword">import</span> ChalcedonPy <span class="org-keyword">as</span> cp
 </pre>
 </div>
 
@@ -455,7 +456,7 @@ Now, we can define and plot our sine function.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-python" id="org9a6d48c">plot_settings_web<span class="org-rainbow-delimiters-depth-1">(</span>size<span class="org-operator">=</span>1<span class="org-rainbow-delimiters-depth-1">)</span>
+<pre class="src src-python" id="orgb34b8f5">plot_settings_web<span class="org-rainbow-delimiters-depth-1">(</span>size<span class="org-operator">=</span>1<span class="org-rainbow-delimiters-depth-1">)</span>
 plt.plot<span class="org-rainbow-delimiters-depth-1">(</span>t,y_sin<span class="org-rainbow-delimiters-depth-1">)</span>
 plt.xlabel<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-string">"Data Points"</span>, fontdict<span class="org-operator">=</span>font<span class="org-rainbow-delimiters-depth-1">)</span>
 plt.ylabel<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-string">"Amplitude"</span>, fontdict<span class="org-operator">=</span>font<span class="org-rainbow-delimiters-depth-1">)</span>
@@ -467,7 +468,7 @@ plt.close<span class="org-rainbow-delimiters-depth-1">()</span>
 </div>
 
 
-<div id="orgc9d9eea" class="figure">
+<div id="org1d6002b" class="figure">
 <p><img src="images/Mathematical-Fundamentals/fft-spectral-leak-sine.png" alt="fft-spectral-leak-sine.png" />
 </p>
 </div>
@@ -492,7 +493,7 @@ And time for plotting out FFT results
 </p>
 
 <div class="org-src-container">
-<pre class="src src-python" id="org97454d5">plot_settings_web<span class="org-rainbow-delimiters-depth-1">(</span>size<span class="org-operator">=</span>1<span class="org-rainbow-delimiters-depth-1">)</span>
+<pre class="src src-python" id="org2465cbf">plot_settings_web<span class="org-rainbow-delimiters-depth-1">(</span>size<span class="org-operator">=</span>1<span class="org-rainbow-delimiters-depth-1">)</span>
 plt.bar<span class="org-rainbow-delimiters-depth-1">(</span>freq,PSD,width<span class="org-operator">=</span>0.0025<span class="org-rainbow-delimiters-depth-1">)</span>
 
 plt.xlabel<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-string">'Frequency (cycles per time step)'</span>, fontdict<span class="org-operator">=</span>font<span class="org-rainbow-delimiters-depth-1">)</span>
@@ -507,7 +508,7 @@ plt.close<span class="org-rainbow-delimiters-depth-1">()</span>
 </div>
 
 
-<div id="orgc298233" class="figure">
+<div id="org6c7d8c9" class="figure">
 <p><img src="images/Mathematical-Fundamentals/fft-spectral-leak-unwindowed-fft.png" alt="fft-spectral-leak-unwindowed-fft.png" />
 </p>
 </div>
@@ -544,7 +545,7 @@ Results calculated, lets do some plotting.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-python" id="org7da6963"><span class="org-comment-delimiter"># </span><span class="org-comment">Plot windowed sine wave, window</span>
+<pre class="src src-python" id="orgb97c477"><span class="org-comment-delimiter"># </span><span class="org-comment">Plot windowed sine wave, window</span>
 plot_settings_web<span class="org-rainbow-delimiters-depth-1">(</span>size<span class="org-operator">=</span>2<span class="org-rainbow-delimiters-depth-1">)</span>
 plt.subplot<span class="org-rainbow-delimiters-depth-1">(</span>1,2,1<span class="org-rainbow-delimiters-depth-1">)</span>
 plt.plot<span class="org-rainbow-delimiters-depth-1">(</span>t,y2, label<span class="org-operator">=</span><span class="org-string">"windowed sine wave"</span><span class="org-rainbow-delimiters-depth-1">)</span>
@@ -565,7 +566,7 @@ plt.close<span class="org-rainbow-delimiters-depth-1">()</span>
 </div>
 
 
-<div id="orge1a96ad" class="figure">
+<div id="orgf7169da" class="figure">
 <p><img src="images/Mathematical-Fundamentals/fft-spectral-leak-windowed-sine.png" alt="fft-spectral-leak-windowed-sine.png" />
 </p>
 </div>
@@ -587,7 +588,7 @@ the discrete power spectrum of the windowed sine wave to see what happens.
 
 
 <div class="org-src-container">
-<pre class="src src-python" id="org49438b2"><span class="org-comment-delimiter"># </span><span class="org-comment">Plot Power Spectrum of windowed data</span>
+<pre class="src src-python" id="org310cf42"><span class="org-comment-delimiter"># </span><span class="org-comment">Plot Power Spectrum of windowed data</span>
 
 plot_settings_web<span class="org-rainbow-delimiters-depth-1">(</span>size<span class="org-operator">=</span>2<span class="org-rainbow-delimiters-depth-1">)</span>
 plt.bar<span class="org-rainbow-delimiters-depth-1">(</span>freq,ck2y2,width<span class="org-operator">=</span>0.0025<span class="org-rainbow-delimiters-depth-1">)</span>
@@ -604,9 +605,39 @@ plt.close<span class="org-rainbow-delimiters-depth-1">()</span>
 </div>
 
 
-<div id="orge62c5da" class="figure">
+<div id="org08535b8" class="figure">
 <p><img src="images/Mathematical-Fundamentals/fft-spectral-leak-windowed-fft.png" alt="fft-spectral-leak-windowed-fft.png" />
 </p>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-python" id="orgba73d44"><span class="org-keyword">from</span> scipy <span class="org-keyword">import</span> signal, special  <span class="org-comment-delimiter"># </span><span class="org-comment">for use in signal analysis invoke scipy</span>
+
+<span class="org-variable-name">sig</span> <span class="org-operator">=</span> np.repeat<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-rainbow-delimiters-depth-2">[</span>0., 1., 0.<span class="org-rainbow-delimiters-depth-2">]</span>, 100<span class="org-rainbow-delimiters-depth-1">)</span>  <span class="org-comment-delimiter"># </span><span class="org-comment">Original pulse</span>
+<span class="org-variable-name">win</span> <span class="org-operator">=</span> signal.windows.hann<span class="org-rainbow-delimiters-depth-1">(</span>50<span class="org-rainbow-delimiters-depth-1">)</span>  <span class="org-comment-delimiter"># </span><span class="org-comment">Filter impulse response</span>
+<span class="org-variable-name">filtered</span> <span class="org-operator">=</span> signal.convolve<span class="org-rainbow-delimiters-depth-1">(</span>sig, win, mode<span class="org-operator">=</span><span class="org-string">'same'</span><span class="org-rainbow-delimiters-depth-1">)</span> <span class="org-operator">/</span> <span class="org-builtin">sum</span><span class="org-rainbow-delimiters-depth-1">(</span>win<span class="org-rainbow-delimiters-depth-1">)</span>  <span class="org-comment-delimiter"># </span><span class="org-comment">filtered convoluted response</span>
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">noinspection PyTypeChecker</span>
+fig_conv, <span class="org-rainbow-delimiters-depth-1">(</span><span class="org-variable-name">ax1</span>, <span class="org-variable-name">ax2</span>, <span class="org-variable-name">ax3</span><span class="org-rainbow-delimiters-depth-1">)</span> <span class="org-operator">=</span> plt.subplots<span class="org-rainbow-delimiters-depth-1">(</span>3, 1, sharex<span class="org-operator">=</span><span class="org-constant">True</span><span class="org-rainbow-delimiters-depth-1">)</span>
+
+<span class="org-variable-name">axes_array</span> <span class="org-operator">=</span> <span class="org-rainbow-delimiters-depth-1">[</span>ax1, ax2, ax3<span class="org-rainbow-delimiters-depth-1">]</span>  <span class="org-comment-delimiter"># </span><span class="org-comment">axes array</span>
+<span class="org-variable-name">figure_array</span> <span class="org-operator">=</span> <span class="org-rainbow-delimiters-depth-1">[</span>sig, win, filtered<span class="org-rainbow-delimiters-depth-1">]</span>  <span class="org-comment-delimiter"># </span><span class="org-comment">figure array</span>
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">Title array</span>
+<span class="org-variable-name">title</span> <span class="org-operator">=</span> <span class="org-rainbow-delimiters-depth-1">[</span><span class="org-string">"Original pulse $f\,(t)$"</span>, <span class="org-string">"Filter impulse response $g\,(t)$"</span>, <span class="org-string">"Filtered signal $(f*g)(t)$"</span><span class="org-rainbow-delimiters-depth-1">]</span>
+
+<span class="org-variable-name">ind</span> <span class="org-operator">=</span> 0  <span class="org-comment-delimiter"># </span><span class="org-comment">indices for loop</span>
+
+<span class="org-keyword">for</span> axes_conv <span class="org-keyword">in</span> axes_array:  <span class="org-comment-delimiter"># </span><span class="org-comment">Loop through the array</span>
+    axes_conv.plot<span class="org-rainbow-delimiters-depth-1">(</span>figure_array<span class="org-rainbow-delimiters-depth-2">[</span>ind<span class="org-rainbow-delimiters-depth-2">]</span>, linewidth<span class="org-operator">=</span>4, color<span class="org-operator">=</span><span class="org-string">"orange"</span><span class="org-rainbow-delimiters-depth-1">)</span>
+    axes_conv.set_title<span class="org-rainbow-delimiters-depth-1">(</span>title<span class="org-rainbow-delimiters-depth-2">[</span>ind<span class="org-rainbow-delimiters-depth-2">]</span><span class="org-rainbow-delimiters-depth-1">)</span>
+    axes_conv.margins<span class="org-rainbow-delimiters-depth-1">(</span>0, 0.1<span class="org-rainbow-delimiters-depth-1">)</span>
+    <span class="org-comment-delimiter">#</span><span class="org-comment">Plotting.plot_subplot_style(fig_conv, axes_conv)</span>
+    <span class="org-variable-name">ind</span> <span class="org-operator">=</span> ind <span class="org-operator">+</span> 1
+
+fig_conv.tight_layout<span class="org-rainbow-delimiters-depth-1">()</span>
+plt.show<span class="org-rainbow-delimiters-depth-1">()</span>
+</pre>
 </div>
 </div>
 </div>

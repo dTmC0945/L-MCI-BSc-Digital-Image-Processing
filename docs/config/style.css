@@ -153,6 +153,12 @@ pre.src-python::before {
 
 }
 
+pre.src-cpp::before {
+  background-color: #24273a;
+  color: #c6d0f5;
+
+}
+
 pre.src-bash::before {
   background-color: #24273a;
   color: #c6d0f5;
@@ -265,6 +271,9 @@ tr:nth-child(even) {
     font-size: 10pt;
     display: inline;
 
+    .Note {
+    color: #8aadf4;
+}
     
 }
 
@@ -339,15 +348,17 @@ a {
   color: #e78284;
 }
 
+.org-preprocessor {
+    color: #eed49f;
+}
+
 .org-comment,
 .org-comment-delimiter {
   color: #8a8a8a;
 }
-.org-preprocessor {
-  color: #008787;
-}
+
 .org-type {
-  color: #af5f00;
+  color: #eed49f;
 }
 .org-variable-name {
   color: #c6d0f5;
@@ -437,10 +448,6 @@ hr {
   color: #fff;
   height: 1px;
   width: 100%;
-}
-
-.Hlight {
-    color: #fab387;
 }
 
 fieldset {
