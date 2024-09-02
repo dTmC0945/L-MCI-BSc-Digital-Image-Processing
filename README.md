@@ -47,8 +47,8 @@ The details of the lecture are given below.
 | Lecturer      | Daniel McGuiness                                  |
 | Software      | Python                                            |
 | Hardware      | \-                                                |
-| SWS Total     | 3                                                 |
-| Total Units   | 45                                                |
+| SWS Total     | 4                                                 |
+| Total Units   | 60                                                |
 | ECTS          | 5                                                 |
 | Lecture Type  | ILV                                               |
 
@@ -134,7 +134,6 @@ images. The structure of the lecture is shown below.
 | 11 | Edge Detection | Methods and alhorithms used in detecting edges for computer vision | 10 |
 | 12 | Neural Networks for Image Processing | A Brief introduction to ANNs for use in image recognition | 11 - 12 |
 | 13 | Group Assignment Presentations | Presentations of your group assingments and the following Q & A | 13 - 15 |
-| 14 | Appendix | Tangental information related to the main topic |  |
 
 ## Code Supplement
 
