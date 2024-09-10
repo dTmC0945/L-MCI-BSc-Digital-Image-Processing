@@ -1,0 +1,563 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Code for Digital Image Processing Mathematical Fundamentals</title>
+<meta name="author" content="Daniel McGuiness" />
+<meta name="generator" content="Org Mode" />
+<style>
+  #content { max-width: 60em; margin: auto; }
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #e6e6e6;
+    border-radius: 3px;
+    background-color: #f2f2f2;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: auto;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    top: -8px;
+    right: 12px;
+    padding: 3px;
+    color: #555;
+    background-color: #f2f2f299;
+  }
+  pre.src:hover:before { display: inline; margin-top: 14px;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-authinfo::before { content: 'Authinfo'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+  }
+  .equation {
+    vertical-align: middle;
+  }
+  .equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+  }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { }
+</style>
+<link rel="stylesheet" href="config/style.css">
+<script type="text/javascript"  src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="config/test.js">
+// @license magnet:?xt=urn:btih:1f739d935676111cfff4b4693e3816e664797050&amp;dn=gpl-3.0.txt GPL-v3-or-Later
+// @license-end
+</script>
+
+<script>
+// @license magnet:?xt=urn:btih:1f739d935676111cfff4b4693e3816e664797050&amp;dn=gpl-3.0.txt GPL-v3-or-Later
+org_html_manager.set("TOC_DEPTH", "3");
+org_html_manager.set("LINK_HOME", "");
+org_html_manager.set("LINK_UP", "index.html");
+org_html_manager.set("LOCAL_TOC", "1");
+org_html_manager.set("VIEW_BUTTONS", "0");
+org_html_manager.set("MOUSE_HINT", "underline");
+org_html_manager.set("FIXED_TOC", "0");
+org_html_manager.set("TOC", "1");
+org_html_manager.set("VIEW", "info");
+org_html_manager.setup();  // activate after the parameters are set
+// @license-end
+</script>
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href="index.html"> UP </a>
+ |
+ <a accesskey="H" href=""> HOME </a>
+</div><div id="content" class="content">
+<h1 class="title">Code for Digital Image Processing Mathematical Fundamentals</h1>
+<div id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#org550e74f">Introduction</a></li>
+<li><a href="#org3800d08">Introduction</a></li>
+<li><a href="#org27eeb87">Exercise: Convolution 1D</a></li>
+<li><a href="#orgbf94245">Shannon Nyquist Sampling Theorem</a></li>
+<li><a href="#orgd7d45db">Spectral Leakage</a></li>
+</ul>
+</div>
+</div>
+<p>
+These are the code snippets used in <span class="Hlight">Mathematical Fundamentals</span>
+part of <span class="Hlight">Digital Image Processing</span>.
+</p>
+
+<div id="outline-container-org550e74f" class="outline-2">
+<h2 id="org550e74f">Introduction</h2>
+<div class="outline-text-2" id="text-org550e74f">
+<p>
+The following code uses the standard matplotlib along with the
+custom ChalcedonPy which is detailed in its source code here.
+</p>
+
+<p>
+The code is used primarily in the following code as a means to
+save figures for use in slides.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-python" id="org5f285d9"><span class="org-keyword">import</span> matplotlib.pyplot <span class="org-keyword">as</span> plt
+<span class="org-keyword">import</span> ChalcedonPy <span class="org-keyword">as</span> cp
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">Initialise ChalcedonPy</span>
+cp.init<span class="org-rainbow-delimiters-depth-1">(</span>save_path<span class="org-operator">=</span><span class="org-string">"Mathematical-Fundamentals"</span>,
+        display_mode<span class="org-operator">=</span><span class="org-string">"web"</span><span class="org-rainbow-delimiters-depth-1">)</span> 
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org3800d08" class="outline-2">
+<h2 id="org3800d08">Introduction</h2>
+<div class="outline-text-2" id="text-org3800d08">
+<p>
+The following code covers the topic of mathematical fundamentals, which
+includes some examples on:
+</p>
+
+<ul class="org-ul">
+<li>convolution,</li>
+<li>fourier transform,</li>
+<li>spectral leakage,</li>
+<li>information theory.</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org27eeb87" class="outline-2">
+<h2 id="org27eeb87">Exercise: Convolution 1D</h2>
+<div class="outline-text-2" id="text-org27eeb87">
+<p>
+The following is the solution to the 1D Convolution question given
+in the lecture
+</p>
+
+<div class="org-src-container">
+<pre class="src src-python" id="orgf004717"><span class="org-keyword">import</span> numpy <span class="org-keyword">as</span> np
+<span class="org-keyword">def</span> <span class="org-function-name">convolve_1d</span><span class="org-rainbow-delimiters-depth-1">(</span>signal, kernel<span class="org-rainbow-delimiters-depth-1">)</span>:
+    <span class="org-variable-name">kernel</span> <span class="org-operator">=</span> kernel<span class="org-rainbow-delimiters-depth-1">[</span>::<span class="org-operator">-</span>1<span class="org-rainbow-delimiters-depth-1">]</span>
+    <span class="org-variable-name">k</span> <span class="org-operator">=</span> <span class="org-builtin">len</span><span class="org-rainbow-delimiters-depth-1">(</span>kernel<span class="org-rainbow-delimiters-depth-1">)</span>
+    <span class="org-variable-name">s</span> <span class="org-operator">=</span> <span class="org-builtin">len</span><span class="org-rainbow-delimiters-depth-1">(</span>signal<span class="org-rainbow-delimiters-depth-1">)</span>
+    <span class="org-variable-name">signal</span> <span class="org-operator">=</span> <span class="org-rainbow-delimiters-depth-1">[</span>0<span class="org-rainbow-delimiters-depth-1">]</span><span class="org-operator">*</span><span class="org-rainbow-delimiters-depth-1">(</span>k<span class="org-operator">-</span>1<span class="org-rainbow-delimiters-depth-1">)</span><span class="org-operator">+</span>signal<span class="org-operator">+</span><span class="org-rainbow-delimiters-depth-1">[</span>0<span class="org-rainbow-delimiters-depth-1">]</span><span class="org-operator">*</span><span class="org-rainbow-delimiters-depth-1">(</span>k<span class="org-operator">-</span>1<span class="org-rainbow-delimiters-depth-1">)</span>
+    <span class="org-variable-name">n</span> <span class="org-operator">=</span> s<span class="org-operator">+</span><span class="org-rainbow-delimiters-depth-1">(</span>k<span class="org-operator">-</span>1<span class="org-rainbow-delimiters-depth-1">)</span>
+    <span class="org-variable-name">res</span> <span class="org-operator">=</span> <span class="org-rainbow-delimiters-depth-1">[]</span>
+    <span class="org-keyword">for</span> i <span class="org-keyword">in</span> <span class="org-builtin">range</span><span class="org-rainbow-delimiters-depth-1">(</span>s<span class="org-operator">+</span>k<span class="org-operator">-</span>1<span class="org-rainbow-delimiters-depth-1">)</span>:
+        res.append<span class="org-rainbow-delimiters-depth-1">(</span>np.dot<span class="org-rainbow-delimiters-depth-2">(</span>signal<span class="org-rainbow-delimiters-depth-3">[</span>i:<span class="org-rainbow-delimiters-depth-4">(</span>i<span class="org-operator">+</span>k<span class="org-rainbow-delimiters-depth-4">)</span><span class="org-rainbow-delimiters-depth-3">]</span>, kernel<span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
+    <span class="org-keyword">return</span> res
+</pre>
+</div>
+
+<p>
+Now the function is defined, it is a matter of entering the two arrays
+and printing the function.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-python" id="org2391500"><span class="org-variable-name">A</span> <span class="org-operator">=</span> <span class="org-rainbow-delimiters-depth-1">[</span>1,1,2,2,1<span class="org-rainbow-delimiters-depth-1">]</span>
+<span class="org-variable-name">B</span> <span class="org-operator">=</span> <span class="org-rainbow-delimiters-depth-1">[</span>1,1,1,3<span class="org-rainbow-delimiters-depth-1">]</span>
+
+<span class="org-builtin">print</span><span class="org-rainbow-delimiters-depth-1">(</span>convolve_1d<span class="org-rainbow-delimiters-depth-2">(</span>A, B<span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
+</pre>
+</div>
+
+<pre class="example" id="org97b312c">
+[1, 2, 4, 8, 8, 9, 7, 3]
+</pre>
+</div>
+</div>
+
+<div id="outline-container-orgbf94245" class="outline-2">
+<h2 id="orgbf94245">Shannon Nyquist Sampling Theorem</h2>
+<div class="outline-text-2" id="text-orgbf94245">
+<p>
+Below is an <span class="Hlight">unused</span> code which showcases the practical
+limitation of the Shannon-Nyquist theorem.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-python" id="org343643d"><span class="org-keyword">import</span> numpy <span class="org-keyword">as</span> np
+<span class="org-keyword">from</span> matplotlib <span class="org-keyword">import</span> pyplot <span class="org-keyword">as</span> plt
+
+<span class="org-variable-name">wave_freq</span> <span class="org-operator">=</span> 5
+<span class="org-variable-name">domain</span> <span class="org-operator">=</span> 1
+
+<span class="org-variable-name">sample_rates</span> <span class="org-operator">=</span> <span class="org-rainbow-delimiters-depth-1">(</span>
+    <span class="org-rainbow-delimiters-depth-2">(</span>wave_freq <span class="org-operator">*</span> 2 <span class="org-operator">-</span> 1, <span class="org-string">'below Nyquist rate'</span><span class="org-rainbow-delimiters-depth-2">)</span>,
+    <span class="org-rainbow-delimiters-depth-2">(</span>wave_freq <span class="org-operator">*</span> 2, <span class="org-string">'(exclusive) lower bound according to Nyquist?'</span><span class="org-rainbow-delimiters-depth-2">)</span>,
+    <span class="org-rainbow-delimiters-depth-2">(</span>wave_freq <span class="org-operator">*</span> 2 <span class="org-operator">+</span> 1, <span class="org-string">'bit more than Nyquist'</span><span class="org-rainbow-delimiters-depth-2">)</span>,
+    <span class="org-rainbow-delimiters-depth-2">(</span>wave_freq <span class="org-operator">*</span> 4, <span class="org-string">'double Nyquist'</span><span class="org-rainbow-delimiters-depth-2">)</span>,
+<span class="org-rainbow-delimiters-depth-1">)</span>
+
+<span class="org-variable-name">n_plots</span> <span class="org-operator">=</span> <span class="org-builtin">len</span><span class="org-rainbow-delimiters-depth-1">(</span>sample_rates<span class="org-rainbow-delimiters-depth-1">)</span> <span class="org-operator">+</span> 1
+
+<span class="org-variable-name">fig</span> <span class="org-operator">=</span> plt.figure<span class="org-rainbow-delimiters-depth-1">(</span>figsize<span class="org-operator">=</span><span class="org-rainbow-delimiters-depth-2">(</span>8, 10<span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
+<span class="org-variable-name">ax</span> <span class="org-operator">=</span> fig.add_subplot<span class="org-rainbow-delimiters-depth-1">(</span>n_plots, 1,  1<span class="org-rainbow-delimiters-depth-1">)</span>
+<span class="org-variable-name">time</span> <span class="org-operator">=</span> np.linspace<span class="org-rainbow-delimiters-depth-1">(</span>0, domain, 1000, endpoint<span class="org-operator">=</span><span class="org-constant">False</span><span class="org-rainbow-delimiters-depth-1">)</span> <span class="org-comment-delimiter"># </span><span class="org-comment">take enough samples to make a seemingly perfect sine wave</span>
+<span class="org-variable-name">hi_res</span> <span class="org-operator">=</span> np.sin<span class="org-rainbow-delimiters-depth-1">(</span>2 <span class="org-operator">*</span> np.pi <span class="org-operator">*</span> wave_freq <span class="org-operator">*</span> time<span class="org-rainbow-delimiters-depth-1">)</span>
+ax.axhline<span class="org-rainbow-delimiters-depth-1">(</span>color<span class="org-operator">=</span><span class="org-string">"0.7"</span><span class="org-rainbow-delimiters-depth-1">)</span>
+ax.plot<span class="org-rainbow-delimiters-depth-1">(</span>time, hi_res, label<span class="org-operator">=</span>f<span class="org-string">'</span>{wave_freq}<span class="org-string">Hz wave'</span><span class="org-rainbow-delimiters-depth-1">)</span>
+ax.legend<span class="org-rainbow-delimiters-depth-1">(</span>loc<span class="org-operator">=</span>1<span class="org-rainbow-delimiters-depth-1">)</span>
+<span class="org-variable-name">ylim</span> <span class="org-operator">=</span> ax.get_ylim<span class="org-rainbow-delimiters-depth-1">()</span>
+
+<span class="org-keyword">for</span> i, <span class="org-rainbow-delimiters-depth-1">(</span>sample_rate, title<span class="org-rainbow-delimiters-depth-1">)</span> <span class="org-keyword">in</span> <span class="org-builtin">enumerate</span><span class="org-rainbow-delimiters-depth-1">(</span>sample_rates<span class="org-rainbow-delimiters-depth-1">)</span>:
+    <span class="org-variable-name">ax</span> <span class="org-operator">=</span> fig.add_subplot<span class="org-rainbow-delimiters-depth-1">(</span>n_plots, 1, i<span class="org-operator">+</span>2<span class="org-rainbow-delimiters-depth-1">)</span>
+
+    <span class="org-variable-name">t</span> <span class="org-operator">=</span> np.linspace<span class="org-rainbow-delimiters-depth-1">(</span>0, domain, sample_rate, endpoint<span class="org-operator">=</span><span class="org-constant">False</span><span class="org-rainbow-delimiters-depth-1">)</span>
+    <span class="org-variable-name">samples</span> <span class="org-operator">=</span> np.sin<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-rainbow-delimiters-depth-2">(</span>2 <span class="org-operator">*</span> np.pi <span class="org-operator">*</span> wave_freq<span class="org-rainbow-delimiters-depth-2">)</span> <span class="org-operator">*</span> t<span class="org-rainbow-delimiters-depth-1">)</span>
+    ax.axhline<span class="org-rainbow-delimiters-depth-1">(</span>color<span class="org-operator">=</span><span class="org-string">"0.7"</span><span class="org-rainbow-delimiters-depth-1">)</span>
+    ax.plot<span class="org-rainbow-delimiters-depth-1">(</span>time, hi_res, label<span class="org-operator">=</span>f<span class="org-string">'</span>{wave_freq}<span class="org-string">Hz wave'</span>, color<span class="org-operator">=</span><span class="org-string">'0.8'</span><span class="org-rainbow-delimiters-depth-1">)</span> <span class="org-comment-delimiter"># </span><span class="org-comment">show what we're aiming for</span>
+    ax.plot<span class="org-rainbow-delimiters-depth-1">(</span>t, samples, marker<span class="org-operator">=</span><span class="org-string">'o'</span>, label<span class="org-operator">=</span>f<span class="org-string">'</span>{sample_rate}<span class="org-string">Hz sample rate (</span>{sample_rate<span class="org-operator">/</span>wave_freq}<span class="org-string">x)'</span><span class="org-rainbow-delimiters-depth-1">)</span>
+    ax.set_ylim<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-operator">*</span>ylim<span class="org-rainbow-delimiters-depth-1">)</span>
+    ax.legend<span class="org-rainbow-delimiters-depth-1">(</span>loc<span class="org-operator">=</span>1<span class="org-rainbow-delimiters-depth-1">)</span>
+    ax.set_title<span class="org-rainbow-delimiters-depth-1">(</span>title<span class="org-rainbow-delimiters-depth-1">)</span>
+
+cp.store_fig<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-string">"shannon-nyquist"</span>,close<span class="org-operator">=</span><span class="org-constant">True</span><span class="org-rainbow-delimiters-depth-1">)</span>
+</pre>
+</div>
+
+
+<div id="orga27fb52" class="figure">
+<p><img src="images/Mathematical-Fundamentals/shannon-nyquist.png" alt="shannon-nyquist.png" />
+</p>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-orgd7d45db" class="outline-2">
+<h2 id="orgd7d45db">Spectral Leakage</h2>
+<div class="outline-text-2" id="text-orgd7d45db">
+<p>
+Let’s take a look at an example using a simple sine wave.
+First import the necessary modules.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-python" id="orgf5948da"><span class="org-keyword">import</span> numpy <span class="org-keyword">as</span> np
+<span class="org-keyword">import</span> matplotlib.pyplot <span class="org-keyword">as</span> plt
+<span class="org-keyword">import</span> scipy.stats <span class="org-keyword">as</span> st
+<span class="org-keyword">import</span> scipy.signal <span class="org-keyword">as</span> sig
+</pre>
+</div>
+
+<p>
+Let’s define a sine function on a time domain, such that
+the sine function completes <img src="ltximg/Mathematical-Fundamentals_8493561310430b67dc7cf5f35cf2c62be068008d.png" alt="$N$" />, integer cycles, i.e.,
+no cycles are cut-off within the domain.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-python" id="org227cc45"><span class="org-keyword">import</span> numpy <span class="org-keyword">as</span> np
+
+<span class="org-variable-name">T</span> <span class="org-operator">=</span> 8 <span class="org-operator">*</span> np.pi  <span class="org-comment-delimiter"># </span><span class="org-comment">length of time domain</span>
+<span class="org-variable-name">t</span> <span class="org-operator">=</span> np.arange<span class="org-rainbow-delimiters-depth-1">(</span>0, T <span class="org-operator">+</span> 0.05 <span class="org-operator">*</span> np.pi, 0.05 <span class="org-operator">*</span> np.pi<span class="org-rainbow-delimiters-depth-1">)</span>
+<span class="org-variable-name">freq</span> <span class="org-operator">=</span> np.arange<span class="org-rainbow-delimiters-depth-1">(</span>0, <span class="org-builtin">int</span><span class="org-rainbow-delimiters-depth-2">(</span><span class="org-builtin">len</span><span class="org-rainbow-delimiters-depth-3">(</span>t<span class="org-rainbow-delimiters-depth-3">)</span> <span class="org-operator">/</span> 2.0<span class="org-rainbow-delimiters-depth-2">)</span> <span class="org-operator">+</span> 1<span class="org-rainbow-delimiters-depth-1">)</span> <span class="org-operator">/</span> <span class="org-builtin">len</span><span class="org-rainbow-delimiters-depth-1">(</span>t<span class="org-rainbow-delimiters-depth-1">)</span>
+<span class="org-variable-name">y_sin</span> <span class="org-operator">=</span> np.sin<span class="org-rainbow-delimiters-depth-1">(</span>t<span class="org-rainbow-delimiters-depth-1">)</span> <span class="org-comment-delimiter"># </span><span class="org-comment">define the sin function</span>
+</pre>
+</div>
+
+<p>
+Now, we can define and plot our sine function.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-python" id="orgd82e27f">plt.plot<span class="org-rainbow-delimiters-depth-1">(</span>t,y_sin<span class="org-rainbow-delimiters-depth-1">)</span>
+plt.xlabel<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-string">"Data Points"</span><span class="org-rainbow-delimiters-depth-1">)</span>
+plt.ylabel<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-string">"Amplitude"</span><span class="org-rainbow-delimiters-depth-1">)</span>
+plt.title<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-string">"Sine Wave"</span><span class="org-rainbow-delimiters-depth-1">)</span>
+cp.store_fig<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-string">"fft-spectral-leak-sine"</span>, close<span class="org-operator">=</span><span class="org-constant">True</span><span class="org-rainbow-delimiters-depth-1">)</span>
+</pre>
+</div>
+
+
+<div id="org5f8e8a4" class="figure">
+<p><img src="images/Mathematical-Fundamentals/fft-spectral-leak-sine.png" alt="fft-spectral-leak-sine.png" />
+</p>
+</div>
+
+<p>
+Here, we have 4 complete cycles of our sine wave.
+Now, let’s compute the discrete power spectrum of this sine wave.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-python" id="orgcb5c157"><span class="org-comment-delimiter"># </span><span class="org-comment">Do simple fft of the signal</span>
+<span class="org-variable-name">yfft1_raw</span> <span class="org-operator">=</span> np.fft.fft<span class="org-rainbow-delimiters-depth-1">(</span>y_sin<span class="org-rainbow-delimiters-depth-1">)</span>
+<span class="org-variable-name">yfft1</span> <span class="org-operator">=</span> yfft1_raw<span class="org-operator">/</span><span class="org-builtin">len</span><span class="org-rainbow-delimiters-depth-1">(</span>y_sin<span class="org-rainbow-delimiters-depth-1">)</span>
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">compute variance as a function of frequency (spectral power)</span>
+<span class="org-variable-name">PSD</span> <span class="org-operator">=</span> 2<span class="org-operator">*</span>np.<span class="org-builtin">abs</span><span class="org-rainbow-delimiters-depth-1">(</span>yfft1<span class="org-rainbow-delimiters-depth-2">[</span>0:<span class="org-builtin">int</span><span class="org-rainbow-delimiters-depth-3">(</span><span class="org-builtin">len</span><span class="org-rainbow-delimiters-depth-4">(</span>t<span class="org-rainbow-delimiters-depth-4">)</span><span class="org-operator">/</span>2.0<span class="org-operator">+</span>1<span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">]</span><span class="org-rainbow-delimiters-depth-1">)</span><span class="org-operator">**</span>2
+</pre>
+</div>
+
+<p>
+And time for plotting out FFT results
+</p>
+
+<div class="org-src-container">
+<pre class="src src-python" id="org584816c">plt.bar<span class="org-rainbow-delimiters-depth-1">(</span>freq, PSD, width<span class="org-operator">=</span>0.0025<span class="org-rainbow-delimiters-depth-1">)</span>
+
+plt.xlabel<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-string">'Frequency (cycles per time step)'</span><span class="org-rainbow-delimiters-depth-1">)</span>
+plt.ylabel<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-string">'Normalized Power'</span><span class="org-rainbow-delimiters-depth-1">)</span>
+plt.title<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-string">"D-PSD for Un-windowed Sine Wave"</span><span class="org-rainbow-delimiters-depth-1">)</span>
+plt.xlim<span class="org-rainbow-delimiters-depth-1">(</span>0,0.1<span class="org-rainbow-delimiters-depth-1">)</span>
+
+cp.store_fig<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-string">"fft-spectral-leak-unwindowed-fft"</span>, close<span class="org-operator">=</span><span class="org-constant">True</span><span class="org-rainbow-delimiters-depth-1">)</span>
+</pre>
+</div>
+
+
+<div id="org4ee48f3" class="figure">
+<p><img src="images/Mathematical-Fundamentals/fft-spectral-leak-unwindowed-fft.png" alt="fft-spectral-leak-unwindowed-fft.png" />
+</p>
+</div>
+
+<p>
+We get a single spectral peak corresponding to the frequency of our
+sine wave.
+</p>
+
+<p>
+Now, let’s see what happens if we apply a window to our sine wave
+that cuts off the sine wave such that the sine function does not
+complete an integer number of cycles within the time domain.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-python" id="org8bf2341"><span class="org-comment-delimiter"># </span><span class="org-comment">Now let's window our data, such that we are not cleanly sampling our sine function</span>
+<span class="org-variable-name">y2</span> <span class="org-operator">=</span> <span class="org-rainbow-delimiters-depth-1">[]</span>
+<span class="org-variable-name">bxcr</span> <span class="org-operator">=</span> <span class="org-rainbow-delimiters-depth-1">[]</span>
+<span class="org-keyword">for</span> i <span class="org-keyword">in</span> t:
+    <span class="org-keyword">if</span> <span class="org-rainbow-delimiters-depth-1">(</span>i <span class="org-operator">&lt;</span> 1.5<span class="org-operator">*</span>np.pi<span class="org-rainbow-delimiters-depth-1">)</span> <span class="org-keyword">or</span> <span class="org-rainbow-delimiters-depth-1">(</span>i <span class="org-operator">&gt;</span> 6.5<span class="org-operator">*</span>np.pi<span class="org-rainbow-delimiters-depth-1">)</span>:
+        y2.append<span class="org-rainbow-delimiters-depth-1">(</span>0<span class="org-rainbow-delimiters-depth-1">)</span>
+        bxcr.append<span class="org-rainbow-delimiters-depth-1">(</span>0<span class="org-rainbow-delimiters-depth-1">)</span>
+    <span class="org-keyword">else</span>:
+        y2.append<span class="org-rainbow-delimiters-depth-1">(</span>np.sin<span class="org-rainbow-delimiters-depth-2">(</span>i<span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
+        bxcr.append<span class="org-rainbow-delimiters-depth-1">(</span>1<span class="org-rainbow-delimiters-depth-1">)</span>
+<span class="org-variable-name">y2</span> <span class="org-operator">=</span> np.asarray<span class="org-rainbow-delimiters-depth-1">(</span>y2<span class="org-rainbow-delimiters-depth-1">)</span>
+<span class="org-variable-name">bxcr</span> <span class="org-operator">=</span> np.asarray<span class="org-rainbow-delimiters-depth-1">(</span>bxcr<span class="org-rainbow-delimiters-depth-1">)</span>
+</pre>
+</div>
+
+<p>
+Results calculated, lets do some plotting.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-python" id="orgfdafc05"><span class="org-comment-delimiter"># </span><span class="org-comment">Plot windowed sine wave, window</span>
+plt.subplot<span class="org-rainbow-delimiters-depth-1">(</span>2,1,1<span class="org-rainbow-delimiters-depth-1">)</span>
+plt.plot<span class="org-rainbow-delimiters-depth-1">(</span>t,y2, label<span class="org-operator">=</span><span class="org-string">"windowed sine wave"</span><span class="org-rainbow-delimiters-depth-1">)</span>
+plt.plot<span class="org-rainbow-delimiters-depth-1">(</span>t,bxcr, label<span class="org-operator">=</span><span class="org-string">"box wave"</span><span class="org-rainbow-delimiters-depth-1">)</span>
+plt.title<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-string">'Windowed Sine Wave'</span><span class="org-rainbow-delimiters-depth-1">)</span>
+plt.legend<span class="org-rainbow-delimiters-depth-1">(</span>loc<span class="org-operator">=</span><span class="org-string">"lower right"</span><span class="org-rainbow-delimiters-depth-1">)</span>
+
+plt.subplot<span class="org-rainbow-delimiters-depth-1">(</span>2,1,2<span class="org-rainbow-delimiters-depth-1">)</span>
+plt.plot<span class="org-rainbow-delimiters-depth-1">(</span>t,y2<span class="org-operator">*</span>bxcr<span class="org-rainbow-delimiters-depth-1">)</span>
+plt.title<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-string">'Also a Windowed Sine Wave'</span><span class="org-rainbow-delimiters-depth-1">)</span>
+
+cp.store_fig<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-string">"fft-spectral-leak-windowed-sine"</span>, close<span class="org-operator">=</span><span class="org-constant">True</span><span class="org-rainbow-delimiters-depth-1">)</span>
+</pre>
+</div>
+
+
+<div id="org4484ef2" class="figure">
+<p><img src="images/Mathematical-Fundamentals/fft-spectral-leak-windowed-sine.png" alt="fft-spectral-leak-windowed-sine.png" />
+</p>
+</div>
+
+<p>
+To demonstrate what spectral leakage is, we will now compute
+the discrete power spectrum of the windowed sine wave to see what happens.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-python" id="org0cd699d"><span class="org-comment-delimiter"># </span><span class="org-comment">compute FFT</span>
+<span class="org-variable-name">yfft2_raw</span> <span class="org-operator">=</span> np.fft.fft<span class="org-rainbow-delimiters-depth-1">(</span>y2<span class="org-rainbow-delimiters-depth-1">)</span>
+<span class="org-variable-name">yfft2</span> <span class="org-operator">=</span> yfft2_raw<span class="org-operator">/</span><span class="org-builtin">len</span><span class="org-rainbow-delimiters-depth-1">(</span>y2<span class="org-rainbow-delimiters-depth-1">)</span>
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">compute variance as a function of frequency (spectral power)</span>
+<span class="org-variable-name">ck2y2</span> <span class="org-operator">=</span> 2<span class="org-operator">*</span>np.<span class="org-builtin">abs</span><span class="org-rainbow-delimiters-depth-1">(</span>yfft2<span class="org-rainbow-delimiters-depth-2">[</span>0:<span class="org-builtin">int</span><span class="org-rainbow-delimiters-depth-3">(</span><span class="org-builtin">len</span><span class="org-rainbow-delimiters-depth-4">(</span>t<span class="org-rainbow-delimiters-depth-4">)</span><span class="org-operator">/</span>2.0<span class="org-operator">+</span>1<span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">]</span><span class="org-rainbow-delimiters-depth-1">)</span><span class="org-operator">**</span>2
+</pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-python" id="orgd3c94f1"><span class="org-comment-delimiter"># </span><span class="org-comment">Plot Power Spectrum of windowed data</span>
+plt.bar<span class="org-rainbow-delimiters-depth-1">(</span>freq,ck2y2,width<span class="org-operator">=</span>0.0025<span class="org-rainbow-delimiters-depth-1">)</span>
+plt.xlabel<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-string">'Frequency [Hz]'</span><span class="org-rainbow-delimiters-depth-1">)</span>
+plt.ylabel<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-string">'PSD [W]'</span><span class="org-rainbow-delimiters-depth-1">)</span>
+plt.title<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-string">"Discrete Power Spectrum for Windowed Sine Wave"</span><span class="org-rainbow-delimiters-depth-1">)</span>
+plt.xlim<span class="org-rainbow-delimiters-depth-1">(</span>0,0.1<span class="org-rainbow-delimiters-depth-1">)</span>
+
+cp.store_fig<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-string">"fft-spectral-leak-windowed-fft"</span>, close<span class="org-operator">=</span><span class="org-constant">True</span><span class="org-rainbow-delimiters-depth-1">)</span>
+</pre>
+</div>
+
+
+<div id="org733b993" class="figure">
+<p><img src="images/Mathematical-Fundamentals/fft-spectral-leak-windowed-fft.png" alt="fft-spectral-leak-windowed-fft.png" />
+</p>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: Daniel McGuiness</p>
+</div>
+</body>
+</html>
