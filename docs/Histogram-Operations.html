@@ -285,13 +285,13 @@ exercises
 </p>
 
 <div class="org-src-container">
-<pre class="src src-python" id="orgd54f1f0"><span class="org-variable-name">image</span> <span class="org-operator">=</span> cv.imread<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-string">'Fruit.jpg'</span><span class="org-rainbow-delimiters-depth-1">)</span>
+<pre class="src src-python" id="orgb407cc0"><span class="org-variable-name">image</span> <span class="org-operator">=</span> cv.imread<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-string">'Fruit.jpg'</span><span class="org-rainbow-delimiters-depth-1">)</span>
 cv.imwrite<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-string">"images/Histogram-Operations/reference-image.png"</span>, image<span class="org-rainbow-delimiters-depth-1">)</span>
 </pre>
 </div>
 
 
-<div id="org244822e" class="figure">
+<div id="org0f4d3f0" class="figure">
 <p><img src="images/Histogram-Operations/reference-image.png" alt="reference-image.png" />
 </p>
 </div>
@@ -309,7 +309,7 @@ from the rapsberries.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-python" id="org71ba81d"><span class="org-variable-name">img</span> <span class="org-operator">=</span> cv.imread<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-string">'Fruit.jpg'</span>, cv.IMREAD_GRAYSCALE<span class="org-rainbow-delimiters-depth-1">)</span>
+<pre class="src src-python" id="org82ac85f"><span class="org-variable-name">img</span> <span class="org-operator">=</span> cv.imread<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-string">'Fruit.jpg'</span>, cv.IMREAD_GRAYSCALE<span class="org-rainbow-delimiters-depth-1">)</span>
 plot_settings<span class="org-rainbow-delimiters-depth-1">()</span>
 plt.hist<span class="org-rainbow-delimiters-depth-1">(</span>img.ravel<span class="org-rainbow-delimiters-depth-2">()</span>,256,<span class="org-rainbow-delimiters-depth-2">[</span>0,256<span class="org-rainbow-delimiters-depth-2">]</span><span class="org-rainbow-delimiters-depth-1">)</span>
 plt.xlabel<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-string">"Pixel Value"</span><span class="org-rainbow-delimiters-depth-1">)</span>
@@ -319,7 +319,7 @@ plt.show<span class="org-rainbow-delimiters-depth-1">()</span>
 </pre>
 </div>
 
-<pre class="example" id="org83b1968">
+<pre class="example" id="org902f62e">
 [ WARN:0@5.059] global loadsave.cpp:241 findDecoder imread_('Fruit.jpg'): can't open/read file: check file path/integrity
 </pre>
 
@@ -345,7 +345,7 @@ We can also observe the colour channels of the histogram
 </p>
 
 <div class="org-src-container">
-<pre class="src src-python" id="org9a5831f"><span class="org-variable-name">img</span> <span class="org-operator">=</span> cv.imread<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-string">'Fruit.jpg'</span><span class="org-rainbow-delimiters-depth-1">)</span>
+<pre class="src src-python" id="orgfea3fa9"><span class="org-variable-name">img</span> <span class="org-operator">=</span> cv.imread<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-string">'Fruit.jpg'</span><span class="org-rainbow-delimiters-depth-1">)</span>
 <span class="org-variable-name">color</span> <span class="org-operator">=</span> <span class="org-rainbow-delimiters-depth-1">(</span><span class="org-string">'b'</span>,<span class="org-string">'g'</span>,<span class="org-string">'r'</span><span class="org-rainbow-delimiters-depth-1">)</span>
 <span class="org-keyword">for</span> i,col <span class="org-keyword">in</span> <span class="org-builtin">enumerate</span><span class="org-rainbow-delimiters-depth-1">(</span>color<span class="org-rainbow-delimiters-depth-1">)</span>:
     <span class="org-variable-name">histr</span> <span class="org-operator">=</span> cv.calcHist<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-rainbow-delimiters-depth-2">[</span>img<span class="org-rainbow-delimiters-depth-2">]</span>,<span class="org-rainbow-delimiters-depth-2">[</span>i<span class="org-rainbow-delimiters-depth-2">]</span>,<span class="org-constant">None</span>,<span class="org-rainbow-delimiters-depth-2">[</span>256<span class="org-rainbow-delimiters-depth-2">]</span>,<span class="org-rainbow-delimiters-depth-2">[</span>0,256<span class="org-rainbow-delimiters-depth-2">]</span><span class="org-rainbow-delimiters-depth-1">)</span>
@@ -403,7 +403,7 @@ plt.show<span class="org-rainbow-delimiters-depth-1">()</span>
 <h2 id="org55dc58a">Histogram Equalisation</h2>
 <div class="outline-text-2" id="text-org55dc58a">
 <div class="org-src-container">
-<pre class="src src-python" id="org1d8766c"><span class="org-variable-name">hist</span>,<span class="org-variable-name">bins</span> <span class="org-operator">=</span> np.histogram<span class="org-rainbow-delimiters-depth-1">(</span>img.flatten<span class="org-rainbow-delimiters-depth-2">()</span>,256,<span class="org-rainbow-delimiters-depth-2">[</span>0,256<span class="org-rainbow-delimiters-depth-2">]</span><span class="org-rainbow-delimiters-depth-1">)</span>
+<pre class="src src-python" id="org085697b"><span class="org-variable-name">hist</span>,<span class="org-variable-name">bins</span> <span class="org-operator">=</span> np.histogram<span class="org-rainbow-delimiters-depth-1">(</span>img.flatten<span class="org-rainbow-delimiters-depth-2">()</span>,256,<span class="org-rainbow-delimiters-depth-2">[</span>0,256<span class="org-rainbow-delimiters-depth-2">]</span><span class="org-rainbow-delimiters-depth-1">)</span>
 
 <span class="org-variable-name">cdf</span> <span class="org-operator">=</span> hist.cumsum<span class="org-rainbow-delimiters-depth-1">()</span>
 <span class="org-variable-name">cdf_normalized</span> <span class="org-operator">=</span> cdf <span class="org-operator">*</span> <span class="org-builtin">float</span><span class="org-rainbow-delimiters-depth-1">(</span>hist.<span class="org-builtin">max</span><span class="org-rainbow-delimiters-depth-2">()</span><span class="org-rainbow-delimiters-depth-1">)</span> <span class="org-operator">/</span> cdf.<span class="org-builtin">max</span><span class="org-rainbow-delimiters-depth-1">()</span>
@@ -471,12 +471,12 @@ plt.show<span class="org-rainbow-delimiters-depth-1">()</span>
 </div>
 
 <div class="org-src-container">
-<pre class="src src-python" id="orgd063f0d"><span class="org-builtin">print</span><span class="org-rainbow-delimiters-depth-1">(</span><span class="org-string">'Image type:'</span>, <span class="org-builtin">type</span><span class="org-rainbow-delimiters-depth-2">(</span>im<span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
+<pre class="src src-python" id="orgc3557e9"><span class="org-builtin">print</span><span class="org-rainbow-delimiters-depth-1">(</span><span class="org-string">'Image type:'</span>, <span class="org-builtin">type</span><span class="org-rainbow-delimiters-depth-2">(</span>im<span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
 <span class="org-builtin">print</span><span class="org-rainbow-delimiters-depth-1">(</span><span class="org-string">'Shape of image array:'</span>, im.shape<span class="org-rainbow-delimiters-depth-1">)</span>
 </pre>
 </div>
 
-<pre class="example" id="org882d491">
+<pre class="example" id="orgec27052">
 Image type: &lt;class 'imageio.core.util.Array'&gt;
 Shape of image array: (1024, 1024)
 </pre>
@@ -507,11 +507,11 @@ Start this exercise by reading in the chest image and listing the available fiel
 </p>
 
 <div class="org-src-container">
-<pre class="src src-python" id="org70b497d"><span class="org-builtin">print</span><span class="org-rainbow-delimiters-depth-1">(</span>im.meta.keys<span class="org-rainbow-delimiters-depth-2">()</span><span class="org-rainbow-delimiters-depth-1">)</span>
+<pre class="src src-python" id="orgf1992fd"><span class="org-builtin">print</span><span class="org-rainbow-delimiters-depth-1">(</span>im.meta.keys<span class="org-rainbow-delimiters-depth-2">()</span><span class="org-rainbow-delimiters-depth-1">)</span>
 </pre>
 </div>
 
-<pre class="example" id="org3697dfb">
+<pre class="example" id="org7035b7f">
 odict_keys(['TransferSyntaxUID', 'SOPClassUID', 'SOPInstanceUID', 'Modality', 'StudyDescription', 'PatientID', 'PatientSex', 'PatientAge', 'StudyInstanceUID', 'SeriesInstanceUID', 'SamplesPerPixel', 'Rows', 'Columns', 'BitsAllocated', 'BitsStored', 'HighBit', 'PixelRepresentation', 'PixelData', 'shape', 'sampling'])
 </pre>
 </div>
@@ -662,7 +662,7 @@ At the end of the writing part, we also draw the ending pixel after the letters 
 
 
 <div class="org-src-container">
-<pre class="src src-python" id="orgaee0c28"><span class="org-keyword">def</span> <span class="org-function-name">write</span><span class="org-rainbow-delimiters-depth-1">(</span>message<span class="org-rainbow-delimiters-depth-1">)</span>:
+<pre class="src src-python" id="org0faedcf"><span class="org-keyword">def</span> <span class="org-function-name">write</span><span class="org-rainbow-delimiters-depth-1">(</span>message<span class="org-rainbow-delimiters-depth-1">)</span>:
     <span class="org-keyword">assert</span> <span class="org-builtin">len</span><span class="org-rainbow-delimiters-depth-1">(</span>message<span class="org-rainbow-delimiters-depth-1">)</span> <span class="org-operator">&lt;</span> width
     <span class="org-comment-delimiter"># </span><span class="org-comment">Draw the starting Pixel</span>
     image.putpixel<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-rainbow-delimiters-depth-2">(</span>0, 0<span class="org-rainbow-delimiters-depth-2">)</span>, startingPixel<span class="org-rainbow-delimiters-depth-1">)</span>
@@ -684,13 +684,13 @@ write<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-strin
 </div>
 
 
-<div id="orga97182d" class="figure">
+<div id="org1e44ac9" class="figure">
 <p><img src="images/Histogram-Operations/encrypted-fruit.png" alt="encrypted-fruit.png" />
 </p>
 </div>
 
 <div class="org-src-container">
-<pre class="src src-python" id="orgc5a7664"><span class="org-keyword">def</span> <span class="org-function-name">read</span><span class="org-rainbow-delimiters-depth-1">()</span>:
+<pre class="src src-python" id="org7dc7493"><span class="org-keyword">def</span> <span class="org-function-name">read</span><span class="org-rainbow-delimiters-depth-1">()</span>:
     <span class="org-variable-name">image</span> <span class="org-operator">=</span> Image.<span class="org-builtin">open</span><span class="org-rainbow-delimiters-depth-1">(</span><span class="org-string">"images/Histogram-Operations/encrypted-fruit.png"</span><span class="org-rainbow-delimiters-depth-1">)</span>
     <span class="org-variable-name">text</span> <span class="org-operator">=</span> <span class="org-string">''</span>
     <span class="org-variable-name">index</span> <span class="org-operator">=</span> 1
@@ -712,7 +712,7 @@ read<span class="org-rainbow-delimiters-depth-1">()</span>
 </pre>
 </div>
 
-<pre class="example" id="org2d228cf">
+<pre class="example" id="orgbe8e757">
 hello
 </pre>
 </div>
@@ -836,7 +836,7 @@ cp.store_fig<span class="org-rainbow-delimiters-depth-1">(</span><span class="or
 <h2 id="org1218194">Application: Track the Solidification of a Metallic Alloy</h2>
 <div class="outline-text-2" id="text-org1218194">
 <div class="org-src-container">
-<pre class="src src-python" id="org256330f"><span class="org-keyword">import</span> matplotlib.pyplot <span class="org-keyword">as</span> plt
+<pre class="src src-python" id="org80d0dc9"><span class="org-keyword">import</span> matplotlib.pyplot <span class="org-keyword">as</span> plt
 <span class="org-keyword">import</span> numpy <span class="org-keyword">as</span> np
 <span class="org-keyword">import</span> pandas <span class="org-keyword">as</span> pd
 <span class="org-keyword">import</span> plotly.express <span class="org-keyword">as</span> px
@@ -853,7 +853,7 @@ cp.store_fig<span class="org-rainbow-delimiters-depth-1">(</span><span class="or
 </pre>
 </div>
 
-<pre class="example" id="org13ffc0f">
+<pre class="example" id="orgb296fcd">
 shape: (11, 180, 230)
 </pre>
 
@@ -928,7 +928,7 @@ plotly.io.show<span class="org-rainbow-delimiters-depth-1">(</span>fig<span clas
 </div>
 
 <div class="org-src-container">
-<pre class="src src-python" id="org8ff0ea9"><span class="org-variable-name">labeled_0</span> <span class="org-operator">=</span> measure.label<span class="org-rainbow-delimiters-depth-1">(</span>binarized<span class="org-rainbow-delimiters-depth-2">[</span>0, :, :<span class="org-rainbow-delimiters-depth-2">]</span><span class="org-rainbow-delimiters-depth-1">)</span>
+<pre class="src src-python" id="org4192ee9"><span class="org-variable-name">labeled_0</span> <span class="org-operator">=</span> measure.label<span class="org-rainbow-delimiters-depth-1">(</span>binarized<span class="org-rainbow-delimiters-depth-2">[</span>0, :, :<span class="org-rainbow-delimiters-depth-2">]</span><span class="org-rainbow-delimiters-depth-1">)</span>
 <span class="org-variable-name">props_0</span> <span class="org-operator">=</span> measure.regionprops_table<span class="org-rainbow-delimiters-depth-1">(</span>labeled_0,
                                     properties<span class="org-operator">=</span><span class="org-rainbow-delimiters-depth-2">(</span><span class="org-string">'label'</span>, <span class="org-string">'area'</span>, <span class="org-string">'bbox'</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
 <span class="org-variable-name">props_0_df</span> <span class="org-operator">=</span> pd.DataFrame<span class="org-rainbow-delimiters-depth-1">(</span>props_0<span class="org-rainbow-delimiters-depth-1">)</span>
@@ -938,7 +938,7 @@ plotly.io.show<span class="org-rainbow-delimiters-depth-1">(</span>fig<span clas
 </pre>
 </div>
 
-<pre class="example" id="org33771a6">
+<pre class="example" id="org9bb6f28">
      label   area  bbox-0  bbox-1  bbox-2  bbox-3
 1        2  417.0      60      83      91     144
 198    199  235.0     141     141     179     165
