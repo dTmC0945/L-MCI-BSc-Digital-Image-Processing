@@ -213,6 +213,38 @@ org_html_manager.set("VIEW", "info");
 org_html_manager.setup();  // activate after the parameters are set
 // @license-end
 </script>
+<script>
+  window.MathJax = {
+    tex: {
+      ams: {
+        multlineWidth: '85%'
+      },
+      tags: 'ams',
+      tagSide: 'right',
+      tagIndent: '.8em'
+    },
+    chtml: {
+      scale: 1.0,
+      displayAlign: 'center',
+      displayIndent: '0em'
+    },
+    svg: {
+      scale: 1.0,
+      displayAlign: 'center',
+      displayIndent: '0em'
+    },
+    output: {
+      font: 'mathjax-modern',
+      displayOverflow: 'overflow'
+    }
+  };
+</script>
+
+<script
+  id="MathJax-script"
+  async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script>
 </head>
 <body>
 <div id="org-div-home-and-up">
@@ -225,8 +257,8 @@ org_html_manager.setup();  // activate after the parameters are set
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org3800d08">Introduction</a></li>
-<li><a href="#org614aaa4">Introduction</a></li>
+<li><a href="#org3877843">Introduction</a></li>
+<li><a href="#org6a34e63">Introduction</a></li>
 <li><a href="#org27eeb87">Exercise: Convolution 1D</a></li>
 <li><a href="#orgbf94245">Shannon Nyquist Sampling Theorem</a></li>
 <li><a href="#orgd7d45db">Spectral Leakage</a></li>
@@ -238,9 +270,9 @@ These are the code snippets used in <span class="Hlight">Mathematical Fundamenta
 part of <span class="Hlight">Digital Image Processing</span>.
 </p>
 
-<div id="outline-container-org3800d08" class="outline-2">
-<h2 id="org3800d08">Introduction</h2>
-<div class="outline-text-2" id="text-org3800d08">
+<div id="outline-container-org3877843" class="outline-2">
+<h2 id="org3877843">Introduction</h2>
+<div class="outline-text-2" id="text-org3877843">
 <p>
 The following code uses the standard matplotlib along with the
 custom ChalcedonPy which is detailed in its source code here.
@@ -263,9 +295,9 @@ cp.init<span class="org-rainbow-delimiters-depth-1">(</span>save_path<span class
 </div>
 </div>
 
-<div id="outline-container-org614aaa4" class="outline-2">
-<h2 id="org614aaa4">Introduction</h2>
-<div class="outline-text-2" id="text-org614aaa4">
+<div id="outline-container-org6a34e63" class="outline-2">
+<h2 id="org6a34e63">Introduction</h2>
+<div class="outline-text-2" id="text-org6a34e63">
 <p>
 The following code covers the topic of mathematical fundamentals, which
 includes some examples on:
@@ -309,14 +341,14 @@ and printing the function.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-python" id="org97b312c"><span class="org-variable-name">A</span> <span class="org-operator">=</span> <span class="org-rainbow-delimiters-depth-1">[</span>1,1,2,2,1<span class="org-rainbow-delimiters-depth-1">]</span>
+<pre class="src src-python" id="org77e2bce"><span class="org-variable-name">A</span> <span class="org-operator">=</span> <span class="org-rainbow-delimiters-depth-1">[</span>1,1,2,2,1<span class="org-rainbow-delimiters-depth-1">]</span>
 <span class="org-variable-name">B</span> <span class="org-operator">=</span> <span class="org-rainbow-delimiters-depth-1">[</span>1,1,1,3<span class="org-rainbow-delimiters-depth-1">]</span>
 
 <span class="org-builtin">print</span><span class="org-rainbow-delimiters-depth-1">(</span>convolve_1d<span class="org-rainbow-delimiters-depth-2">(</span>A, B<span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
 </pre>
 </div>
 
-<pre class="example" id="org4f9c4ee">
+<pre class="example" id="org693a0e2">
 [1, 2, 4, 8, 8, 9, 7, 3]
 </pre>
 </div>
@@ -331,7 +363,7 @@ limitation of the Shannon-Nyquist theorem.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-python" id="orga27fb52"><span class="org-keyword">import</span> numpy <span class="org-keyword">as</span> np
+<pre class="src src-python" id="org75567b0"><span class="org-keyword">import</span> numpy <span class="org-keyword">as</span> np
 <span class="org-keyword">from</span> matplotlib <span class="org-keyword">import</span> pyplot <span class="org-keyword">as</span> plt
 
 <span class="org-variable-name">wave_freq</span> <span class="org-operator">=</span> 5
@@ -372,7 +404,7 @@ cp.store_fig<span class="org-rainbow-delimiters-depth-1">(</span><span class="or
 </div>
 
 
-<div id="orga6f405d" class="figure">
+<div id="orgc57f35f" class="figure">
 <p><img src="images/Mathematical-Fundamentals/shannon-nyquist.png" alt="shannon-nyquist.png" />
 </p>
 </div>
@@ -398,7 +430,7 @@ First import the necessary modules.
 
 <p>
 Let’s define a sine function on a time domain, such that
-the sine function completes <img src="ltximg/Mathematical-Fundamentals_8493561310430b67dc7cf5f35cf2c62be068008d.png" alt="$N$" />, integer cycles, i.e.,
+the sine function completes \(N\), integer cycles, i.e.,
 no cycles are cut-off within the domain.
 </p>
 
@@ -417,7 +449,7 @@ Now, we can define and plot our sine function.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-python" id="org5f8e8a4">plt.plot<span class="org-rainbow-delimiters-depth-1">(</span>t,y_sin<span class="org-rainbow-delimiters-depth-1">)</span>
+<pre class="src src-python" id="org2111f7f">plt.plot<span class="org-rainbow-delimiters-depth-1">(</span>t,y_sin<span class="org-rainbow-delimiters-depth-1">)</span>
 plt.xlabel<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-string">"Data Points"</span><span class="org-rainbow-delimiters-depth-1">)</span>
 plt.ylabel<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-string">"Amplitude"</span><span class="org-rainbow-delimiters-depth-1">)</span>
 plt.title<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-string">"Sine Wave"</span><span class="org-rainbow-delimiters-depth-1">)</span>
@@ -426,7 +458,7 @@ cp.store_fig<span class="org-rainbow-delimiters-depth-1">(</span><span class="or
 </div>
 
 
-<div id="orga2c7f35" class="figure">
+<div id="orgcb5e5cf" class="figure">
 <p><img src="images/Mathematical-Fundamentals/fft-spectral-leak-sine.png" alt="fft-spectral-leak-sine.png" />
 </p>
 </div>
@@ -451,7 +483,7 @@ And time for plotting out FFT results
 </p>
 
 <div class="org-src-container">
-<pre class="src src-python" id="org4ee48f3">plt.bar<span class="org-rainbow-delimiters-depth-1">(</span>freq, PSD, width<span class="org-operator">=</span>0.0025<span class="org-rainbow-delimiters-depth-1">)</span>
+<pre class="src src-python" id="org673bb6a">plt.bar<span class="org-rainbow-delimiters-depth-1">(</span>freq, PSD, width<span class="org-operator">=</span>0.0025<span class="org-rainbow-delimiters-depth-1">)</span>
 
 plt.xlabel<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-string">'Frequency (cycles per time step)'</span><span class="org-rainbow-delimiters-depth-1">)</span>
 plt.ylabel<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-string">'Normalized Power'</span><span class="org-rainbow-delimiters-depth-1">)</span>
@@ -463,7 +495,7 @@ cp.store_fig<span class="org-rainbow-delimiters-depth-1">(</span><span class="or
 </div>
 
 
-<div id="orgb0da4db" class="figure">
+<div id="org4622b41" class="figure">
 <p><img src="images/Mathematical-Fundamentals/fft-spectral-leak-unwindowed-fft.png" alt="fft-spectral-leak-unwindowed-fft.png" />
 </p>
 </div>
@@ -500,7 +532,7 @@ Results calculated, lets do some plotting.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-python" id="org4484ef2"><span class="org-comment-delimiter"># </span><span class="org-comment">Plot windowed sine wave, window</span>
+<pre class="src src-python" id="orga602f5d"><span class="org-comment-delimiter"># </span><span class="org-comment">Plot windowed sine wave, window</span>
 plt.subplot<span class="org-rainbow-delimiters-depth-1">(</span>2,1,1<span class="org-rainbow-delimiters-depth-1">)</span>
 plt.plot<span class="org-rainbow-delimiters-depth-1">(</span>t,y2, label<span class="org-operator">=</span><span class="org-string">"windowed sine wave"</span><span class="org-rainbow-delimiters-depth-1">)</span>
 plt.plot<span class="org-rainbow-delimiters-depth-1">(</span>t,bxcr, label<span class="org-operator">=</span><span class="org-string">"box wave"</span><span class="org-rainbow-delimiters-depth-1">)</span>
@@ -516,7 +548,7 @@ cp.store_fig<span class="org-rainbow-delimiters-depth-1">(</span><span class="or
 </div>
 
 
-<div id="org5aac503" class="figure">
+<div id="orgd143393" class="figure">
 <p><img src="images/Mathematical-Fundamentals/fft-spectral-leak-windowed-sine.png" alt="fft-spectral-leak-windowed-sine.png" />
 </p>
 </div>
@@ -537,7 +569,7 @@ the discrete power spectrum of the windowed sine wave to see what happens.
 </div>
 
 <div class="org-src-container">
-<pre class="src src-python" id="org733b993"><span class="org-comment-delimiter"># </span><span class="org-comment">Plot Power Spectrum of windowed data</span>
+<pre class="src src-python" id="org8bd0399"><span class="org-comment-delimiter"># </span><span class="org-comment">Plot Power Spectrum of windowed data</span>
 plt.bar<span class="org-rainbow-delimiters-depth-1">(</span>freq,ck2y2,width<span class="org-operator">=</span>0.0025<span class="org-rainbow-delimiters-depth-1">)</span>
 plt.xlabel<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-string">'Frequency [Hz]'</span><span class="org-rainbow-delimiters-depth-1">)</span>
 plt.ylabel<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-string">'PSD [W]'</span><span class="org-rainbow-delimiters-depth-1">)</span>
@@ -549,7 +581,7 @@ cp.store_fig<span class="org-rainbow-delimiters-depth-1">(</span><span class="or
 </div>
 
 
-<div id="org4a2307d" class="figure">
+<div id="orge6ae7eb" class="figure">
 <p><img src="images/Mathematical-Fundamentals/fft-spectral-leak-windowed-fft.png" alt="fft-spectral-leak-windowed-fft.png" />
 </p>
 </div>
