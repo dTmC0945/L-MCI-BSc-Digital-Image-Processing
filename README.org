@@ -1,0 +1,121 @@
+#+title: BSc Digital Image Processing
+
+** Table of Contents :TOC_2:
+  - [[#lecture-information][Lecture Information]]
+  - [[#requirements-and-the-learning-outcomes][Requirements and the Learning Outcomes]]
+  - [[#grading-of-the-lecture][Grading of the Lecture]]
+  - [[#content-and-unit-distribution][Content and Unit Distribution]]
+  - [[#lecture-table-of-contents][Lecture Table of Contents]]
+  - [[#related-links][Related Links]]
+
+** Lecture Information
+
+- The goal of this lecture is to introduce you to image processing
+  and its wide applications in industry
+- We shall have a wide focus on the technologies and the methods
+  which make image processing an essential discipline for engineers.
+     
+The structure for this lecture is as follows.
+
+| DESCRIPTION        | VALUE                                |
+| Official Name      | Image Processing                     |
+| Lecture Code       | MRV                                  |
+| Module Code        | MECH-B-5-MRV-IMP-ILV                 |
+| Degree             | B.Sc                                 |
+| Program Name       | Mechatronik Design Innovation        |
+| Lecture Name       | Drive Systems                        |
+| Semester           | 5                                    |
+| Season             | WS                                   |
+| Room Type          | Lecture Room                         |
+| Assignments        | Personal Assignment Group Assignment |
+| Lecturer           | Daniel T. McGuiness, Ph.D            |
+| Module Responsible | BnM                                  |
+| Software           | Python                               |
+| Hardware           | -                                    |
+| SWS Total          | 4                                    |
+| SWS Teaching       | 4                                    |
+| ECTS               | 5                                    |
+| Lecture Type       | ILV                                  |
+
+** Requirements and the Learning Outcomes
+
+- The student should be comfortable with working with physical problems and
+  have a basic understanding of material science along with calculus.
+
+| REQUIREMENTS   | TAUGHT LECTURE | CODE  | DEGREE | OUTCOME              |
+| Python         | Programming I  | PRG I | B.Sc   | Python Programming   |
+| Linear Algebra | Mathematics I  | MAT I | B.Sc   | Signal Processing    |
+|                |                |       |        | Image Processing     |
+| -              |                |       |        | Camera Technology    |
+| -              |                |       |        | Statistical Analysis |
+
+** Grading of the Lecture
+
+    
+- The lecture will have a single personal assignment comprising of a set list of
+  questions which you can use programing languages to solve on your own.
+
+- There will also be a group assingment where you will team up with your classmates
+  to come up with ideas for applying image processing concepts to problems. 
+  
+| ASSIGNMENT TYPE     | VALUE |
+| Personal Assignment |    40 |
+| Final Exam          |    60 |
+| SUM                 |   100 |
+
+*** Lecture Sources
+
+| AUTHOR              | TITLE                                                       | PUBLISHER             |
+| Young I.            | Fundamentals of Image Processing                            | Delft (1998)          |
+| Szelisk R.          | Computer Vision: Algorithms and Applications                | Springer (2022)       |
+| Nixon M. et., al.   | Feature Extraction and Image Processing for Computer Vision | Academic Press (2019) |
+| Gonzalez R.         | Digital Image Processing                                    | Pearson (2009)        |
+| Teledyne            | Types Of Camera Sensor                                      |                       |
+| Teledyne            | Introduction To Quantum Efficiency                          |                       |
+| Teledyne            | Dark Current                                                |                       |
+| Teledyne            | Linearity - Imaging Topics                                  |                       |
+| Teledyn             | Camera Gain - Educational Notes                             |                       |
+| Oxford Instrucmetns | Introduction to Scientific Cameras                          |                       |
+| Teledyne            | What is Scientific Imaging Quality?                         |                       |
+| Teledyne Lumenera   | The Complete Guide to Industrial Camera Lenses              |                       |
+| Lumenera            | Getting it Right: Selecting a Lens for a Vision System      |                       |
+
+** Content and Unit Distribution
+
+- The content and unit distribution of the lecture is as follows where a unit
+  is defined as 45 min lecture.
+    
+| TOPIC                               | UNITS | SELF STUDY |
+| Mathematical Fundamentals           |     4 |          8 |
+| Perception                          |     4 |          8 |
+| Camera                              |     4 |          8 |
+| Image Formats                       |     4 |          8 |
+| Cameras                             |     4 |          8 |
+| Optics                              |     4 |          8 |
+| Displays                            |     2 |          4 |
+| Noise                               |     4 |          8 |
+| Histogram Operations                |     4 |          8 |
+| Morphological Operations            |     4 |          8 |
+| Blurring Filters                    |     2 |          4 |
+| Edge Detection                      |     4 |          8 |
+| Convolutional Neural Networks - I   |     4 |          8 |
+| Convolutional Neural Networks - II  |     4 |          8 |
+| Convolutional Neural Networks - III |     2 |          4 |
+| Project Showcase - I                |     4 |          8 |
+| Project Showcase - II               |     2 |          4 |
+| SUM                                 |    60 |        120 |
+
+** Lecture Table of Contents
+
+The structure of the B.Sc Digital Image Processing can be grouped into
+three (3) parts:
+
+1. Hardware
+2. Image Processing Methods
+3. Convolutional Neural Networks
+
+Below is the detailed structure of the lecture.
+
+       
+
+(-DTMc 2025)
