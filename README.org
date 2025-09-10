@@ -4,38 +4,40 @@
   - [[#lecture-information][Lecture Information]]
   - [[#requirements-and-the-learning-outcomes][Requirements and the Learning Outcomes]]
   - [[#grading-of-the-lecture][Grading of the Lecture]]
+  - [[#lecture-sources][Lecture Sources]]
   - [[#content-and-unit-distribution][Content and Unit Distribution]]
   - [[#lecture-table-of-contents][Lecture Table of Contents]]
+  - [[#documentation][Documentation]]
   - [[#related-links][Related Links]]
 
 ** Lecture Information
 
 - The goal of this lecture is to introduce you to image processing
-  and its wide applications in industry
-- We shall have a wide focus on the technologies and the methods
+  and its wide applications in industry.
+- We shall have a wide focus on the technologies and methods
   which make image processing an essential discipline for engineers.
-     
-The structure for this lecture is as follows.
 
-| DESCRIPTION        | VALUE                                |
-| Official Name      | Image Processing                     |
-| Lecture Code       | MRV                                  |
-| Module Code        | MECH-B-5-MRV-IMP-ILV                 |
-| Degree             | B.Sc                                 |
-| Program Name       | Mechatronik Design Innovation        |
-| Lecture Name       | Drive Systems                        |
-| Semester           | 5                                    |
-| Season             | WS                                   |
-| Room Type          | Lecture Room                         |
-| Assignments        | Personal Assignment Group Assignment |
-| Lecturer           | Daniel T. McGuiness, Ph.D            |
-| Module Responsible | BnM                                  |
-| Software           | Python                               |
-| Hardware           | -                                    |
-| SWS Total          | 4                                    |
-| SWS Teaching       | 4                                    |
-| ECTS               | 5                                    |
-| Lecture Type       | ILV                                  |
+| DESCRIPTION        | VALUE                             |
+| Official Name      | Image Processing                  |
+| Lecture Code       | IMP                               |
+| Module Code        | MECH-B-5-MRV-IMP-ILV              |
+| Degree             | B.Sc                              |
+| Program Name       | Mechatronik Design Innovation     |
+| Lecture Name       | Digital Image Processing          |
+| Semester           | 5                                 |
+| Season             | WS                                |
+| Room Type          | Lecture Room                      |
+| Assignments        | Personal Assignment Group Project |
+| Lecturer           | Daniel T. McGuiness, Ph.D         |
+| Module Responsible | BnM                               |
+| Software           | Python                            |
+| Hardware           | -                                 |
+| SWS Total          | 4                                 |
+| SWS Teaching       | 4                                 |
+| UE Total           | 60                                |
+| ECTS               | 5                                 |
+| Lecture Type       | ILV                               |
+| Working Language   | English                           |
 
 ** Requirements and the Learning Outcomes
 
@@ -51,19 +53,17 @@ The structure for this lecture is as follows.
 
 ** Grading of the Lecture
 
-    
 - The lecture will have a single personal assignment comprising of a set list of
-  questions which you can use programing languages to solve on your own.
-
-- There will also be a group assingment where you will team up with your classmates
+  questions which you can use programming languages to solve on your own.
+- There will also be a group assignment where you will team up with your classmates
   to come up with ideas for applying image processing concepts to problems. 
   
-| ASSIGNMENT TYPE     | VALUE |
-| Personal Assignment |    40 |
-| Final Exam          |    60 |
-| SUM                 |   100 |
+| ASSIGNMENT TYPE     | VALUE | QUANTITY |
+| Personal Assignment |    40 |        1 |
+| Group Project       |    60 |        1 |
+| SUM                 |   100 |        2 |
 
-*** Lecture Sources
+** Lecture Sources
 
 | AUTHOR              | TITLE                                                       | PUBLISHER             |
 | Young I.            | Fundamentals of Image Processing                            | Delft (1998)          |
@@ -85,25 +85,21 @@ The structure for this lecture is as follows.
 - The content and unit distribution of the lecture is as follows where a unit
   is defined as 45 min lecture.
     
-| TOPIC                               | UNITS | SELF STUDY |
-| Mathematical Fundamentals           |     4 |          8 |
-| Perception                          |     4 |          8 |
-| Camera                              |     4 |          8 |
-| Image Formats                       |     4 |          8 |
-| Cameras                             |     4 |          8 |
-| Optics                              |     4 |          8 |
-| Displays                            |     2 |          4 |
-| Noise                               |     4 |          8 |
-| Histogram Operations                |     4 |          8 |
-| Morphological Operations            |     4 |          8 |
-| Blurring Filters                    |     2 |          4 |
-| Edge Detection                      |     4 |          8 |
-| Convolutional Neural Networks - I   |     4 |          8 |
-| Convolutional Neural Networks - II  |     4 |          8 |
-| Convolutional Neural Networks - III |     2 |          4 |
-| Project Showcase - I                |     4 |          8 |
-| Project Showcase - II               |     2 |          4 |
-| SUM                                 |    60 |        120 |
+| TOPIC                                               | UNITS | SELF STUDY |
+| Mathematical Fundamentals                           |     4 |          8 |
+| Perception                                          |     4 |          8 |
+| Image Formats                                       |     4 |          8 |
+| Camera                                              |     4 |          8 |
+| Display                                             |     4 |          8 |
+| Noise                                               |     4 |          8 |
+| Histogram Operations                                |     4 |          8 |
+| Morphological Opeations                             |     4 |          8 |
+| Blurring Filters                                    |     4 |          8 |
+| Feature Analysis                                    |     4 |          8 |
+| Edge Detection                                      |     4 |          8 |
+| Introduction to Artificial Neural Networks          |     4 |          8 |
+| Computer Vision using Convolutional Neural Networks |     4 |          8 |
+| SUM                                                 |    52 |        104 |
 
 ** Lecture Table of Contents
 
@@ -116,6 +112,232 @@ three (3) parts:
 
 Below is the detailed structure of the lecture.
 
-       
+- Mathematical Fundamentals
+  - Introduction
+  - Learning Outcomes
+  - Convolution
+    - Mathematical Definition
+      - A Hospital Visit (insertcontinuationcount)
+      - 2D Convolution
+    - Signal Sampling
+  - Nyquist Sampling Theorem
+    - Mathematical Definition
+      - Reconstruction of an Audio Signal
+      - Aliasing
+      - Leakage
+      - Parseval's Theorem
+      - Statistical Properties
+  - Information Theory
+      - Quantifying Information
+      - Bits are Not Binary Digits
+      - Information and Entropy
+      - Entropy is Average Shannon Information
+      - Entropy of a Fair Coin
+      - Entropy of an Unfair Coin
+- Perception
+    - Learning Outcomes
+  - Introduction
+      - Human Vision
+      - Brightness Sensitivity
+      - Stimulus Sensitivity
+      - Colour Sensitivity
+  - Colour Standards
+      - sRGB
+      - Wide Gamut RGB
+      - Prophoto RGB
+      - Adobe RGB
+      - CIE Chromaticity Coordinates
+      - Chromaticity
+  - Colour Models
+      - CYMK Colour Model
+      - HSL and HLV Colour Model
+      - YCbCr
+- Image Formats
+  - Learning Outcomes
+  - Introduction
+      - File Formats
+      - A General Overview
+  - Compression Methods
+      - Lossy Compression
+  - Important File Formats
+      - RAW File
+      - JPEG
+  - JPEG Compression
+      - Down-sampling
+      - Isolate the Colour Information
+      - Throw Away some Colour Information
+      - Convert Image to Frequency Domain
+      - Quantisation
+      - Lossless Data Compression
+- Camera
+  - Learning Outcomes
+  - Camera Sensors
+      - Charge Coupled Devices
+      - Complementary MOS
+      - CCD v. CMOS
+      - Colour Filters
+  - Camera Properties
+      - Linearity
+      - Sensitivity
+      - Signal-to-Noise Ratio
+      - Thermal Noise (Dark Current)
+      - Quantum Efficiency
+      - ISO
+  - Camera Lenses
+      - Introduction
+      - Aperture
+      - Types of Lenses
+      - Prime Lens
+  - Choosing Correct Lenses for Applications
+      - Focal Length
+      - Sensor Size Compatibility
+      - Resolution Compatibility
+  - Other Considerations
+- Display
+  - Learning Outcomes
+  - Introduction
+      - Refresh Rate
+  - Limits of Human Vision
+      - Workings of the Eye
+  - Interlacing
+      - Advantages
+      - Disadvantages
+      - Cathode Ray Tube Displays
+      - LED Displays
+      - LCD Display
+  - Analog TV Formats
+      - NTSC
+      - PAL
+      - Worldwide Standards
+      - Test Card
+  - Resolution
+- Noise
+  - Introduction
+      - Definition
+  - Colours of Noise
+      - White Noise
+      - Pink Noise
+      - Brown Noise
+      - Violet Noise
+      - Blue Noise
+  - Photon Noise
+      - Introduction
+      - Poisson Distribution
+      - Photon Distribution
+  - Thermal Noise
+      - Definitions
+      - Dark Current
+  - Read Noise
+      - Introduction
+      - CMOS Read Noise
+      - Johnson-Nyquist Noise
+      - Quantisation Noise
+  - Application
+      - Perlin Noise
+      - Camera Noise
+- Histogram Operations
+      - Contrast Stretching
+  - Threshold Operations
+      - Applying a Threshold
+      - Bimodal Histogram
+      - Otsu Threshold
+      - Local Thresholding
+  - Channel Operations
+      - RGB to Grayscale
+      - Histogram Matching
+  - DIP Applications
+      - Studying Metals
+      - Steganography
+- Morphological Opeations
+  - Introduction
+      - Broad Definition
+  - Morphological Operations
+      - Erosion
+      - Dilation
+      - Opening
+      - Closing
+      - Gradient
+      - Top Hat
+  - Application
+      - Logistic Mapping
+      - Apply Segmented Rim as Mask
+- Blurring Filters
+  - Gaussian Blur
+      - Introduction
+  - Multivariate Distribution
+      - Introduction
+      - Mathematical Formulation
+      - An Experiment
+      - Code Implementation
+  - Box Blur
+      - Introduction
+      - Syntax
+  - Blur Filter
+      - Introduction
+      - Drawbacks
+  - Bilateral Filter
+      - Introduction
+      - Butterworth Filters
+- Feature Analysis
+  - A Look into Methods of Feature Analysis
+- Edge Detection
+  - Introduction
+      - Edge Detection
+  - Detection Methods
+      - Gradient Estimation
+  - Sobel Edge Detection
+  - Operation Principle
+  - Canny Edge Detection
+      - Limitations
+  - Watershed Algorithm
+- Introduction to Artificial Neural Networks
+  - Introduction
+  - From Biology to Silicon: Artificial Neurons
+    - Biological Neurons
+    - Logical Computations with Neurons
+    - The Perceptron
+    - Multilayer Perceptron and Backpropagation
+    - Regression MLPs
+    - Classification MLPs
+  - Implementing mlps with Keras
+    - Building an Image Classifier Using Sequential API
+      - Using Keras to load the dataset
+    - Creating the model using the sequential API
+      - Model Compiling
+      - Training and Evaluating Models
+      - Using Model to Make Predictions
+    - Building a Regression MLP Using the Sequential API
+    - Building Complex Models Using the Functional API
+    - Saving and Restoring a Model
+- Computer Vision using Convolutional Neural Networks
+  - Introduction
+  - Visual Cortex Architecture
+  - Convolutional Layers
+    - Filters
+    - Stacking Multiple Feature Maps
+    - Implementing Convolutional Layers with Keras
+    - Memory Requirements
+  - Pooling Layer
+  - Implementing Pooling Layers with Keras
+  - CNN Architectures
+    - LeNet-5
+    - AlexNet
+    - GoogLeNet
+    - VGGNet
+    - ResNet
+  - Implementing a ResNet-34 CNN using Keras
+  - Using Pre-Trained Models from
+  - Pre-Trained Models for Transfer Learning
+  - Classification and Localisation
+  - Object Detection
+    - Fully Convolutional Networks
+  - Object Tracking
+  - Semantic Segmentation
+
+** Documentation
+
+For any student in need of a LaTeX class designed from the ground-up for
+assignment/lab/thesis/slide for MCI needs please have a look at ~mcidoc~ class
+hosted at [[https://github.com/dTmC0945/C-MCI-LaTeX-Class-mcidoc][GitHub]].
 
 (-DTMc 2025)
